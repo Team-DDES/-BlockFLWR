@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
+import 'package:flutter_web/utils/color_category.dart';
 import 'package:get/get.dart';
 import 'package:metamask/metamask.dart';
 
@@ -39,26 +39,53 @@ class _JoinPageState extends State<Join> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (metamask.address != null) Text('address: ${userController.address.value}'),
-            if (metamask.signature != null) Text('signed: ${userController.signature.value}'),
-            Text(
-              metamask.address == null ? 'You are not logged in' : 'You are logged in',
-            ),
-            Text('Metamask support ${metamask.isSupported}'),
-          ],
+      
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(fit: BoxFit.cover,image:  AssetImage('assets/images/welcome_background.png'))
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _loginWithMetaMask,
-        tooltip: 'Login',
-        child: const Icon(Icons.login),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('Welcome, User!',style: TextStyle(fontSize: 50),),
+              Container(
+                width: 305,
+                height: 365,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(fit: BoxFit.fill,image: AssetImage('assets/images/welcome_card.png'))
+                ),
+                child: 
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:  [
+                    const Image(image: AssetImage('assets/images/welcome_metamask_logo.png'), width: 76, height: 76,),
+                    ElevatedButton(
+                      onPressed: _loginWithMetaMask,
+                      style: ElevatedButton.styleFrom(backgroundColor: metamaskButton),
+                      child: Text("CONNECT WALLET",style: TextStyle(color: textBlack,fontSize: 18,fontWeight: FontWeight.w700)),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: Text("Wanna get additional token?",style: TextStyle(color: textWhite,fontSize: 15,fontWeight: FontWeight.w500)),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: Text("Issue DID/VC",style: TextStyle(color: textWhite, fontSize: 15,fontWeight: FontWeight.w500,decoration: TextDecoration.underline)),
+                    )
+                    
+                  ],
+                ),
+              ),
+              // if (metamask.address != null) Text('address: ${userController.address.value}'),
+              // if (metamask.signature != null) Text('signed: ${userController.signature.value}'),
+              // Text(
+              //   metamask.address == null ? 'You are not logged in' : 'You are logged in',
+              // ),
+              // Text('Metamask support ${metamask.isSupported}'),
+            ],
+          ),
+        ),
       ),
     );
   }
