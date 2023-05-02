@@ -4,6 +4,8 @@ import 'package:flutter_web/utils/color_category.dart';
 import 'package:get/get.dart';
 import 'package:metamask/metamask.dart';
 
+import '../utils/color_resources.dart';
+
 class Join extends StatefulWidget {
   const Join({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -22,27 +24,30 @@ class _JoinPageState extends State<Join> {
     if(isWindows || isMacOS){
         metamask.login().then((success) {
         setState(() {
+          success = true;
           if (success) {
             debugPrint('MetaMask address: ${metamask.address}');
             debugPrint('MetaMask signature: ${metamask.signature}');
 
             userController.address.value = metamask.address.toString();
             userController.signature.value = metamask.signature.toString();
+
+            Navigator.pushNamed(context, "did_vc");
           } else {
             debugPrint('MetaMask login failed');
           }
         });
       });
-    } 
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      backgroundColor: const Color(ColorResources.welcomeBackgroundColor),
       body: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(fit: BoxFit.cover,image:  AssetImage('assets/images/welcome_background.png'))
+          image: DecorationImage(fit: BoxFit.cover,image:  AssetImage('assets/images/welcome_background.png')),
         ),
         child: Center(
           child: Column(
