@@ -21,11 +21,16 @@ class Routes {
       handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
         return const DidVc(title: 'did_vc Page',);
       });
+  static var mainpageHandler = Handler(
+      handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
+        return const DidVc(title: 'did_vc Page',);
+      });
 
   static dynamic defineRoutes() {
     router.define("main", handler: firstScreen,transitionType: TransitionType.fadeIn);
     router.define("join", handler: joinHandler,transitionType: TransitionType.fadeIn);
     router.define("did_vc", handler: didvcHandler,transitionType: TransitionType.fadeIn);
+    router.define("main_page", handler: mainpageHandler,transitionType: TransitionType.fadeIn);
     //router.define("second/:data", handler: placeHandler,transitionType: TransitionType.inFromLeft);
   }
 }

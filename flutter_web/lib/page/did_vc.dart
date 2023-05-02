@@ -72,6 +72,7 @@ class DidVcPageState extends State<DidVc>{
                       ),
                       onPressed: () {
                         // TODO mainpage로 이동
+                        Navigator.pushNamed(context, "main_page");
                       },
                       child: Container(
                         alignment: Alignment.center,
