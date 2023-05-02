@@ -29,7 +29,7 @@ class DidVcPageState extends State<DidVc>{
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(ColorResources.welcomeBackgroundColor),
+          color: ColorResources.welcomeBackgroundColor,
           image: DecorationImage(fit: BoxFit.cover,image:  AssetImage('assets/images/did_background.png'))
         ),
         child: Center(
@@ -115,7 +115,7 @@ class DidVcPageState extends State<DidVc>{
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: Color(ColorResources.didElementColor),
+          color: ColorResources.didElementColor,
         ),
       );
     } else{
@@ -125,7 +125,7 @@ class DidVcPageState extends State<DidVc>{
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: Color(ColorResources.didElementColor),
+          color: ColorResources.didElementColor,
         ),
         child: Text(content, textAlign: TextAlign.center, style: TextStyle(fontSize: 15),),
       );
@@ -135,9 +135,9 @@ class DidVcPageState extends State<DidVc>{
 
   MaterialPropertyResolver<Color> createBtnCallback = (states) {
     if(states.contains(MaterialState.hovered)){
-      return const Color(ColorResources.defaultBtnColor);
+      return ColorResources.defaultBtnColor;
     }else{
-      return const Color(ColorResources.didCreateBtnColor);
+      return ColorResources.didCreateBtnColor;
     }
   };
 }

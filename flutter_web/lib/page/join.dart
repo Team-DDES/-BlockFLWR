@@ -44,7 +44,7 @@ class _JoinPageState extends State<Join> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(ColorResources.welcomeBackgroundColor),
+      backgroundColor: ColorResources.welcomeBackgroundColor,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(fit: BoxFit.cover,image:  AssetImage('assets/images/welcome_background.png')),
