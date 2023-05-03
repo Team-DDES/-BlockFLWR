@@ -4,7 +4,7 @@ import 'package:flutter_web/utils/color_category.dart';
 import 'package:get/get.dart';
 import 'package:metamask/metamask.dart';
 
-import '../utils/color_resources.dart';
+import '../utils/style_resources.dart';
 
 class Join extends StatefulWidget {
   const Join({Key? key, required this.title}) : super(key: key);
@@ -44,7 +44,7 @@ class _JoinPageState extends State<Join> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.welcomeBackgroundColor,
+      backgroundColor: welcomeBackgroundColor,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(fit: BoxFit.cover,image:  AssetImage('assets/images/welcome_background.png')),
@@ -67,7 +67,9 @@ class _JoinPageState extends State<Join> {
                     const Image(image: AssetImage('assets/images/welcome_metamask_logo.png'), width: 76, height: 76,),
                     ElevatedButton(
                       onPressed: _loginWithMetaMask,
-                      style: ElevatedButton.styleFrom(backgroundColor: metamaskButton),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateColor.resolveWith(StyleResources.createBtnCallback),
+                      ),
                       child: Text("CONNECT WALLET",style: TextStyle(color: textBlack,fontSize: 18,fontWeight: FontWeight.w700)),
                     ),
                     Container(
@@ -78,7 +80,6 @@ class _JoinPageState extends State<Join> {
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                       child: Text("Issue DID/VC",style: TextStyle(color: textWhite, fontSize: 15,fontWeight: FontWeight.w500,decoration: TextDecoration.underline)),
                     )
-                    
                   ],
                 ),
               ),

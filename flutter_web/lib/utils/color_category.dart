@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
-Color metamaskButton = "#00FF0A".toColor();
 Color textBlack = Colors.black;
 Color textWhite = Colors.white;
+Color welcomeBackgroundColor = const Color(0xfff5f5f5);
+Color didElementColor = const Color(0xffc3c3c3);
+Color commonBtnColor = const Color(0xff00ff0a);
+Color defaultBtnColor = const Color(0xff2196f3);
+Color notSelectTextColor = const Color(0xffa1a1a1);
 // Color textGrey = "#AAAAAA".toColor();
 // Color blueColor = "#EDF2FF".toColor();
 // Color primaryColor = const Color(0xFFF6F6F6);

@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter_web/main.dart';
 import 'package:flutter_web/page/did_vc.dart';
 import 'package:flutter_web/page/join.dart';
+import 'package:flutter_web/page/main_page.dart';
 
 class Routes {
   static final router = FluroRouter();
@@ -23,7 +24,7 @@ class Routes {
       });
   static var mainpageHandler = Handler(
       handlerFunc: (BuildContext? context, Map<String, dynamic> params) {
-        return const DidVc(title: 'did_vc Page',);
+        return const MainPage(title: 'Main Page',);
       });
 
   static dynamic defineRoutes() {

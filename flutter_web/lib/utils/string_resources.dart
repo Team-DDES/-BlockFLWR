@@ -8,4 +8,6 @@ class StringResources{
       '\ncertified, you will be awarded additional points to earn '
       'additional FLT tokens.';
   static const String create = 'CREATE';
+  static const String taskInProgress = "Task in progress";
+  static const String pastTask = "Past tasks";
 }
