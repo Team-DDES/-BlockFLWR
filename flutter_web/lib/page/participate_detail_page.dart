@@ -93,7 +93,7 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
                   child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateColor.resolveWith(
-                            StyleResources.createBtnCallback),
+                            StyleResources.commonBtnCallback),
                       ),
                       onPressed: () {
                         // TODO participate

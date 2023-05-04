@@ -8,7 +8,7 @@ class StyleResources {
       blurRadius: 20.0,
       offset: const Offset(1, 1));
 
-  static MaterialPropertyResolver<Color> createBtnCallback = (states) {
+  static MaterialPropertyResolver<Color> commonBtnCallback = (states) {
     if (states.contains(MaterialState.hovered)) {
       return defaultBtnColor;
     } else {

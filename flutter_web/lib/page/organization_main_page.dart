@@ -43,7 +43,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateColor.resolveWith(
-                  StyleResources.createBtnCallback),
+                  StyleResources.commonBtnCallback),
             ),
             child: Container(
               padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -158,7 +158,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
-                              StyleResources.createBtnCallback),
+                              StyleResources.commonBtnCallback),
                         ),
                         child: Container(
                           padding: EdgeInsets.fromLTRB(15, 5, 15, 5),

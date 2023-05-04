@@ -68,7 +68,7 @@ class _JoinPageState extends State<Join> {
                     ElevatedButton(
                       onPressed: _loginWithMetaMask,
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateColor.resolveWith(StyleResources.createBtnCallback),
+                        backgroundColor: MaterialStateColor.resolveWith(StyleResources.commonBtnCallback),
                       ),
                       child: Text("CONNECT WALLET",style: TextStyle(color: textBlack,fontSize: 18,fontWeight: FontWeight.w700)),
                     ),

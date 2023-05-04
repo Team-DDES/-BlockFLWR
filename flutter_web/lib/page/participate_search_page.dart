@@ -132,7 +132,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateColor.resolveWith(
-                                StyleResources.createBtnCallback),
+                                StyleResources.commonBtnCallback),
                           ),
                           child: Container(
                             padding: EdgeInsets.fromLTRB(15, 5, 15, 5),

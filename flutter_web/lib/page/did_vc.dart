@@ -64,7 +64,7 @@ class DidVcPageState extends State<DidVc> {
                 child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateColor.resolveWith(
-                          StyleResources.createBtnCallback),
+                          StyleResources.commonBtnCallback),
                     ),
                     onPressed: () {
                       // TODO mainpage로 이동

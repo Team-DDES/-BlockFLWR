@@ -46,7 +46,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateColor.resolveWith(
-                  StyleResources.createBtnCallback),
+                  StyleResources.commonBtnCallback),
             ),
             child: Container(
               padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -168,7 +168,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
-                              StyleResources.createBtnCallback),
+                              StyleResources.commonBtnCallback),
                         ),
                         child: Container(
                           padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
