@@ -1,22 +1,24 @@
+const express = require('express');
+const bodyParser = require('body-parser')
+const app = express();
+const port = 3000;
 
-const mysql   = require('mysql');
-const connection = mysql.createConnection({
-    host     : '',
-    user     : '',
-    password : '',
-    database : ''
-  }); 
-const express = require('express')
-const app = express()
-const port = 3000
+const userRouter = require('./routes/user');
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
 
-connection.connect();
-connection.query('SELECT * from user', (error, rows, fields) => {
-    if (error) throw error;
-    console.log('User info is: ', rows);
-  });
+app.use('/flower/user', userRouter);
+
+// connection.connect();
+// connection.query('SELECT * from user', (error, rows, fields) => {
+//     if (error) throw error;
+//     console.log('User info is: ', rows);
+//   });
   
-  connection.end();
+//   connection.end();
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
