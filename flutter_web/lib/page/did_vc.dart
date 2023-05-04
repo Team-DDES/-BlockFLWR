@@ -3,6 +3,7 @@ import 'package:flutter_web/utils/style_resources.dart';
 
 import '../utils/color_category.dart';
 import '../utils/string_resources.dart';
+import '../utils/text_utils.dart';
 
 class DidVc extends StatefulWidget {
   const DidVc({Key? key, required this.title}) : super(key: key);
@@ -12,8 +13,7 @@ class DidVc extends StatefulWidget {
   State<DidVc> createState() => DidVcPageState();
 }
 
-class DidVcPageState extends State<DidVc>{
-
+class DidVcPageState extends State<DidVc> {
   var items = <String>[
     "list 1",
     "list 2",
@@ -31,85 +31,83 @@ class DidVcPageState extends State<DidVc>{
       body: Container(
         decoration: BoxDecoration(
           color: welcomeBackgroundColor,
-          image: const DecorationImage(fit: BoxFit.cover,image:  AssetImage('assets/images/did_background.png')),
+          image: const DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage('assets/images/did_background.png')),
         ),
         child: Center(
-          child: Container(
-            width: 450,
-            height: 500,
-            padding: const EdgeInsets.all(30),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-              boxShadow: [StyleResources.defaultBoxShadow],
-            ),
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  child: const Text(StringResources.whyDID,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+            child: Container(
+          width: 450,
+          height: 500,
+          padding: const EdgeInsets.all(30),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white,
+            boxShadow: [StyleResources.defaultBoxShadow],
+          ),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                child: TextUtils.defaultTextWithSizeAlignWeight(StringResources.whyDID, 20, TextAlign.left, FontWeight.bold)
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: TextUtils.defaultTextWithSize(StringResources.didIntro, 15)
+              ),
+              createDidList(context),
+              Container(
+                width: 110,
+                height: 30,
+                margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateColor.resolveWith(
+                          StyleResources.createBtnCallback),
                     ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                  child: const Text(StringResources.didIntro,
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                createDidList(context),
-                Container(
-                  width: 110,
-                  height: 30,
-                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateColor.resolveWith(StyleResources.createBtnCallback),
+                    onPressed: () {
+                      // TODO mainpage로 이동
+                      Navigator.pushNamed(
+                        context,
+                        "participate_main_page",
+                      );
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const Text(
+                        StringResources.create,
+                        textAlign: TextAlign.center,
                       ),
-                      onPressed: () {
-                        // TODO mainpage로 이동
-                        Navigator.pushNamed(context, "main_page");
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: const Text(StringResources.create, textAlign: TextAlign.center,),
-                      )
-                  ),
-                )
-              ],
-            ),
-          )
-        ),
+                    )),
+              )
+            ],
+          ),
+        )),
       ),
     );
   }
 
-  Widget createDidList(context){
+  Widget createDidList(context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: itemHeight * 4 + (10 * 4)),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
-        children: [
-          for (int i = 0; i < items.length; i++)
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-              child: didElement(items[i]),
-            ),
+          children: [
+            for (int i = 0; i < items.length; i++)
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                child: didElement(items[i]),
+              ),
           ],
         ),
       ),
     );
   }
 
-  Widget didElement(String content){
-    if(content == null){
+  Widget didElement(String content) {
+    if (content == null) {
       return Container(
         width: 300,
         height: 40,
@@ -119,7 +117,7 @@ class DidVcPageState extends State<DidVc>{
           color: didElementColor,
         ),
       );
-    } else{
+    } else {
       return Container(
         width: 300,
         height: 40,
@@ -128,9 +126,12 @@ class DidVcPageState extends State<DidVc>{
           borderRadius: BorderRadius.circular(20.0),
           color: didElementColor,
         ),
-        child: Text(content, textAlign: TextAlign.center, style: const TextStyle(fontSize: 15),),
+        child: Text(
+          content,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 15),
+        ),
       );
     }
   }
 }
-

@@ -4,36 +4,41 @@ import '../utils/color_category.dart';
 import '../utils/text_utils.dart';
 
 class BaseMainView extends StatefulWidget {
-  final String title;
-  final Widget child;
+  var child;
   var userName;
   var userType;
   var isConnect;
 
-  BaseMainView({
-    required this.title,
-    required this.child,
-    required this.userName,
-    required this.userType,
-    required this.isConnect
-  });
+  BaseMainView(
+      {required this.child,
+      required this.userName,
+      required this.userType,
+      required this.isConnect});
 
   @override
   State<BaseMainView> createState() => BaseMainViewState();
 }
 
-class BaseMainViewState extends State<BaseMainView>{
+class BaseMainViewState extends State<BaseMainView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        decoration: BoxDecoration(
+          color: welcomeBackgroundColor,
+          image: const DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('assets/images/main_background.png')),
+        ),
         margin: EdgeInsets.fromLTRB(10, 10, 30, 30),
-        child: Column(
-          children: [
-            topBar(context),
-            widget.child,
-          ],
-        )
-    );
+        child: Container(
+          margin: EdgeInsets.fromLTRB(10, 10, 30, 30),
+          child: Column(
+            children: [
+              topBar(context),
+              widget.child,
+            ],
+          ),
+        ));
   }
 
   Widget topBar(BuildContext context) {
@@ -53,18 +58,18 @@ class BaseMainViewState extends State<BaseMainView>{
               Container(
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: TextUtils.defaultTextWithSizeColor(
-                    "participate", 17, color: (widget.userType == "part"
-                    ? Colors.black
-                    : notSelectTextColor)),
+                child: TextUtils.defaultTextWithSizeColor("participate", 17,
+                    color: (widget.userType == "part"
+                        ? Colors.black
+                        : notSelectTextColor)),
               ),
               Container(
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                child: TextUtils.defaultTextWithSizeColor(
-                    "organization", 17, color: (widget.userType == "org"
-                    ? Colors.black
-                    : notSelectTextColor)),
+                child: TextUtils.defaultTextWithSizeColor("organization", 17,
+                    color: (widget.userType == "org"
+                        ? Colors.black
+                        : notSelectTextColor)),
               ),
               Container(
                 alignment: Alignment.centerRight,
@@ -75,9 +80,11 @@ class BaseMainViewState extends State<BaseMainView>{
                 height: 45,
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.all(10),
-                child: Image(image: widget.isConnect ?
-                AssetImage('assets/images/main_wallet_connection.png')
-                    : AssetImage('assets/images/main_wallet_notconnect.png')),
+                child: Image(
+                    image: widget.isConnect
+                        ? AssetImage('assets/images/main_wallet_connection.png')
+                        : AssetImage(
+                            'assets/images/main_wallet_notconnect.png')),
               ),
             ],
           ),
