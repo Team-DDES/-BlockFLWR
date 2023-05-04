@@ -69,7 +69,8 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
                         TextAlign.left,
                         FontWeight.bold)),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                  alignment: Alignment.centerLeft,
                   child: TextUtils.defaultTextWithSize(stringContact(data), 15),
                 ),
                 Container(
@@ -81,7 +82,8 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
                         TextAlign.left,
                         FontWeight.bold)),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                  alignment: Alignment.centerLeft,
                   child: TextUtils.defaultTextWithSize(stringDetails(data), 15),
                 ),
                 Container(

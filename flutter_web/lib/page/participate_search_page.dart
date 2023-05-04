@@ -81,7 +81,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
             )),
         Container(
             alignment: Alignment.topCenter,
-            margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
             padding: EdgeInsets.fromLTRB(30, 30, 30, 20),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -119,8 +119,29 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
                         ? createDisplayData(dummyBCFLList, selectPage)
                         : createDisplayData(filteredData, selectPage),
                     true),
-                pagerList(context,
-                    filteredData.isEmpty ? dummyBCFLList : filteredData),
+                Stack(
+                  children: [
+                    pagerList(context,
+                        filteredData.isEmpty ? dummyBCFLList : filteredData),
+                    Container(
+                        height: 30,
+                        alignment: Alignment.bottomLeft,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateColor.resolveWith(
+                                StyleResources.createBtnCallback),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                            child: TextUtils.defaultTextWithSize(
+                                "back to main page", 17),
+                          ),
+                        )),
+                  ],
+                ),
               ],
             )),
       ],
