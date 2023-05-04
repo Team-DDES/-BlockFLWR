@@ -14,3 +14,9 @@ User dummyUser = User(
   userType: "part",
   isConnect: true,
 );
+
+User dummyOrgUser = User(
+  userName: "@ID",
+  userType: "org",
+  isConnect: true,
+);
