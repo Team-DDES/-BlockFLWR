@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+
 import 'package:flutter_web/main.dart';
-import 'package:flutter_web/page/did_vc.dart';
-import 'package:flutter_web/page/join.dart';
-import 'package:flutter_web/page/participate_detail_page.dart';
-import 'package:flutter_web/page/participate_main_page.dart';
-import 'package:flutter_web/page/participate_search_page.dart';
+import 'package:flutter_web/mainpage/did_vc.dart';
+import 'package:flutter_web/mainpage/join.dart';
+import 'package:flutter_web/mainpage/participate_detail_page.dart';
+import 'package:flutter_web/mainpage/participate_main_page.dart';
+import 'package:flutter_web/mainpage/participate_search_page.dart';
+import 'marketplace/marketplace_main_page.dart';
 
 class Routes {
   static final router = FluroRouter();
@@ -46,6 +48,13 @@ class Routes {
       title: "participate_main_page",
     );
   });
+  static var marketplaceMainPageHandler = Handler(handlerFunc:
+      (BuildContext? context, Map<String, dynamic> pamain_pagerams) {
+    return MarketplaceMainPage(
+      title: "marketplace_main_page",
+    );
+  });
+
 
   static dynamic defineRoutes() {
     router.define("main",
@@ -62,6 +71,9 @@ class Routes {
         transitionType: TransitionType.fadeIn);
     router.define("participate_detail_page",
         handler: participateDetailPageHandler,
+        transitionType: TransitionType.fadeIn);
+    router.define("marketplace_main_page",
+        handler: marketplaceMainPageHandler,
         transitionType: TransitionType.fadeIn);
     //router.define("second/:data", handler: placeHandler,transitionType: TransitionType.inFromLeft);
   }

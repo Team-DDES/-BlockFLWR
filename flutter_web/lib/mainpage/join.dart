@@ -4,7 +4,7 @@ import 'package:flutter_web/utils/color_category.dart';
 import 'package:get/get.dart';
 import 'package:metamask/metamask.dart';
 
-import '../utils/style_resources.dart';
+import 'package:flutter_web/utils/style_resources.dart';
 
 class Join extends StatefulWidget {
   const Join({Key? key, required this.title}) : super(key: key);

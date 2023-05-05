@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../utils/color_category.dart';
-import '../utils/text_utils.dart';
+import 'package:flutter_web/utils/color_category.dart';
+import 'package:flutter_web/utils/text_utils.dart';
 
-class BaseMainView extends StatefulWidget {
+class BaseMarketplaceView extends StatefulWidget {
   var child;
-  var userName;
-  var userType;
   var isConnect;
 
-  BaseMainView(
-      {required this.child,
-      required this.userName,
-      required this.userType,
-      required this.isConnect});
+  BaseMarketplaceView({super.key, required this.child, required this.isConnect});
 
   @override
-  State<BaseMainView> createState() => BaseMainViewState();
+  State<BaseMarketplaceView> createState() => BaseMarketplaceViewState();
 }
 
-class BaseMainViewState extends State<BaseMainView> {
+class BaseMarketplaceViewState extends State<BaseMarketplaceView> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,11 +21,11 @@ class BaseMainViewState extends State<BaseMainView> {
           color: welcomeBackgroundColor,
           image: const DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/images/main_background.png')),
+              image: AssetImage('assets/images/marketplace_background.png')),
         ),
         margin: EdgeInsets.fromLTRB(10, 10, 30, 30),
         child: Container(
-          margin: EdgeInsets.fromLTRB(10, 10, 30, 30),
+          margin: EdgeInsets.fromLTRB(30, 10, 30, 30),
           child: Column(
             children: [
               topBar(context),
@@ -51,26 +45,9 @@ class BaseMainViewState extends State<BaseMainView> {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                child: TextUtils.defaultTextWithSize(
-                    "Welcome, " + widget.userName, 17),
+                child: TextUtils.defaultTextWithSize("BCFL MarketPlace", 25),
               ),
               const Spacer(),
-              Container(
-                alignment: Alignment.centerRight,
-                margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: TextUtils.defaultTextWithSizeColor("participate", 17,
-                    color: (widget.userType == "part"
-                        ? Colors.black
-                        : notSelectTextColor)),
-              ),
-              Container(
-                alignment: Alignment.centerRight,
-                margin: const EdgeInsets.fromLTRB(0, 0, 40, 0),
-                child: TextUtils.defaultTextWithSizeColor("organization", 17,
-                    color: (widget.userType == "org"
-                        ? Colors.black
-                        : notSelectTextColor)),
-              ),
               Container(
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.fromLTRB(0, 0, 5, 0),
@@ -82,8 +59,8 @@ class BaseMainViewState extends State<BaseMainView> {
                 padding: const EdgeInsets.all(10),
                 child: Image(
                     image: widget.isConnect
-                        ? AssetImage('assets/images/main_wallet_connection.png')
-                        : AssetImage(
+                        ? const AssetImage('assets/images/main_wallet_connection.png')
+                        : const AssetImage(
                             'assets/images/main_wallet_notconnect.png')),
               ),
             ],

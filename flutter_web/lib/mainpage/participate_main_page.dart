@@ -1,37 +1,40 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web/data/bcfl.dart';
-import 'package:flutter_web/page/base_main_page.dart';
+import 'package:flutter_web/mainpage/base_main_page.dart';
+import 'package:flutter_web/mainpage/participate_search_page.dart';
 
-import '../data/user.dart';
-import '../utils/color_category.dart';
-import '../utils/string_resources.dart';
-import '../utils/style_resources.dart';
-import '../utils/text_utils.dart';
+import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/utils/color_category.dart';
+import 'package:flutter_web/utils/string_resources.dart';
+import 'package:flutter_web/utils/style_resources.dart';
+import 'package:flutter_web/utils/text_utils.dart';
 
-class OrganizationMainPage extends StatefulWidget {
-  OrganizationMainPage({Key? key, required this.title}) : super(key: key);
+class ParticipateMainPage extends StatefulWidget {
+  ParticipateMainPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<OrganizationMainPage> createState() => OrganizationMainPageState();
+  State<ParticipateMainPage> createState() => ParticipateMainPageState();
 }
 
-class OrganizationMainPageState extends State<OrganizationMainPage> {
+class ParticipateMainPageState extends State<ParticipateMainPage> {
   @override
   Widget build(BuildContext context) {
-    var userName = dummyOrgUser.userName;
-    var userType = dummyOrgUser.userType;
-    var isConnect = dummyOrgUser.isConnect;
+    var userName = dummyUser.userName;
+    var userType = dummyUser.userType;
+    var isConnect = dummyUser.isConnect;
 
     return BaseMainView(
       userName: userName,
       userType: userType,
       isConnect: isConnect,
-      child: organizationView(context),
+      child: participateView(context),
     );
   }
 
-  Widget organizationView(BuildContext context) {
+  Widget participateView(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -39,7 +42,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
           alignment: Alignment.centerRight,
           child: ElevatedButton(
             onPressed: () {
-              //TODO FL task registration
+              Navigator.pushNamed(context, "participate_search_page");
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateColor.resolveWith(
@@ -47,7 +50,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
             ),
             child: Container(
               padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-              child: TextUtils.defaultTextWithSize("TASK REGISTER", 17),
+              child: TextUtils.defaultTextWithSize("Explore tasks", 17),
             ),
           ),
         ),
@@ -82,23 +85,30 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
                 ),
               ),
             ),
-            createTaskList(context, data),
+            createTaskList(context, data, false),
           ],
         ));
   }
 
-  static Widget createTaskList(BuildContext context, List<BCFL> data) {
+  static Widget createTaskList(
+      BuildContext context, List<BCFL> data, bool isSearch) {
     double maxHeight = 60 * 4 + (10 * 4);
+    if (isSearch) {
+      maxHeight = 60 * ParticipateSearchPageState.maxCapacity +
+          (10 * ParticipateSearchPageState.maxCapacity);
+    }
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: maxHeight),
       child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: isSearch
+            ? const NeverScrollableScrollPhysics()
+            : const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
             for (BCFL curData in data)
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                child: taskElement(context, curData),
+                child: taskElement(context, curData, isSearch),
               ),
           ],
         ),
@@ -106,7 +116,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
     );
   }
 
-  static Widget taskElement(BuildContext context, BCFL content) {
+  static Widget taskElement(BuildContext context, BCFL content, bool isSearch) {
     double itemHeight = 60;
     if (content == null) {
       return Container(
@@ -142,7 +152,8 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
                   ),
                   Expanded(
                     flex: 4,
-                    child: TextUtils.defaultTextWithSize(content.role, 17),
+                    child: TextUtils.defaultTextWithSize(
+                        isSearch ? content.participants : content.role, 17),
                   ),
                   Expanded(
                     flex: 3,
@@ -151,10 +162,9 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Map<String, BCFL> postContent = {"content": content};
-                          // Detail Button
-                          // Navigator.pushNamed(
-                          //     context, "participate_detail_page",
-                          //     arguments: postContent);
+                          Navigator.pushNamed(
+                              context, "participate_detail_page",
+                              arguments: postContent);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(

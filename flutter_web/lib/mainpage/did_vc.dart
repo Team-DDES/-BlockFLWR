@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/utils/style_resources.dart';
+import 'package:flutter_web/utils/color_category.dart';
 
-import '../utils/color_category.dart';
-import '../utils/string_resources.dart';
-import '../utils/text_utils.dart';
+import 'package:flutter_web/utils/style_resources.dart';
+import 'package:flutter_web/utils/string_resources.dart';
+import 'package:flutter_web/utils/text_utils.dart';
 
 class DidVc extends StatefulWidget {
   const DidVc({Key? key, required this.title}) : super(key: key);

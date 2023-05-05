@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/page/base_main_page.dart';
+import 'package:flutter_web/mainpage/base_main_page.dart';
 import 'package:flutter_web/utils/text_utils.dart';
 
-import '../data/bcfl.dart';
-import '../data/user.dart';
-import '../utils/color_category.dart';
-import '../utils/string_resources.dart';
-import '../utils/style_resources.dart';
+import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/utils/color_category.dart';
+import 'package:flutter_web/utils/style_resources.dart';
 
 class OrganizationRegisterPage extends StatefulWidget {
   OrganizationRegisterPage({Key? key, required this.title}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/page/base_main_page.dart';
-import 'package:flutter_web/page/participate_main_page.dart';
+import 'package:flutter_web/mainpage/base_main_page.dart';
+import 'package:flutter_web/mainpage/participate_main_page.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 
-import '../data/bcfl.dart';
-import '../utils/color_category.dart';
-import '../utils/text_utils.dart';
+import 'package:flutter_web/data/bcfl.dart';
+import 'package:flutter_web/utils/color_category.dart';
+import 'package:flutter_web/utils/text_utils.dart';
 
 class ParticipateSearchPage extends StatefulWidget {
   ParticipateSearchPage({Key? key, required this.title}) : super(key: key);
@@ -69,11 +69,11 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
                   //TODO search Icon 수정
                   prefixIcon: Icon(
                     Icons.search,
-                    color: Colors.blueAccent,
+                    color: Colors.black,
                   ),
                   suffixIcon: Icon(
                     Icons.cancel,
-                    color: Colors.blueAccent,
+                    color: Colors.black,
                   ),
                   //prefixIcon: const Image(fit: BoxFit.cover, image: AssetImage("assets/images/main_search_icon.png")),
                 ),
