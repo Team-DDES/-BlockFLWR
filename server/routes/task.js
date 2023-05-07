@@ -1,13 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { insertUser, getUser } = require('../database/mysql');
+const { insertTask, getUser } = require('../database/mysql');
 const {successMessage, failMessage} = require('../utils/mesage');
-const UserModel = require('../model/user_model')
-router.post('/join', async(req, res) => {
+const TaskModel = require('../model/task_model');
+router.post('/', async(req, res) => {
     var data = req.body;
-    var user = new UserModel(data);
+    var user = new TaskModel(data);
+    user.taskStatusCode = 0;
+
+    //TODO 빈포트 찾고 smartcontact 생성 시작
+    user.taskContractAddress = "0x1234";
+    user.taskPort="8824";
     try{
-        await insertUser(user,(result)=>{
+        await insertTask(user,(result)=>{
             if(result['type']){
                 res.send(result['data']);
             }else{
@@ -21,11 +26,13 @@ router.post('/join', async(req, res) => {
 
 router.get('/', async(req, res) => {
     var data = req.body;
-    const user = {
-        userAddress: data.user_address,
+    const search = {
+        searchText: data.search_text,
+        userId:data.user_id,
+        taskStatusCode:data.task_status_code
     }
     try{
-        await getUser(user,(result)=>{
+        await getTask(search,(result)=>{
             if(result['type']){
                 var data = result['data'];
                 if(data == null){

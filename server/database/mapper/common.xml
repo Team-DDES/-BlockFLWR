@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common"> 
+    <insert id="insertUser">
+        INSERT INTO 
+        USER (
+                user_type,
+                user_name,
+                user_address,
+                user_email,
+                user_phone
+            )
+        VALUES (
+                #{userType},
+                #{userName},
+                #{userAddress},
+                #{userEmail},
+                #{userPhone}
+            )
+    </insert>
+    
+    <insert id="insertTask">
+        INSERT INTO
+        TASK (
+                user_id,
+                task_name,
+                task_status_code,
+                task_contract_address,
+                task_purpose,
+                task_framework,
+                task_data_type,
+                task_max_trainer,
+                task_port
+            )
+        VALUES
+            (
+                #{userId},
+                #{taskName},
+                #{taskStatusCode},
+                #{taskContractAddress},
+                #{taskPurpose},
+                #{taskFramework},
+                #{taskDataType},
+                #{taskMaxTrainer},
+                #{taskPort}
+            )
+    </insert>
+    <select id="getUser">
+        SELECT * 
+        FROM USER 
+        WHERE user_address=#{userAddress} 
+        AND use_yn='Y'
+    </select>
+</mapper>

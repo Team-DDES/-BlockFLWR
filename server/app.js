@@ -4,6 +4,8 @@ const app = express();
 const port = 3000;
 
 const userRouter = require('./routes/user');
+const taskRouter = require('./routes/task');
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
  
@@ -11,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/flower/user', userRouter);
+app.use('/flower/task', taskRouter);
 
 // connection.connect();
 // connection.query('SELECT * from user', (error, rows, fields) => {
