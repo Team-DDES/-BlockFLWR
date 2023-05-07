@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { insertTask, getUser } = require('../database/mysql');
+const { insertTask, getTask } = require('../database/mysql');
 const {successMessage, failMessage} = require('../utils/mesage');
 const TaskModel = require('../model/task_model');
 router.post('/', async(req, res) => {
@@ -28,7 +28,7 @@ router.get('/', async(req, res) => {
     var data = req.body;
     const search = {
         searchText: data.search_text,
-        userId:data.user_id,
+        organizationUserId:data.organization_user_id,
         taskStatusCode:data.task_status_code
     }
     try{
@@ -36,7 +36,7 @@ router.get('/', async(req, res) => {
             if(result['type']){
                 var data = result['data'];
                 if(data == null){
-                    var body = failMessage(result['data'],'user not found',404);
+                    var body = failMessage(result['data'],'task not found',404);
                     res.send(body);
                     res.status(200);
                 }else{

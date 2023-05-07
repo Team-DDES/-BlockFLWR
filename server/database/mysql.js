@@ -54,12 +54,10 @@ async function getUser(data,callback){
 }
 
 async function getTask(data,callback){
-    console.log(data.userAddress)
-    var query = '';
-    if(data.user_id==null){
-        query = ''
-    }
-    await connection.query(`SELECT * FROM USER WHERE user_address='${data.userAddress}' AND use_yn='Y'`, (err, rows) =>{
+   
+    let query = commonMapper.getStatement('common', 'getTask', data);
+    console.log(query);
+    await connection.query(query, (err, rows) =>{
         if (err){
             callback({'data':err,'type':false});
         }else{
@@ -74,5 +72,6 @@ async function getTask(data,callback){
 module.exports = {
     insertUser,
     insertTask,
-    getUser
+    getUser,
+    getTask
 }

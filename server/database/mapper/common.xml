@@ -45,10 +45,42 @@
                 #{taskPort}
             )
     </insert>
+
     <select id="getUser">
         SELECT * 
         FROM USER 
         WHERE user_address=#{userAddress} 
         AND use_yn='Y'
     </select>
+
+    <select id="getTask">
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id,
+                t.task_name,
+                t.task_status_code,
+                t.task_contract_address,
+                t.task_purpose,
+                t.task_framework,
+                t.task_data_type,
+                t.task_max_trainer,
+                t.task_port,
+                u.user_id AS organization_user_id,
+                u.user_name
+            FROM TASK t, USER u
+            WHERE t.user_id = u.user_id
+             <if test="organizationUserId != null">
+    	        AND u.user_id = #{organizationUserId}
+             </if>
+             <if test="taskStatusCode != null">
+    	        AND t.task_status_code = #{taskStatusCode}
+             </if>
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        lower(tu.task_name) like lower(CONCAT('%', #{searchText}, '%')) OR lower(tu.user_name) like lower(CONCAT('%', #{searchText}, '%')) 
+        ORDER BY task_id DESC
+    </select>   
+
 </mapper>
