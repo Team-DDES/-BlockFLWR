@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TextUtils{
-  static Widget defaultTextWithSize(String content, double size){
-    return Text(content,
+class TextUtils {
+  static Widget defaultTextWithSize(String content, double size) {
+    return Text(
+      content,
       style: TextStyle(
         decoration: TextDecoration.none,
         fontSize: size,
@@ -10,8 +11,11 @@ class TextUtils{
       ),
     );
   }
-  static Widget defaultTextWithSizeAlign(String content, double size, TextAlign align){
-    return Text(content,
+
+  static Widget defaultTextWithSizeAlign(
+      String content, double size, TextAlign align) {
+    return Text(
+      content,
       textAlign: align,
       style: TextStyle(
         decoration: TextDecoration.none,
@@ -20,8 +24,24 @@ class TextUtils{
       ),
     );
   }
-  static Widget defaultTextWithSizeColor(String content, double size, {required Color color}){
-    return Text(content,
+
+  static Widget defaultTextWithSizeAlignWeight(
+      String content, double size, TextAlign align, FontWeight weight) {
+    return Text(
+      content,
+      textAlign: align,
+      style: TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: size,
+          color: Colors.black,
+          fontWeight: weight),
+    );
+  }
+
+  static Widget defaultTextWithSizeColor(String content, double size,
+      {required Color color}) {
+    return Text(
+      content,
       style: TextStyle(
         decoration: TextDecoration.none,
         fontSize: size,
