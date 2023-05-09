@@ -1,3 +1,6 @@
 server/package-lock.json
 server/node_modules
 flower-main
+**/.env
+**/node_modules
+**/data
