@@ -9,6 +9,9 @@ class User {
       required this.isConnect});
 }
 
+String typeParticipant = "part";
+String typeOrganization = "org";
+
 User dummyUser = User(
   userName: "@ID",
   userType: "part",

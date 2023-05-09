@@ -14,4 +14,5 @@ class StringResources {
   static const String participate = 'participate';
   static const String details = 'Details';
   static const String contact = 'contact';
+  static const String taskDetail = 'Task Details';
 }

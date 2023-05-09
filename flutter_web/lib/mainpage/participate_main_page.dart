@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
+import 'package:flutter_web/mainpage/participate_detail_popup.dart';
 import 'package:flutter_web/mainpage/participate_search_page.dart';
 
 import 'package:flutter_web/data/user.dart';
@@ -20,12 +21,11 @@ class ParticipateMainPage extends StatefulWidget {
 }
 
 class ParticipateMainPageState extends State<ParticipateMainPage> {
+  var userName = dummyUser.userName;
+  var userType = dummyUser.userType;
+  var isConnect = dummyUser.isConnect;
   @override
   Widget build(BuildContext context) {
-    var userName = dummyUser.userName;
-    var userType = dummyUser.userType;
-    var isConnect = dummyUser.isConnect;
-
     return BaseMainView(
       userName: userName,
       userType: userType,
@@ -162,9 +162,11 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           Map<String, BCFL> postContent = {"content": content};
-                          Navigator.pushNamed(
-                              context, "participate_detail_page",
-                              arguments: postContent);
+                          isSearch
+                              ? Navigator.pushNamed(
+                                  context, "participate_detail_page",
+                                  arguments: postContent)
+                              : ParticipateDetailPopup.showDetailPopup(context, content, dummyUser.userType);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(

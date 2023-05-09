@@ -12,6 +12,9 @@ class BCFL {
   var dataType;
   var purpose;
   var role;
+  var status;
+  var address;
+
   BCFL({
     required this.idx,
     required this.taskName,
@@ -25,6 +28,8 @@ class BCFL {
     required this.dataType,
     required this.purpose,
     required this.role,
+    required this.status,
+    required this.address,
   });
 
   bool containKeyword(String keyword) {
@@ -48,6 +53,8 @@ BCFL copyBCFL = BCFL(
   dataType: "256x256 RGB image(Jpeg only)",
   purpose: "Image classification",
   role: "Trainer",
+  status: "Training",
+  address: "0x123456789",
 );
 
 List<BCFL> dummyBCFLList = [
@@ -65,6 +72,8 @@ List<BCFL> dummyBCFLList = [
     dataType: "256x256 RGB image(Jpeg only)",
     purpose: "Image classification",
     role: "Trainer",
+    status: "Training",
+    address: "0x123456789",
   ),
   BCFL(
     idx: "2",
@@ -80,6 +89,8 @@ List<BCFL> dummyBCFLList = [
     dataType: "256x256 RGB image(Jpeg only)",
     purpose: "Image classification",
     role: "Evaluator",
+    status: "Training",
+    address: "0x123456789",
   ),
   BCFL(
     idx: "3",
@@ -95,6 +106,8 @@ List<BCFL> dummyBCFLList = [
     dataType: "256x256 RGB image(Jpeg only)",
     purpose: "Image classification",
     role: "Trainer",
+    status: "Training",
+    address: "0x123456789",
   ),
   copyBCFL,
   copyBCFL,
