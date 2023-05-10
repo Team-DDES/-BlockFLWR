@@ -1,5 +1,5 @@
 const mysql   = require('mysql');
-const commonMapper = require('mybatis-mapper');  //매핑할 마이바티스
+const commonMapper = require('mybatis-mapper');
 const format = {language: 'sql', indent: '  '};
 
 const connection = mysql.createConnection({
