@@ -4,6 +4,8 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter_web/main.dart';
 import 'package:flutter_web/mainpage/did_vc.dart';
 import 'package:flutter_web/mainpage/join.dart';
+import 'package:flutter_web/mainpage/organization_main_page.dart';
+import 'package:flutter_web/mainpage/organization_register_page.dart';
 import 'package:flutter_web/mainpage/participate_detail_page.dart';
 import 'package:flutter_web/mainpage/participate_main_page.dart';
 import 'package:flutter_web/mainpage/participate_search_page.dart';
@@ -39,13 +41,25 @@ class Routes {
   static var participateSearchPageHandler = Handler(handlerFunc:
       (BuildContext? context, Map<String, dynamic> pamain_pagerams) {
     return ParticipateSearchPage(
-      title: "participate_main_page",
+      title: "participate_search_page",
     );
   });
   static var participateDetailPageHandler = Handler(handlerFunc:
       (BuildContext? context, Map<String, dynamic> pamain_pagerams) {
     return ParticipateDetailPage(
-      title: "participate_main_page",
+      title: "participate_detail_page",
+    );
+  });
+  static var organizationMainPageHandler = Handler(handlerFunc:
+      (BuildContext? context, Map<String, dynamic> pamain_pagerams) {
+    return OrganizationMainPage(
+      title: "organization_main_page",
+    );
+  });
+  static var organizationRegisterPageHandler = Handler(handlerFunc:
+      (BuildContext? context, Map<String, dynamic> pamain_pagerams) {
+    return OrganizationRegisterPage(
+      title: "organization_register_page",
     );
   });
   static var marketplaceMainPageHandler = Handler(handlerFunc:
@@ -74,6 +88,12 @@ class Routes {
         transitionType: TransitionType.fadeIn);
     router.define("marketplace_main_page",
         handler: marketplaceMainPageHandler,
+        transitionType: TransitionType.fadeIn);
+    router.define("organization_main_page",
+        handler: organizationMainPageHandler,
+        transitionType: TransitionType.fadeIn);
+    router.define("organization_register_page",
+        handler: organizationRegisterPageHandler,
         transitionType: TransitionType.fadeIn);
     //router.define("second/:data", handler: placeHandler,transitionType: TransitionType.inFromLeft);
   }
