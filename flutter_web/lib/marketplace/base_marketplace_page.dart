@@ -45,7 +45,7 @@ class BaseMarketplaceViewState extends State<BaseMarketplaceView> {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                child: TextUtils.defaultTextWithSize("BCFL MarketPlace", 25),
+                child: TextUtils.defaultTextWithSizeColor("BCFL MarketPlace", 25, color: textWhite),
               ),
               const Spacer(),
               Container(
