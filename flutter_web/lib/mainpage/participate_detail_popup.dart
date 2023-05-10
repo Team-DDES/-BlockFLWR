@@ -20,46 +20,54 @@ class ParticipateDetailPopup {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          alignment: Alignment.center,
-          width: 450,
-          height: 500,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/popup_task_detail_background.png'))),
-          child: AlertDialog(
-            backgroundColor: Colors.transparent,
-            contentPadding: EdgeInsets.all(20.0),
-            title: Stack(
-              alignment: Alignment.center,
-              children: [
-                TextUtils.defaultTextWithSizeColor(
-                    StringResources.taskDetail, 25,
-                    color: textWhite),
-                Container(
-                    height: 30,
-                    alignment: Alignment.topRight,
-                    child: ElevatedButton(
-                      style: StyleResources.pagerNormalBtnStyle,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Image(
-                        fit: BoxFit.cover,
-                        image:
-                            AssetImage('assets/images/common_cancel_btn.png'),
-                      ),
-                    )),
-                ],
+        return SingleChildScrollView(
+          child: Container(
+            alignment: Alignment.center,
+            width: 450,
+            height: 500,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                image: DecorationImage(
+                    image: AssetImage(
+                        'assets/images/popup_task_detail_background.png'))),
+            child: AlertDialog(
+              titlePadding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+              backgroundColor: Colors.transparent,
+              contentPadding: EdgeInsets.all(20.0),
+              title: Container(
+                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Stack(
+                  children: [
+                    TextUtils.defaultTextWithSizeColor(
+                        StringResources.taskDetail, 25,
+                        color: textWhite),
+                    Container(
+                        height: 30,
+                        alignment: Alignment.topRight,
+                        child: ElevatedButton(
+                            style: StyleResources.pagerNormalBtnStyle,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const ColorFiltered(
+                              colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                              child: Image(
+                                fit: BoxFit.cover,
+                                image:
+                                AssetImage('assets/images/common_cancel_btn.png'),
+                              ),
+                            )
+
+                        )),
+                  ],
+                ),
               ),
-            content: Column(
-              children: [
-                taskDetailElement('Owner', content.owner),
-                taskDetailElement('Learning Status', content.status),
-                taskDetailElement('Contract Address', content.address),
-                if (userType == typeParticipant)
+              content: Column(
+                children: [
+                  taskDetailElement('Owner', content.owner),
+                  taskDetailElement('Learning Status', content.status),
+                  taskDetailElement('Contract Address', content.address),
+                  if (userType == typeParticipant)
                   Column(
                     children: [
                       taskDetailElement('My toknes', content.tokenSupply),
@@ -104,7 +112,8 @@ class ParticipateDetailPopup {
                           )),
                     ],
                   )
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -113,13 +122,16 @@ class ParticipateDetailPopup {
   }
 
   static Widget taskDetailElement(String field, String data) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TextUtils.defaultTextWithSizeColor(field, 15, color: commonBtnColor),
-        const Spacer(),
-        TextUtils.defaultTextWithSizeColor(data, 15, color: textWhite),
-      ],
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          TextUtils.defaultTextWithSizeColor(field, 15, color: commonBtnColor),
+          const Spacer(),
+          TextUtils.defaultTextWithSizeColor(data, 15, color: textWhite),
+        ],
+      ),
     );
   }
 
