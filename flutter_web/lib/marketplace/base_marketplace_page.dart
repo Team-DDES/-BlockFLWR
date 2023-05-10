@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_web/utils/color_category.dart';
+import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
 
 class BaseMarketplaceView extends StatefulWidget {
@@ -46,6 +47,23 @@ class BaseMarketplaceViewState extends State<BaseMarketplaceView> {
               Container(
                 alignment: Alignment.centerLeft,
                 child: TextUtils.defaultTextWithSizeColor("BCFL MarketPlace", 25, color: textWhite),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(50, 15, 30, 15),
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "participate_main_page");
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateColor.resolveWith(
+                        StyleResources.commonBtnCallback),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                    child: TextUtils.defaultTextWithSize("Main Page", 17),
+                  ),
+                ),
               ),
               const Spacer(),
               Container(

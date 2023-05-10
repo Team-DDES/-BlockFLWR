@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
+import 'package:flutter_web/mainpage/participate_datapath_popup.dart';
 import 'package:flutter_web/utils/text_utils.dart';
 
 import 'package:flutter_web/data/bcfl.dart';
@@ -96,7 +97,10 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
                             StyleResources.commonBtnCallback),
                       ),
                       onPressed: () {
-                        // TODO participate
+                        ParticipateDataPathPopup.showDataPathPopup(context);
+                        setState(() {
+
+                        });
                       },
                       child: Container(
                         alignment: Alignment.center,

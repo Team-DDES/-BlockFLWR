@@ -14,7 +14,7 @@ class ParticipateDetailPopup {
   static void showDetailPopup(
       BuildContext context, BCFL content, String userType) {
     FilePathBox pathBox = FilePathBox(
-      context: context,
+      context: context, text: 'Insert description of model here...',
     );
     FilePathBoxState pathBoxState = pathBox.createState();
     showDialog(
