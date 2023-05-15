@@ -1,4 +1,9 @@
 //TODO BCFL 관련 서버 response interface
+import 'package:json_annotation/json_annotation.dart';
+
+part 'bcfl.g.dart';
+
+@JsonSerializable()
 class BCFL {
   var idx;
   var taskName;
@@ -37,6 +42,9 @@ class BCFL {
         owner.contains(keyword) ||
         role.contains(keyword);
   }
+
+  factory BCFL.fromJson(Map<String, dynamic> json) => _$BCFLToJson(json);
+  Map<String, dynamic> toJson() => _$BCFLToJson(this);
 }
 
 BCFL copyBCFL = BCFL(

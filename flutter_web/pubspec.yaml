@@ -43,6 +43,12 @@ dependencies:
   fluro: ^2.0.5
   flutter_dialogs: ^2.0.1
   file_picker: ^4.0.0
+  retrofit: ^4.0.1
+  retrofit_generator: ^6.0.0+3
+  dio: ^5.1.2
+  json_annotation: ^4.8.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +60,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+  build_runner: ^2.4.4
+  retrofit_generator: any
+  json_serializable: ^6.6.2
+  hive_generator: ^2.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
