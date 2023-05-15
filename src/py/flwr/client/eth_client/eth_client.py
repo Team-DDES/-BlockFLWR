@@ -41,9 +41,16 @@ class EthClient(ABC):
     ROUND_DURATION = 20000
     def __init__(self,
                  cid: str,
+                 contract_address:str,
+                 token_address:str,
+                 nft_address:str
                  ):
         self.cid = cid
-        self.EthBase = _EthClient(cid, address=None, deploy=False)
+        self.EthBase = _EthClient(cid,
+                                  contract_address=contract_address,
+                                  token_address=token_address,
+                                  nft_address=nft_address,
+                                  deploy=False)
         self.IPFSClient = IPFSClient("/ip4/127.0.0.1/tcp/5001")
         self.round = None
 

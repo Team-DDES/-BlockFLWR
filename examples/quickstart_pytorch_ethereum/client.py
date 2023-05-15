@@ -12,6 +12,7 @@ from tqdm import tqdm
 from logging import DEBUG, INFO
 from flwr.common.logger import log
 
+import sys
 
 # #############################################################################
 # 1. Regular PyTorch pipeline: nn.Module, train, test, and DataLoader
@@ -83,13 +84,19 @@ def load_data():
 net = Net().to(DEVICE)
 trainloader, testloader = load_data()
 
+#sys[1] : server_address 127.0.0.1:8081
+#sys[2] : client cid
+# sys[3] : contract address
+# sys[4] : token_address
+# sys[5] : nft_address
+
 
 # Define Flower client
 class FlowerClient(fl.client.EthClient):
     def __init__(self,
                  cid: str,
                  ):
-        super(FlowerClient, self).__init__(cid)
+        super(FlowerClient, self).__init__(cid,sys.argv[3],sys.argv[4],sys.argv[5])
 
         self.net = net
         self.IPFSClient.set_model(net)
@@ -134,6 +141,10 @@ class FlowerClient(fl.client.EthClient):
 
 # Start Flower client
 fl.client.start_eth_client(
-    server_address="127.0.0.1:8081",
-    client=FlowerClient(cid=1),
+    server_address=sys.argv[1],
+    client=FlowerClient(cid=sys.argv[2]),
 )
+# fl.client.start_eth_client(
+#     server_address="127.0.0.1:8081",
+#     client=FlowerClient(cid=1),
+# )

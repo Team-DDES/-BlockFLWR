@@ -277,10 +277,15 @@ class Server:
         return get_parameters_res.parameters
 
 class EthServer(Server):
-    def __init__(self, client_manager: ClientManager, strategy: Optional[Strategy] = None,
+    def __init__(self, client_manager: ClientManager,
+                 contract_address: str,
+                 token_address : str,
+                 nft_address : str,
+                 strategy: Optional[Strategy] = None,
     ) -> None:
         super().__init__(client_manager=client_manager, strategy=strategy)
-        self.EthClient = EthClient('11')
+        self.EthClient = EthClient(
+            cid='11', contract_address = contract_address, token_address = token_address, nft_address=nft_address)
 
     def fit(self, num_rounds: int, timeout: Optional[float]) -> History:
         """Run federated averaging for a number of rounds."""

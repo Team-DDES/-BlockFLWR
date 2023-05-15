@@ -69,12 +69,17 @@ class _BaseContractClient(_BaseEthClient):
 
     IPFS_HASH_PREFIX = bytes.fromhex('1220')  # IPFS 해쉬값 접두사
 
-    def __init__(self, contract_json_path, account_idx, contract_address, deploy):
+    def __init__(self, contract_json_path, account_idx,
+                 contract_address,
+                 token_address,
+                 nft_address,
+                 deploy):
         super().__init__(account_idx)
 
         self._contract_json_path = contract_json_path
 
         self._contract, self.contract_address = self._instantiate_contract(contract_address, deploy)
+        #TODO : token_address, nft_address
 
     def _instantiate_contract(self, address=None, deploy=False):
         # 가나슈에 배포된 컨트랙트의 json 파일을 인스턴스화
@@ -149,11 +154,17 @@ class _EthClient(_BaseContractClient):
     The API of this class should match that of the smart contract.
     """
 
-    def __init__(self, account_idx, address, deploy):
+    def __init__(self, account_idx,
+                 contract_address,
+                 token_address,
+                 nft_address,
+                 deploy):
         super().__init__(
             os.path.dirname(os.path.abspath(__file__))+"/build/contracts/Crowdsource.json",
             account_idx,
-            address,
+            contract_address,
+            token_address,
+            nft_address,
             deploy
         )
 
