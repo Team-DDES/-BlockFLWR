@@ -36,6 +36,7 @@ else:
 # sys[3] : contract address
 # sys[4] : token_address
 # sys[5] : nft_address
+# sys[6] : model type
 
 
 # Define Flower client
