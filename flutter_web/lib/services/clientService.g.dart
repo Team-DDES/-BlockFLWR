@@ -21,11 +21,12 @@ class _UserApi implements UserApi {
   String? baseUrl;
 
   @override
-  Future<List<User>> registerUser() async {
+  Future<List<User>> registerUser(data) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(data);
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(Options(
       method: 'POST',
@@ -46,11 +47,12 @@ class _UserApi implements UserApi {
   }
 
   @override
-  Future<List<User>> isUser() async {
+  Future<List<User>> isUser(data) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(data);
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(Options(
       method: 'GET',

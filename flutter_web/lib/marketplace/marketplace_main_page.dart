@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 
 import 'package:flutter_web/data/user.dart';
@@ -18,7 +19,7 @@ class MarketplaceMainPage extends StatefulWidget {
 class MarketplaceMainPageState extends State<MarketplaceMainPage> {
   var userName = dummyUser.userName;
   var userType = dummyUser.userType;
-  var isConnect = dummyUser.isConnect;
+  var isConnect = walletConnect;
   var currentQuery = "";
 
   final maxCapacity = 3;
