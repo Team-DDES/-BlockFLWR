@@ -11,7 +11,7 @@ abstract class UserApi {
   factory UserApi(Dio dio, {String baseUrl}) = _UserApi;
 
   @POST("/user/join")
-  Future<List<User>> registerUser();
+  Future<List<User>> registerUser(@Body() Map<String, dynamic> data);
   @GET("/user/join")
-  Future<List<User>> isUser();
+  Future<List<User>> isUser(@Body() Map<String, dynamic> data);
 }

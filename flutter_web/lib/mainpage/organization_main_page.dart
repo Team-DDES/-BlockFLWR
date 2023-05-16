@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 
@@ -21,7 +22,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
   Widget build(BuildContext context) {
     var userName = dummyOrgUser.userName;
     var userType = dummyOrgUser.userType;
-    var isConnect = dummyOrgUser.isConnect;
+    var isConnect = walletConnect;
 
     return BaseMainView(
       userName: userName,

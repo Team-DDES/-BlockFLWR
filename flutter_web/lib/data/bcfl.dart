@@ -5,20 +5,20 @@ part 'bcfl.g.dart';
 
 @JsonSerializable()
 class BCFL {
-  var idx;
-  var taskName;
-  var owner;
-  var participants;
-  var intro;
-  var email;
-  var phone;
-  var framework;
-  var tokenSupply;
-  var dataType;
-  var purpose;
-  var role;
-  var status;
-  var address;
+  final String idx;
+  final String taskName;
+  final String owner;
+  final String participants;
+  final String intro;
+  final String email;
+  final String phone;
+  final String framework;
+  final String tokenSupply;
+  final String dataType;
+  final String purpose;
+  final String role;
+  final String status;
+  final String address;
 
   BCFL({
     required this.idx,
@@ -43,7 +43,7 @@ class BCFL {
         role.contains(keyword);
   }
 
-  factory BCFL.fromJson(Map<String, dynamic> json) => _$BCFLToJson(json);
+  factory BCFL.fromJson(Map<String, dynamic> json) => _$BCFLFromJson(json);
   Map<String, dynamic> toJson() => _$BCFLToJson(this);
 }
 

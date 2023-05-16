@@ -6,3 +6,5 @@ class UserController extends GetxController {
    RxString signature = "".obs;
    RxString type = "".obs;
 }
+
+bool walletConnect = true;

@@ -24,7 +24,6 @@ class _JoinPageState extends State<Join> {
     if(isWindows || isMacOS){
         metamask.login().then((success) {
         setState(() {
-          success = true;
           if (success) {
             debugPrint('MetaMask address: ${metamask.address}');
             debugPrint('MetaMask signature: ${metamask.signature}');
@@ -33,6 +32,7 @@ class _JoinPageState extends State<Join> {
             userController.signature.value = metamask.signature.toString();
 
             Navigator.pushNamed(context, "did_vc");
+
           } else {
             debugPrint('MetaMask login failed');
           }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 import 'package:flutter_web/mainpage/participate_datapath_popup.dart';
 import 'package:flutter_web/utils/text_utils.dart';
@@ -29,7 +30,7 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
     }
     var userName = dummyUser.userName;
     var userType = dummyUser.userType;
-    var isConnect = dummyUser.isConnect;
+    var isConnect = walletConnect;
 
     return BaseMainView(
         child: detailPopup(selectedItem),

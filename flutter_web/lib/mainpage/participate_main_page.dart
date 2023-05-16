@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 import 'package:flutter_web/mainpage/participate_detail_popup.dart';
@@ -23,7 +24,7 @@ class ParticipateMainPage extends StatefulWidget {
 class ParticipateMainPageState extends State<ParticipateMainPage> {
   var userName = dummyUser.userName;
   var userType = dummyUser.userType;
-  var isConnect = dummyUser.isConnect;
+  var isConnect = walletConnect;
   @override
   Widget build(BuildContext context) {
     return BaseMainView(
