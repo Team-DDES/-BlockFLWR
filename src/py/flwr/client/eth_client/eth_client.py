@@ -37,13 +37,12 @@ from .ipfs_client import IPFSClient
 
 class EthClient(ABC):
     """Abstract base class for Flower clients."""
-    # CONTRACT_ADDRESS = "0x8324294b725cD2f8520f8F6e75ee8a8325Ad60f4"
     ROUND_DURATION = 20000
     def __init__(self,
                  cid: str,
                  ):
         self.cid = cid
-        self.EthBase = _EthClient(cid, address=None, deploy=False)
+        self.EthBase = _EthClient(cid, nft_address=None,nft_deploy=False, address=None, deploy=False)
         self.IPFSClient = IPFSClient("/ip4/127.0.0.1/tcp/5001")
         self.round = None
 

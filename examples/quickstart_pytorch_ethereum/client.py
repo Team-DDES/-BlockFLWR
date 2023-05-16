@@ -1,6 +1,9 @@
 import warnings
 from collections import OrderedDict
 
+import sys
+sys.path.insert(0, '/media/hdd1/ddes/src/py')	
+
 import flwr as fl
 import torch
 import torch.nn as nn

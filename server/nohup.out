@@ -1,0 +1,983 @@
+
+> server@1.0.0 dev
+> nodemon app.js
+
+[33m[nodemon] 2.0.22[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node app.js`[39m
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event on ReadStream instance at:
+    at emitErrorNT (node:internal/streams/destroy:151:8)
+    at errorOrDestroy (node:internal/streams/destroy:214:7)
+    at node:internal/fs/streams:258:9
+    at FSReqCallback.wrapper [as oncomplete] (node:fs:681:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+
+Node.js v18.12.1
+
+> server@1.0.0 dev
+> nodemon app.js
+
+[33m[nodemon] 2.0.22[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `node app.js`[39m
+node:events:491
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event on ReadStream instance at:
+    at emitErrorNT (node:internal/streams/destroy:151:8)
+    at errorOrDestroy (node:internal/streams/destroy:214:7)
+    at node:internal/fs/streams:258:9
+    at FSReqCallback.wrapper [as oncomplete] (node:fs:681:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+
+Node.js v18.12.1
+Example app listening on port 3000
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: 2,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: 2,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: undefined
+}
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: undefined
+}
+Example app listening on port 3000
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+             
+    	        AND u.user_id = '38'
+              
+    	        AND t.task_status_code = '2'
+              
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: 2,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+             
+    	        ,tp.data_path AS dataPath
+                ,tp.user_id AS trainerUserId
+                 
+            FROM TASK t, USER u
+             
+    	       ,TASK_PARTICIPATE tp
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+    	        AND tp.task_Id = t.task_Id
+             
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: 2,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+             
+    	        ,tp.data_path AS dataPath
+                ,tp.user_id AS trainerUserId
+                 
+            FROM TASK t, USER u
+             
+    	       ,TASK_PARTICIPATE tp
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+    	        AND tp.task_Id = t.task_Id
+             
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+Traceback (most recent call last):
+  File "/media/hdd1/es_workspace/D-DES/examples/quickstart_pytorch_ethereum/client.py", line 4, in <module>
+    import flwr as fl
+ModuleNotFoundError: No module named 'flwr'
+
+Traceback (most recent call last):
+  File "/media/hdd1/es_workspace/D-DES/examples/quickstart_pytorch_ethereum/client.py", line 4, in <module>
+    import flwr as fl
+ModuleNotFoundError: No module named 'flwr'
+
+WARNING flwr 2023-05-14 16:32:44,486 | app.py:203 | Both server and strategy were provided, ignoring strategy
+
+INFO flwr 2023-05-14 16:32:44,486 | app.py:151 | Starting Flower server, config: ServerConfig(num_rounds=3, round_timeout=None)
+
+INFO flwr 2023-05-14 16:32:44,506 | app.py:172 | Flower ECE: gRPC server running (3 rounds), SSL is disabled
+INFO flwr 2023-05-14 16:32:44,506 | server.py:290 | FL starting
+
+Example app listening on port 3000
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: null,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+             
+    	        AND u.user_id = '38'
+              
+    	        AND t.task_status_code = '2'
+              
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: 38,
+  taskStatusCode: 2,
+  trainerUserId: null,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+             
+    	        AND u.user_id = '38'
+              
+    	        AND t.task_status_code = '2'
+              
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: 2,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+             
+    	        ,tp.data_path AS dataPath
+                ,tp.user_id AS trainerUserId
+                 
+            FROM TASK t, USER u
+             
+    	       ,TASK_PARTICIPATE tp
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+    	        AND tp.task_Id = t.task_Id
+             
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: 1,
+  trainerUserId: 2,
+  taskId: null
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+             
+    	        ,tp.data_path AS dataPath
+                ,tp.user_id AS trainerUserId
+                 
+            FROM TASK t, USER u
+             
+    	       ,TASK_PARTICIPATE tp
+             
+            WHERE t.user_id = u.user_id
+              
+    	        AND t.task_status_code = '1'
+              
+    	        AND tp.task_Id = t.task_Id
+             
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+get error
+WARNING flwr 2023-05-15 14:34:52,929 | app.py:203 | Both server and strategy were provided, ignoring strategy
+
+get error
+INFO flwr 2023-05-15 14:34:52,929 | app.py:151 | Starting Flower server, config: ServerConfig(num_rounds=3, round_timeout=None)
+
+get error
+INFO flwr 2023-05-15 14:34:52,950 | app.py:172 | Flower ECE: gRPC server running (3 rounds), SSL is disabled
+
+get error
+INFO flwr 2023-05-15 14:34:52,950 | server.py:290 | FL starting
+
+get error
+WARNING flwr 2023-05-15 14:39:16,889 | app.py:203 | Both server and strategy were provided, ignoring strategy
+
+get error
+INFO flwr 2023-05-15 14:39:16,890 | app.py:151 | Starting Flower server, config: ServerConfig(num_rounds=3, round_timeout=None)
+
+get error
+INFO flwr 2023-05-15 14:39:16,915 | app.py:172 | Flower ECE: gRPC server running (3 rounds), SSL is disabled
+
+get error
+INFO flwr 2023-05-15 14:39:16,916 | server.py:290 | FL starting
+
+Example app listening on port 3000

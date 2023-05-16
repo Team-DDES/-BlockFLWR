@@ -5,6 +5,7 @@ const port = 3000;
 
 const userRouter = require('./routes/user');
 const taskRouter = require('./routes/task');
+const marketRouter = require('./routes/market')
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -14,6 +15,7 @@ app.use(bodyParser.json())
 
 app.use('/flower/user', userRouter);
 app.use('/flower/task', taskRouter);
+app.use('/flower/market',marketRouter)
 
 // connection.connect();
 // connection.query('SELECT * from user', (error, rows, fields) => {

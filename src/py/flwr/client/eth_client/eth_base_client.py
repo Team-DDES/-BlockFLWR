@@ -29,7 +29,7 @@ class _BaseEthClient:
         # self.address = self._w3.eth.accounts[int(account_idx)]  # 이더리움 지갑주소
         # self._w3.eth.defaultAccount = self.address  # 지정된 지갑주소를 기본주소로
         # for mumbai
-        if account_idx == 11:
+        if account_idx == "11":
             self.address = os.environ["METAMASK_EAVLUATOR_ACCOUNT"]
             self._w3.eth.defaultAccount = self.address
 
@@ -69,16 +69,18 @@ class _BaseContractClient(_BaseEthClient):
 
     IPFS_HASH_PREFIX = bytes.fromhex('1220')  # IPFS 해쉬값 접두사
 
-    def __init__(self, contract_json_path, account_idx, contract_address, deploy):
+    def __init__(self, contract_json_path,nft_json_path, account_idx, nft_address, nft_deploy, contract_address, deploy):
         super().__init__(account_idx)
 
         self._contract_json_path = contract_json_path
+        self._nft_json_path = nft_json_path
 
-        self._contract, self.contract_address = self._instantiate_contract(contract_address, deploy)
+        self._contract, self.contract_address = self._instantiate_contract(self._contract_json_path,contract_address, deploy)
+        self._nft_contract, self.nft_contract_address = self._instantiate_contract(self._nft_json_path,nft_address,nft_deploy)
 
-    def _instantiate_contract(self, address=None, deploy=False):
+    def _instantiate_contract(self, contract_json_path, address=None, deploy=False):
         # 가나슈에 배포된 컨트랙트의 json 파일을 인스턴스화
-        with open(self._contract_json_path) as json_file:
+        with open(contract_json_path) as json_file:
             crt_json = json.load(json_file)
             abi = crt_json['abi']
             bytecode = crt_json['bytecode']
@@ -149,10 +151,13 @@ class _EthClient(_BaseContractClient):
     The API of this class should match that of the smart contract.
     """
 
-    def __init__(self, account_idx, address, deploy):
+    def __init__(self, account_idx, nft_address, nft_deploy, address, deploy):
         super().__init__(
             os.path.dirname(os.path.abspath(__file__))+"/build/contracts/Crowdsource.json",
+            os.path.dirname(os.path.abspath(__file__))+"/build/contracts/NFT.json",
             account_idx,
+            nft_address,
+            nft_deploy,
             address,
             deploy
         )
@@ -308,4 +313,10 @@ class _EthClient(_BaseContractClient):
         arch_cid = self._from_bytes32(cid_bytes)
         return arch_cid
 
+    # NFT FUNCTIONS
+    def mintNFT(self, tokenURI):
+        tx = self._nft_contract.functions.mintNFT(self.address, tokenURI).buildTransaction(self.get_tx_param())
+        tx_hash = self.signedHash(tx, os.environ["METAMASK_EVALUATOR_PRIVATE_KEY"])
+        self.txs.append(tx_hash)
+        return tx_hash
 

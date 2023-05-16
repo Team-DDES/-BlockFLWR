@@ -19,7 +19,7 @@ import concurrent.futures
 import timeit
 from logging import DEBUG, INFO
 from typing import Dict, List, Optional, Tuple, Union
-
+import json
 import flwr.common
 from flwr.common import (
     Code,
@@ -298,6 +298,27 @@ class EthServer(Server):
                 parameters_prime, fit_metrics, _ = res_fit  # fit_metrics_aggregated
                 self.EthClient.IPFSClient.set_parameters(flwr.common.parameters_to_ndarrays(parameters_prime))
                 model_cid = self.EthClient.IPFSClient.add_model(self.EthClient.IPFSClient.model)
+                if current_round == num_rounds:
+                    print("Making NFT metadata...")
+                    json_metadata = {
+                        "model_uri":model_cid,
+                        "owner":"innoTech Inc",
+                        "owner_address":self.EthClient.EthBase.eval_address,
+                        "description":"This is sample nft of innoTech's FL model. Our model provide powerful Ai model for auto detection of handwriting images.",
+                        "task_name":"Handwriting Digit number classification",
+                        "task_contract_address":self.EthClient.EthBase.contract_address,
+                        "task_framework":"pytorch",
+                        "task_data_type":"MNIST DATA(Gray-scale Image)",
+                        "task_max_trainer":2,
+                    }
+                    with open('metadata.json','w') as f:
+                        json.dump(json_metadata,f,indent=2)
+                    metadata_cid = self.EthClient.IPFSClient.add_metadata('metadata.json')
+                    print("NFT minting ...")
+                    tx_hash = self.EthClient.EthBase.mintNFT(metadata_cid)
+                    self.EthClient.EthBase.wait_for_tx(tx_hash)
+                    print("NFT Minting done.")
+
                 tx = self.EthClient.EthBase.saveGlobalmodel(model_cid, current_round + 1)
                 self.EthClient.EthBase.wait_for_tx(tx)
                 if parameters_prime:
@@ -564,3 +585,4 @@ def _handle_finished_future_after_evaluate(
 
     # Not successful, client returned a result where the status code is not OK
     failures.append(result)
+    

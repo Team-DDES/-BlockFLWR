@@ -1,1 +1,1 @@
-# D-DES (Decentralized & Data Encryption System)
+DES (Decentralized & Data Encryption System)
