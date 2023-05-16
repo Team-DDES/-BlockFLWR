@@ -15,7 +15,6 @@ class Join extends StatefulWidget {
 }
 
 class _JoinPageState extends State<Join> {
-  UserController userController = Get.put(UserController());
   var metamask = MetaMask();
 
   void _loginWithMetaMask() {

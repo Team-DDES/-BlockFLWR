@@ -1,3 +1,4 @@
+import 'package:flutter_web/data/user_check_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -5,21 +6,13 @@ part 'user.g.dart';
 @JsonSerializable()
 class User {
   final int userId;
-  final String userType;
-  final String userName;
-  final String userAddress;
-  final String userEmail;
-  final String userPhone;
+  final UserRegisterData userData;
   final String createDate;
 
   User(
       { required this.userId,
-        required this.userType,
-        required this.userName,
-        required this.userAddress,
-        required this.userEmail,
-        required this.userPhone,
-        required this.createDate,
+        required this.userData,
+        required this.createDate
       });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -56,22 +49,30 @@ class UserResponse {
 
 User dummyUser = User(
   userId: 1,
-  userType: "T",
-  userName: "Dummy User 1",
-  userAddress: "0x123123123",
-  userEmail: "dummy1@example.com",
-  userPhone: "01012345678",
+  userData: dummyRegister,
   createDate: "2023-05-16T00:00:00.000Z",
 );
 
 User dummyOrgUser = User(
   userId: 2,
+  userData: dummyOrgRegister,
+  createDate: "2023-05-16T00:00:00.000Z",
+);
+
+UserRegisterData dummyRegister = UserRegisterData(
+  userType: "T",
+  userName: "Dummy User 1",
+  userAddress: "0x123123123",
+  userEmail: "dummy1@example.com",
+  userPhone: "01012345678",
+);
+
+UserRegisterData dummyOrgRegister = UserRegisterData(
   userType: "E",
   userName: "Dummy User 2",
   userAddress: "0x456456456",
   userEmail: "dummy2@example.com",
   userPhone: "01087654321",
-  createDate: "2023-05-16T00:00:00.000Z",
 );
 
 Result dummyResult = Result(

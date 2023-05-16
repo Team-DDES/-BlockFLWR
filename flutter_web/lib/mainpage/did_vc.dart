@@ -1,9 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
+import 'package:flutter_web/data/user_check_data.dart';
+import 'package:flutter_web/services/clientService.dart';
 import 'package:flutter_web/utils/color_category.dart';
 
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/string_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
+import 'package:get/get.dart';
 
 class DidVc extends StatefulWidget {
   const DidVc({Key? key, required this.title}) : super(key: key);
@@ -14,19 +19,23 @@ class DidVc extends StatefulWidget {
 }
 
 class DidVcPageState extends State<DidVc> {
-  var items = <String>[
-    "list 1",
-    "list 2",
-    "list 3",
-    "list 4",
-    "list 5",
-    "list 6",
+  List<TextEditingController> itemTextControllers = List.generate(
+    4, (index) => TextEditingController(),
+  );
+  final List<String> items = <String>[
+    "Input Name",
+    "input Type (T / E)",
+    "Input Email",
+    "Input phone",
   ];
+
   var itemWidth = 300;
   var itemHeight = 40;
 
   @override
   Widget build(BuildContext context) {
+    var dio = Dio();
+    UserApi createVC = UserApi(dio);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -56,7 +65,8 @@ class DidVcPageState extends State<DidVc> {
                 margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: TextUtils.defaultTextWithSize(StringResources.didIntro, 15)
               ),
-              createDidList(context),
+              for(int i= 0; i < 4; i++)
+                didElement(items[i], i),
               Container(
                 width: 110,
                 height: 30,
@@ -68,6 +78,13 @@ class DidVcPageState extends State<DidVc> {
                     ),
                     onPressed: () {
                       // TODO mainpage로 이동
+                      UserRegisterData postData = UserRegisterData(
+                          userType: ,
+                          userName: userName,
+                          userAddress: userController.address.value,
+                          userEmail: userEmail,
+                          userPhone: userPhone);
+                      createVC.isUser(postData.toJson());
                       Navigator.pushNamed(
                         context,
                         "participate_main_page",
@@ -88,50 +105,38 @@ class DidVcPageState extends State<DidVc> {
     );
   }
 
-  Widget createDidList(context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: itemHeight * 4 + (10 * 4)),
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            for (int i = 0; i < items.length; i++)
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                child: didElement(items[i]),
-              ),
-          ],
+  Widget didElement(String content, int idx) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      width: 300,
+        height: 40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: didElementColor,
+          border: Border.all(color: notSelectTextColor, width: 3),
         ),
-      ),
-    );
-  }
+        child: TextField(
+          onChanged: (value) {
+            setState(() {
 
-  Widget didElement(String content) {
-    if (content == null) {
-      return Container(
-        width: 300,
-        height: 40,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: didElementColor,
-        ),
-      );
-    } else {
-      return Container(
-        width: 300,
-        height: 40,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: didElementColor,
-        ),
-        child: Text(
-          content,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 15),
+            });
+          },
+          controller: itemTextControllers[idx],
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: content,
+            hintStyle: TextStyle(color: notSelectTextColor, fontSize: 15),
+            suffixIcon: IconButton(
+              onPressed: () {
+                itemTextControllers[idx].clear();
+              },
+              icon: Icon(Icons.cancel),
+              color: Colors.black,
+            ),
+            //prefixIcon: const Image(fit: BoxFit.cover, image: AssetImage("assets/images/main_search_icon.png")),
+          ),
         ),
       );
     }
-  }
 }
