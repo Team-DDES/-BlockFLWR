@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html';
 import 'dart:io';
 
@@ -24,14 +25,24 @@ class FilePathBoxState extends State<FilePathBox> {
   Future<void> pickPath() async {
     //TODO 웹에서 path 작동하도록
     if(kIsWeb){
-      FileUploadInputElement uploadInput = await FileUploadInputElement();
-      uploadInput.multiple = false;
-      uploadInput.click();
-      uploadInput.onChange.listen((e) {
-        print('uploadInput :: ' + uploadInput.files!.first.relativePath!);
-        setState(() {
-          selectedPath = uploadInput.files!.first.relativePath!;
-        });
+      final completer = Completer<FileUploadInputElement>();
+      final FileUploadInputElement uploadInput = FileUploadInputElement()
+      ..accept = ''
+      ..multiple = false
+      ..click();
+      uploadInput.onChange.listen((event) {
+        completer.complete(uploadInput);
+      });
+
+      await completer.future;
+      final file = uploadInput.files!.first;
+      final reader = FileReader();
+      reader.readAsDataUrl(file);
+
+      await reader.onLoad.first;
+;
+      setState(() {
+        selectedPath = file.name;
       });
     }else{
       FilePickerResult? result = await FilePicker.platform.pickFiles();

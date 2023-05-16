@@ -1,5 +1,4 @@
 from typing import List, Tuple
-
 import sys
 sys.path.insert(0, '/media/hdd1/es_workspace/D-DES/src/py')
 
@@ -8,7 +7,6 @@ from flwr.common import Metrics
 from flwr.server.client_manager import SimpleClientManager
 from flwr.server.server import EthServer
 
-print("TEST")
 # Define metric aggregation function
 def weighted_average(metrics: List[Tuple[int, Metrics]]) -> Metrics:
     # Multiply accuracy of each client by number of examples used
@@ -23,7 +21,18 @@ def weighted_average(metrics: List[Tuple[int, Metrics]]) -> Metrics:
 strategy = fl.server.strategy.FedAvg(evaluate_metrics_aggregation_fn=weighted_average)
 
 client_manager = SimpleClientManager()
-eth_server = EthServer(client_manager = client_manager, strategy = strategy)
+eth_server = EthServer(client_manager = client_manager,
+                       contract_address=sys.argv[3],
+                       token_address=sys.argv[4],
+                       nft_address=sys.argv[5],
+                       strategy = strategy)
+
+# sys[1] : server address ex) 0.0.0.0:8081
+# sys[2] : num_rounds
+# sys[3] : contract address
+# sys[4] : token_address
+# sys[5] : nft_address
+
 
 
 # Start Flower server

@@ -62,7 +62,13 @@
     </insert>
 
     <select id="getUser">
-        SELECT * 
+        SELECT user_id AS userId,
+               user_type AS userType,
+               user_name AS userName,
+               user_address AS userAddress,
+               user_email AS userEmail,
+               user_phone AS userPhone,
+               created_date AS createDate
         FROM USER 
         WHERE user_address=#{userAddress} 
         AND use_yn='Y'
