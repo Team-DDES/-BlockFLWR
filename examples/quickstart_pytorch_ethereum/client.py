@@ -37,6 +37,15 @@ else:
 # sys[4] : token_address
 # sys[5] : nft_address
 # sys[6] : model type
+# sys.argv[1] = "127.0.0.1:8081"
+# sys.argv[2] = 0
+# sys.argv[3] = contract address
+# sys.argv[4] = token_address
+# sys.argv[5] = nft_address
+# sys.argv[6] = "Cifar"
+
+
+
 
 
 # Define Flower client
@@ -71,6 +80,8 @@ class FlowerClient(fl.client.EthClient):
         # self.set_parameters(parameters)
         if sys.argv[6] == "Cifar":
             Cifar_train(net, train_loader, epochs=1)
+        elif sys.argv[6] == "Mnist":
+            Mnist_train(net, train_loader, epochs=1)
         else:
             PhysNet_train(net, train_loader, epochs=1)
 
@@ -86,6 +97,8 @@ class FlowerClient(fl.client.EthClient):
         self.set_parameters(parameters)
         if sys.argv[6] == "Cifar":
             loss, accuracy = Cifar_test(net, test_loader, epochs=1)
+        elif sys.argv[6] == "Mnist":
+            loss, accuracy = Mnist_test(net, test_loader, epochs=1)
         else:
             loss, accuracy = PhysNet_tset(net, test_loader, epochs=1)
         log(INFO, "accuracy: %s", accuracy)
