@@ -56,6 +56,11 @@ class IPFSClient:
 
         return model_cid
 
+    def add_metadata(self,json_path):
+        with ipfshttpclient.connect(self._ipfs_api) as ipfs:
+            metadata_cid = ipfs.add(json_path)
+        return metadata_cid['Hash']
+
     def architecture_to_ipfs(self,model):
         state_dict = model.state_dict()
         architecture = {}

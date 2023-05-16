@@ -1,13 +1,15 @@
 module.exports  = class TaskModel{
     constructor (data) {
-        this.userId = data.user_id;
-        this.taskName = data.task_name;
-        this.taskPurpose = data.task_purpose;
-        this.taskFramework = data.task_framework;
-        this.taskContractAddress = data.task_contract_address;
-        this.taskDataType = data.task_data_type;
-        this.taskMaxTrainer = data.task_max_trainer;
-        this.taskPort = data.task_port;
-        this.taskStatusCode = data.task_status_code;
+        this.userId = data.userId;
+        this.taskName = data.taskName;
+        this.taskPurpose = data.taskPurpose;
+        this.taskFramework = data.taskFramework;
+        this.taskContractAddress = data.taskContractAddress;
+        this.taskDataType = data.taskDataType;
+        this.taskMaxTrainer = data.taskMaxTrainer;
+        this.taskPort = data.taskPort;
+        this.taskStatusCode = data.taskStatusCode;
+        this.taskId = data.taskId;
+        this.dataPath = data.dataPath;
     }
 }

@@ -37,7 +37,6 @@ from .ipfs_client import IPFSClient
 
 class EthClient(ABC):
     """Abstract base class for Flower clients."""
-    # CONTRACT_ADDRESS = "0x8324294b725cD2f8520f8F6e75ee8a8325Ad60f4"
     ROUND_DURATION = 20000
     def __init__(self,
                  cid: str,

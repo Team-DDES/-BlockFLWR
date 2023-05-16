@@ -46,8 +46,29 @@
             )
     </insert>
 
+    <insert id="insertTaskParticipate">
+        INSERT INTO
+        TASK_PARTICIPATE (
+                task_id,
+                user_id,
+                data_path
+            )
+        VALUES
+            (
+                #{taskId},
+                #{userId},
+                #{dataPath}
+            )
+    </insert>
+
     <select id="getUser">
-        SELECT * 
+        SELECT user_id AS userId,
+               user_type AS userType,
+               user_name AS userName,
+               user_address AS userAddress,
+               user_email AS userEmail,
+               user_phone AS userPhone,
+               created_date AS createDate
         FROM USER 
         WHERE user_address=#{userAddress} 
         AND use_yn='Y'
@@ -57,18 +78,25 @@
         SELECT tu.* ,
         @rownum := @rownum +1 AS row_num
         FROM 
-            (SELECT t.task_id,
-                t.task_name,
-                t.task_status_code,
-                t.task_contract_address,
-                t.task_purpose,
-                t.task_framework,
-                t.task_data_type,
-                t.task_max_trainer,
-                t.task_port,
-                u.user_id AS organization_user_id,
-                u.user_name
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+             <if test="trainerUserId != null">
+    	        ,tp.data_path AS dataPath
+                ,tp.user_id AS trainerUserId
+             </if>    
             FROM TASK t, USER u
+             <if test="trainerUserId != null">
+    	       ,TASK_PARTICIPATE tp
+             </if>
             WHERE t.user_id = u.user_id
              <if test="organizationUserId != null">
     	        AND u.user_id = #{organizationUserId}
@@ -76,11 +104,20 @@
              <if test="taskStatusCode != null">
     	        AND t.task_status_code = #{taskStatusCode}
              </if>
+             <if test="trainerUserId != null">
+    	        AND tp.task_Id = t.task_Id
+             </if>
             ) tu,
             (SELECT @rownum:=0) r
         WHERE
-        lower(tu.task_name) like lower(CONCAT('%', #{searchText}, '%')) OR lower(tu.user_name) like lower(CONCAT('%', #{searchText}, '%')) 
-        ORDER BY task_id DESC
+        1=1
+        <if test="searchText != null">
+    	   AND lower(tu.taskName) like lower(CONCAT('%', #{searchText}, '%')) OR lower(tu.userName) like lower(CONCAT('%', #{searchText}, '%')) 
+        </if>
+        <if test="taskId != null">
+    	   AND tu.taskId=#{taskId}
+        </if>
+        ORDER BY taskId DESC
     </select>   
 
 </mapper>

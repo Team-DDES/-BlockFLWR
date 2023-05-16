@@ -1,6 +1,9 @@
 import warnings
 from collections import OrderedDict
 
+import sys
+sys.path.insert(0, '/media/hdd1/ddes/src/py')	
+
 import flwr as fl
 import torch
 import torch.nn as nn
@@ -141,8 +144,8 @@ class FlowerClient(fl.client.EthClient):
 
 # Start Flower client
 fl.client.start_eth_client(
-    server_address=sys.argv[1],
-    client=FlowerClient(cid=sys.argv[2]),
+    server_address=str(sys.argv[1]),
+    client=FlowerClient(cid=str(sys.argv[2])),
 )
 # fl.client.start_eth_client(
 #     server_address="127.0.0.1:8081",

@@ -13,10 +13,20 @@ const connection = mysql.createConnection({
   commonMapper.createMapper(['./database/mapper/common.xml']);
 
 async function insertUser(data,callback){
-    console.log(data);
     let query = commonMapper.getStatement('common', 'insertUser', data, format);
     
-    await connection.query(query, (err, result) =>{
+    connection.query(query, (err, result) => {
+        if (err) {
+            callback({ 'data': err, 'type': false });
+        } else {
+            callback({ 'data': result, 'type': true });
+        }
+    });
+}
+
+async function insertTask(data,callback){
+    let query = commonMapper.getStatement('common', 'insertTask', data, format);
+    connection.query(query, (err, result) =>{
         if (err){
             callback({'data':err,'type':false});
         }else{
@@ -25,9 +35,10 @@ async function insertUser(data,callback){
     });
 }
 
-async function insertTask(data,callback){
-    let query = commonMapper.getStatement('common', 'insertTask', data, format);
-    await connection.query(query, (err, result) =>{
+
+async function insertTaskParticipate(data,callback){
+    let query = commonMapper.getStatement('common', 'insertTaskParticipate', data, format);
+    connection.query(query, (err, result) =>{
         if (err){
             callback({'data':err,'type':false});
         }else{
@@ -37,10 +48,8 @@ async function insertTask(data,callback){
 }
 
 async function getUser(data,callback){
-    
     let query = commonMapper.getStatement('common', 'getUser', data, format);
-    
-    await connection.query(query, (err, rows) =>{
+    connection.query(query, (err, rows) =>{
         if (err){
             callback({'data':err,'type':false});
         }else{
@@ -57,7 +66,7 @@ async function getTask(data,callback){
    
     let query = commonMapper.getStatement('common', 'getTask', data);
     console.log(query);
-    await connection.query(query, (err, rows) =>{
+    connection.query(query, (err, rows) =>{
         if (err){
             callback({'data':err,'type':false});
         }else{
@@ -72,6 +81,7 @@ async function getTask(data,callback){
 module.exports = {
     insertUser,
     insertTask,
+    insertTaskParticipate,
     getUser,
     getTask
 }
