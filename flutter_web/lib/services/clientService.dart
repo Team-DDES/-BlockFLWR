@@ -1,4 +1,5 @@
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/data/user_register.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
@@ -11,7 +12,7 @@ abstract class UserApi {
   factory UserApi(Dio dio, {String baseUrl}) = _UserApi;
 
   @POST("user/join/")
-  Future<List<User>> registerUser(@Body() Map<String, dynamic> data);
+  Future<UserRegister> registerUser(@Body() Map<String, dynamic> data);
   @GET("user/")
   Future<UserResponse> isUser(@Body() Map<String, dynamic> data);
 }

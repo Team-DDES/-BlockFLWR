@@ -6,7 +6,8 @@ import 'package:metamask/metamask.dart';
 
 import 'package:flutter_web/utils/style_resources.dart';
 
-import '../services/clientService.dart';
+import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/services/clientService.dart';
 
 class Join extends StatefulWidget {
   const Join({Key? key, required this.title}) : super(key: key);
@@ -36,8 +37,10 @@ class _JoinPageState extends State<Join> {
             userController.signature.value = metamask.signature.toString();
 
             clientApi.isUser({"userAddress": metamask.signature}).then((value) {
+              globalUser = value;
               if (value.result.code == 403) {
                 Navigator.pushNamed(context, "did_vc");
+
               } else if (value.result.code == 200 && value.data != null) {
                 if(value.data.userData.userType == "T"){
                   Navigator.pushNamed(

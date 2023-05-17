@@ -9,5 +9,5 @@ abstract class TaskApi {
   factory TaskApi(Dio dio, {String baseUrl}) = _TaskApi;
 
   @GET("task/list/")
-  Future<List<BCFL>> taskList(@Body() Map<String, dynamic> data);
+  Future<List<BCFL>> getTaskList(@Body() Map<String, dynamic> data);
 }

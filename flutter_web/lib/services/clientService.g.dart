@@ -21,14 +21,14 @@ class _UserApi implements UserApi {
   String? baseUrl;
 
   @override
-  Future<List<User>> registerUser(data) async {
+  Future<UserRegister> registerUser(data) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(data);
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UserRegister>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -40,9 +40,7 @@ class _UserApi implements UserApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => User.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = UserRegister.fromJson(_result.data!);
     return value;
   }
 

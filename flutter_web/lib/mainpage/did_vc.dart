@@ -84,11 +84,17 @@ class DidVcPageState extends State<DidVc> {
                           userType: itemTextControllers[1].text,
                           userEmail: itemTextControllers[2].text,
                           userPhone: itemTextControllers[3].text);
-                      createVC.isUser(postData.toJson());
-                      Navigator.pushNamed(
-                        context,
-                        "participate_main_page",
-                      );
+                      createVC.registerUser(postData.toJson()).then((value) {
+                        if(value.result.code == "200"){
+                          Navigator.pushNamed(
+                            context,
+                            "participate_main_page",
+                          );
+                        }else{
+                          //Popup 생성
+                          print("Not Create VC");
+                        }
+                      });
                     },
                     child: Container(
                       alignment: Alignment.center,

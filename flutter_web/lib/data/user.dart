@@ -92,3 +92,5 @@ UserResponse dummyUser2 = UserResponse(
 
 String typeOrganization = "E";
 String typeParticipant = "T";
+
+late UserResponse globalUser;
