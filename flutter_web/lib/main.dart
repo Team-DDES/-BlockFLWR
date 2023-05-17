@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  WalletConnectionManager().start();
   runApp(const MyApp());
 }
 

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
+import 'package:get/get.dart';
 
 class BaseMainView extends StatefulWidget {
   var child;
   var userName;
   var userType;
-  var isConnect;
 
-  BaseMainView(
-      {required this.child,
-      required this.userName,
-      required this.userType,
-      required this.isConnect});
+  BaseMainView({
+    required this.child,
+    required this.userName,
+    required this.userType,
+  });
 
   @override
   State<BaseMainView> createState() => BaseMainViewState();
@@ -95,15 +96,17 @@ class BaseMainViewState extends State<BaseMainView> {
                 child: TextUtils.defaultTextWithSize("Wallet connection", 17),
               ),
               Container(
-                height: 45,
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.all(10),
-                child: Image(
-                    image: widget.isConnect
-                        ? AssetImage('assets/images/main_wallet_connection.png')
-                        : AssetImage(
-                            'assets/images/main_wallet_notconnect.png')),
-              ),
+                  height: 45,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.all(10),
+                  child: Obx(() {
+                    return Image(
+                        image: userController.walletConnect.value
+                            ? AssetImage(
+                                'assets/images/main_wallet_connection.png')
+                            : AssetImage(
+                                'assets/images/main_wallet_notconnect.png'));
+                  })),
             ],
           ),
         ),

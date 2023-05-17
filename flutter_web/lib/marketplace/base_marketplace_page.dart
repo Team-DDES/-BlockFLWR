@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
+import 'package:get/get.dart';
 
 class BaseMarketplaceView extends StatefulWidget {
   var child;
-  var isConnect;
 
-  BaseMarketplaceView({super.key, required this.child, required this.isConnect});
+  BaseMarketplaceView({super.key, required this.child});
 
   @override
   State<BaseMarketplaceView> createState() => BaseMarketplaceViewState();
@@ -46,7 +47,9 @@ class BaseMarketplaceViewState extends State<BaseMarketplaceView> {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                child: TextUtils.defaultTextWithSizeColor("BCFL MarketPlace", 25, color: textWhite),
+                child: TextUtils.defaultTextWithSizeColor(
+                    "BCFL MarketPlace", 25,
+                    color: textWhite),
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(50, 15, 30, 15),
@@ -75,11 +78,14 @@ class BaseMarketplaceViewState extends State<BaseMarketplaceView> {
                 height: 45,
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.all(10),
-                child: Image(
-                    image: widget.isConnect
-                        ? const AssetImage('assets/images/main_wallet_connection.png')
-                        : const AssetImage(
-                            'assets/images/main_wallet_notconnect.png')),
+                child: Obx(() {
+                  return Image(
+                      image: userController.walletConnect.value
+                          ? AssetImage(
+                              'assets/images/main_wallet_connection.png')
+                          : AssetImage(
+                              'assets/images/main_wallet_notconnect.png'));
+                }),
               ),
             ],
           ),

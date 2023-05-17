@@ -19,7 +19,6 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
   static double maxCapacity = 9;
   var userName = "@ID";
   var userType = "part";
-  var isConnect = true;
 
   final capacity = 9;
   final List<BCFL> filteredData = <BCFL>[];
@@ -34,8 +33,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
       child: BaseMainView(
           child: taskSearchTable(context, dummyBCFLList),
           userName: userName,
-          userType: userType,
-          isConnect: isConnect),
+          userType: userType,),
     );
   }
 

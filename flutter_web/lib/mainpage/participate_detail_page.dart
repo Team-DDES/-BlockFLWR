@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 import 'package:flutter_web/mainpage/participate_datapath_popup.dart';
+import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/utils/text_utils.dart';
 
 import 'package:flutter_web/data/bcfl.dart';
@@ -28,15 +29,13 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
     } catch (Exception) {
       selectedItem = dummyBCFLList[0];
     }
-    var userName = dummyUser.userName;
-    var userType = dummyUser.userType;
-    var isConnect = walletConnect;
+    var userName = dummyUser.userData.userName;
+    var userType = dummyUser.userData.userType;
 
     return BaseMainView(
         child: detailPopup(selectedItem),
         userName: userName,
-        userType: userType,
-        isConnect: isConnect);
+        userType: userType,);
   }
 
   Widget detailPopup(BCFL data) {

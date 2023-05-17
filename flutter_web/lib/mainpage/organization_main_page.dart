@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/string_resources.dart';
 import 'package:flutter_web/utils/style_resources.dart';
@@ -20,14 +20,12 @@ class OrganizationMainPage extends StatefulWidget {
 class OrganizationMainPageState extends State<OrganizationMainPage> {
   @override
   Widget build(BuildContext context) {
-    var userName = dummyOrgUser.userName;
-    var userType = dummyOrgUser.userType;
-    var isConnect = walletConnect;
+    var userName = dummyOrgUser.userData.userName;
+    var userType = dummyOrgUser.userData.userType;
 
     return BaseMainView(
       userName: userName,
       userType: userType,
-      isConnect: isConnect,
       child: organizationView(context),
     );
   }

@@ -4,12 +4,10 @@ import 'package:retrofit/retrofit.dart';
 
 part 'taskServices.g.dart';
 
-@RestApi(baseUrl: "tvstorm-ai.asuscomm.com:12300/flower/task")
+@RestApi(baseUrl: "tvstorm-ai.asuscomm.com:12300/flower/")
 abstract class TaskApi {
   factory TaskApi(Dio dio, {String baseUrl}) = _TaskApi;
 
-  @POST("/participate")
-  Future<List<BCFL>> participateTask();
-  @GET("/list")
-  Future<List<BCFL>> taskList();
+  @GET("task/list/")
+  Future<List<BCFL>> taskList(@Body() Map<String, dynamic> data);
 }

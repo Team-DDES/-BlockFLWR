@@ -13,7 +13,7 @@ class _TaskApi implements TaskApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'tvstorm-ai.asuscomm.com:12300/flower/task';
+    baseUrl ??= 'tvstorm-ai.asuscomm.com:12300/flower/';
   }
 
   final Dio _dio;
@@ -21,36 +21,12 @@ class _TaskApi implements TaskApi {
   String? baseUrl;
 
   @override
-  Future<List<BCFL>> participateTask() async {
+  Future<List<BCFL>> taskList(data) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<BCFL>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/participate',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => BCFL.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
-  Future<List<BCFL>> taskList() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(data);
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<BCFL>>(Options(
       method: 'GET',
@@ -59,7 +35,7 @@ class _TaskApi implements TaskApi {
     )
             .compose(
               _dio.options,
-              '/list',
+              'task/list/',
               queryParameters: queryParameters,
               data: _data,
             )
