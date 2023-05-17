@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
+import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/utils/text_utils.dart';
 
 import 'package:flutter_web/data/user.dart';
@@ -29,14 +30,12 @@ class OrganizationRegisterPageState extends State<OrganizationRegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    var userName = dummyUser.userName;
-    var userType = dummyUser.userType;
-    var isConnect = walletConnect;
+    var userName = dummyUser.userData.userName;
+    var userType = dummyUser.userData.userType;
 
     return BaseMainView(
         userName: userName,
         userType: userType,
-        isConnect: isConnect,
         child: taskRegister());
   }
 

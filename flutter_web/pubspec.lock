@@ -275,6 +275,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web3_provider:
+    dependency: "direct dev"
+    description:
+      name: flutter_web3_provider
+      sha256: "8c74608a729c8b674d256192a64564a3edbe74a4f119fd9bbde5ee7ae6ffbd7f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

@@ -3,6 +3,7 @@ import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/marketplace/base_marketplace_page.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/style_resources.dart';
@@ -17,9 +18,8 @@ class MarketplaceMainPage extends StatefulWidget {
 }
 
 class MarketplaceMainPageState extends State<MarketplaceMainPage> {
-  var userName = dummyUser.userName;
-  var userType = dummyUser.userType;
-  var isConnect = walletConnect;
+  var userName = dummyUser.userData.userName;
+  var userType = dummyUser.userData.userType;
   var currentQuery = "";
 
   final maxCapacity = 3;
@@ -30,7 +30,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseMarketplaceView(isConnect: isConnect, child: childWidget());
+    return BaseMarketplaceView(child: childWidget());
   }
 
   Widget childWidget() {

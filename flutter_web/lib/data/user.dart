@@ -35,7 +35,7 @@ class Result {
 
 @JsonSerializable()
 class UserResponse {
-  final List<User> data;
+  final User data;
   final Result result;
 
   UserResponse({
@@ -81,14 +81,16 @@ Result dummyResult = Result(
 );
 
 UserResponse dummyUser1 = UserResponse(
-  data: [dummyUser],
+  data: dummyUser,
   result: dummyResult,
 );
 
 UserResponse dummyUser2 = UserResponse(
-  data: [dummyOrgUser],
+  data: dummyOrgUser,
   result: dummyResult,
 );
 
 String typeOrganization = "E";
 String typeParticipant = "T";
+
+late UserResponse globalUser;

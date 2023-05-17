@@ -13,7 +13,7 @@ class _UserApi implements UserApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'tvstorm-ai.asuscomm.com:12300/flower/user';
+    baseUrl ??= 'tvstorm-ai.asuscomm.com:12300/flower/';
   }
 
   final Dio _dio;
@@ -21,54 +21,50 @@ class _UserApi implements UserApi {
   String? baseUrl;
 
   @override
-  Future<List<User>> registerUser(data) async {
+  Future<UserRegister> registerUser(data) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(data);
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UserRegister>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/user/join',
+              'user/join/',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => User.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = UserRegister.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<List<User>> isUser(data) async {
+  Future<UserResponse> isUser(data) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(data);
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UserResponse>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/user/join',
+              'user/',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => User.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = UserResponse.fromJson(_result.data!);
     return value;
   }
 

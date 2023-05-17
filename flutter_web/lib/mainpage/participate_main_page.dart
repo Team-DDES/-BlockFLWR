@@ -8,6 +8,7 @@ import 'package:flutter_web/mainpage/participate_detail_popup.dart';
 import 'package:flutter_web/mainpage/participate_search_page.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/string_resources.dart';
 import 'package:flutter_web/utils/style_resources.dart';
@@ -22,15 +23,13 @@ class ParticipateMainPage extends StatefulWidget {
 }
 
 class ParticipateMainPageState extends State<ParticipateMainPage> {
-  var userName = dummyUser.userName;
-  var userType = dummyUser.userType;
-  var isConnect = walletConnect;
+  var userName = dummyUser.userData.userType;
+  var userType = dummyUser.userData.userType;
   @override
   Widget build(BuildContext context) {
     return BaseMainView(
       userName: userName,
       userType: userType,
-      isConnect: isConnect,
       child: participateView(context),
     );
   }
@@ -167,7 +166,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
                               ? Navigator.pushNamed(
                                   context, "participate_detail_page",
                                   arguments: postContent)
-                              : ParticipateDetailPopup.showDetailPopup(context, content, dummyUser.userType);
+                              : ParticipateDetailPopup.showDetailPopup(context, content, dummyUser.userData.userType);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
