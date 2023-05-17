@@ -1,0 +1,6 @@
+Compiling your contracts...
+   > contract address:    0x7401C09D3663Cf9F14193f18C74de76D2bF6787a
+2_deploy_contracts.js
+   > contract address:    0x89612B125C631EB0bEEC36d5D9139df11076c3a1
+   > contract address:    0x0Fc5332F91c2fB206F7383075f57fB2eBBC13A7f
+   > contract address:    0x6276Ee588a390497D4B3C60E9B9b0AcBF2892160

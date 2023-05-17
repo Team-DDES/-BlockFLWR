@@ -25,24 +25,20 @@
                 user_id,
                 task_name,
                 task_status_code,
-                task_contract_address,
                 task_purpose,
                 task_framework,
                 task_data_type,
-                task_max_trainer,
-                task_port
+                task_max_trainer
             )
         VALUES
             (
                 #{userId},
                 #{taskName},
                 #{taskStatusCode},
-                #{taskContractAddress},
                 #{taskPurpose},
                 #{taskFramework},
                 #{taskDataType},
-                #{taskMaxTrainer},
-                #{taskPort}
+                #{taskMaxTrainer}
             )
     </insert>
 
@@ -60,7 +56,11 @@
                 #{dataPath}
             )
     </insert>
-
+    <update id="updateTask">
+        UPDATE TASK 
+        SET task_contract_address = #{taskContractAddress}, task_status_code = #{taskStatusCode}
+        WHERE task_id = #{taskId}
+    </update>
     <select id="getUser">
         SELECT user_id AS userId,
                user_type AS userType,

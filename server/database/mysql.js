@@ -47,6 +47,18 @@ async function insertTaskParticipate(data,callback){
     });
 }
 
+async function updateTask(data,callback){
+    console.log(data);
+    let query = commonMapper.getStatement('common', 'updateTask', data, format);
+    connection.query(query, (err, result) =>{
+        if (err){
+            callback({'data':err,'type':false});
+        }else{
+            callback({'data':result,'type':true});
+        }
+    });
+}
+
 async function getUser(data,callback){
     let query = commonMapper.getStatement('common', 'getUser', data, format);
     connection.query(query, (err, rows) =>{
@@ -82,6 +94,7 @@ module.exports = {
     insertUser,
     insertTask,
     insertTaskParticipate,
+    updateTask,
     getUser,
     getTask
 }

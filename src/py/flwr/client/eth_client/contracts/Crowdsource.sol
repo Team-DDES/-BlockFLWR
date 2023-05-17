@@ -1,10 +1,11 @@
 // pragma solidity >=0.4.21 <0.7.0;
 pragma solidity ^0.8.6;
 pragma experimental ABIEncoderV2;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /// @title Records contributions made to a Crowdsourcing Federated Learning process
 /// @author Harry Cai
-contract Crowdsource {
+contract Crowdsource is ERC20 {
     /// @notice Address of contract creator, who evaluates updates
     address public evaluator;
 
@@ -35,7 +36,7 @@ contract Crowdsource {
     /// @dev The IPFS CIDs of model updates made by each address
     mapping(address => bytes32[]) internal updatesFromAddress;
 
-    /// @dev The Account of model updates 
+    /// @dev The Account of model updates
     mapping( bytes32 => address) internal accountsFromUpdate;
 
     /// @dev Whether or not each model update has been evaluated
@@ -58,16 +59,17 @@ contract Crowdsource {
         int256 score;
     }
 
-    /// @dev Account, Scores by cids 
+    /// @dev Account, Scores by cids
     mapping(bytes32 => ScoreandAccount) internal score;
 
     event Log(string _myString , uint256 round);
 
     /// @notice Constructor. The address that deploys the contract is set as the evaluator.
-    constructor() public {
+       constructor() public ERC20("FLToken","FLT"){
         // evaluator = msg.sender;
+        _mint(msg.sender,1e25);
         evaluator = tx.origin;
-    }
+        }
 
     modifier evaluatorOnly() {
         // require(msg.sender == evaluator, "Not the registered evaluator");
@@ -102,14 +104,14 @@ contract Crowdsource {
 
     function isTrainer(address _address, uint256 _round) external view returns (bool trainCheckFlag){
         trainCheckFlag=false;
-        
+
         for(uint i = 0; i < curTrainers[_round].length ; i++){
             if(curTrainers[_round][i] == _address){
                 trainCheckFlag= true;
             }else{
                 continue;
             }
-        } 
+        }
         return trainCheckFlag;
     }
 

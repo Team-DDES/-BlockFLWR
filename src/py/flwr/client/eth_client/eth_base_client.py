@@ -68,19 +68,14 @@ class _BaseContractClient(_BaseEthClient):
     """
 
     IPFS_HASH_PREFIX = bytes.fromhex('1220')  # IPFS 해쉬값 접두사
-
     def __init__(self, contract_json_path,nft_json_path, account_idx,
                  contract_address,
-                 token_address,
                  nft_address,
                  deploy):
         super().__init__(account_idx)
-
-        self._contract_json_path = contract_json_path
-        self._nft_json_path = nft_json_path
         #TODO : token_address, nft_address
-        self._contract, self.contract_address = self._instantiate_contract(self._contract_json_path,contract_address, deploy)
-        self._nft_contract, self.nft_contract_address = self._instantiate_contract(self._nft_json_path,nft_address,deploy)
+        self._contract, self.contract_address = self._instantiate_contract(contract_json_path,contract_address, deploy)
+        self._nft_contract, self.nft_contract_address = self._instantiate_contract(nft_json_path,nft_address, deploy)
 
     def _instantiate_contract(self, contract_json_path, address=None, deploy=False):
         # 가나슈에 배포된 컨트랙트의 json 파일을 인스턴스화
@@ -154,13 +149,12 @@ class _EthClient(_BaseContractClient):
     Wrapper over the Crowdsource.sol ABI, to gracefully bridge Python data to Solidity.
     The API of this class should match that of the smart contract.
     """
-    def __init__(self, account_idx,contract_address,token_address, nft_address, deploy):
+    def __init__(self, account_idx,contract_address, nft_address, deploy):
         super().__init__(
             os.path.dirname(os.path.abspath(__file__))+"/build/contracts/Crowdsource.json",
             os.path.dirname(os.path.abspath(__file__))+"/build/contracts/NFT.json",
             account_idx,
             contract_address,
-            token_address,
             nft_address,
             deploy
         )
@@ -315,6 +309,18 @@ class _EthClient(_BaseContractClient):
         cid_bytes = self._contract.functions.getModelArchitecture().call()
         arch_cid = self._from_bytes32(cid_bytes)
         return arch_cid
+
+    # TOKEN FUNCTIONS
+    def transfer(self, to, amount):
+        tx = self._contract.functions.transferFrom(self.eval_address, to, amount).buildTransaction(self.get_tx_param())
+        tx_hash = self.signedHash(tx, os.environ["METAMASK_EVALUATOR_PRIVATE_KEY"])
+        self.txs.append(tx_hash)
+        return tx_hash
+
+    # maybe don't use..
+    def balanceOf(self, account):
+        balance = self._contract.functions.balanceOf(account)
+        return balance
 
     # NFT FUNCTIONS
     def mintNFT(self, tokenURI):

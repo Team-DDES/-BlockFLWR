@@ -16,6 +16,13 @@ def weighted_average(metrics: List[Tuple[int, Metrics]]) -> Metrics:
     # Aggregate and return custom metric (weighted average)
     return {"accuracy": sum(accuracies) / sum(examples)}
 
+num = 6
+add = "0.0.0.0:8083"
+round = 2
+cont = "0x9CBa1cF5f96FDbd0242dCb7B3cBa6C136F16Ba30"
+cont_N ="0x438b06ab7B23EC536C2Eb292F449B490069D0A64"
+
+sys.argv = [num,add, round, cont, cont_N]
 
 # Define strategy
 strategy = fl.server.strategy.FedAvg(evaluate_metrics_aggregation_fn=weighted_average)
@@ -23,8 +30,7 @@ strategy = fl.server.strategy.FedAvg(evaluate_metrics_aggregation_fn=weighted_av
 client_manager = SimpleClientManager()
 eth_server = EthServer(client_manager = client_manager,
                        contract_address=sys.argv[3],
-                       token_address=sys.argv[4],
-                       nft_address=sys.argv[5],
+                       nft_address=sys.argv[4],
                        strategy = strategy)
 
 # sys[1] : server address ex) 0.0.0.0:8081
@@ -37,7 +43,8 @@ eth_server = EthServer(client_manager = client_manager,
 
 # Start Flower server
 fl.server.start_server(
-    server_address="0.0.0.0:"+str(sys.argv[1]), # server port is 8081, cause by ipfs address
+    server_address=str(sys.argv[1]), # server port is 8081, cause by ipfs address
+    # server_address="0.0.0.0:"+"8081", # server port is 8081, cause by ipfs address
     server = eth_server,
     config = fl.server.ServerConfig(num_rounds=int(sys.argv[2])),
     strategy=strategy,
