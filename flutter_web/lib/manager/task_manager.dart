@@ -11,9 +11,9 @@ class TaskManager{
     return sInstance;
   }TaskManager._internal();
 
-  List<BCFL> taskListParticiable;
-  List<BCFL> taskListByE;
-  List<BCFL> taskListByT;
+   List<BCFL> taskListParticiable = <BCFL>[];
+   List<BCFL> taskListByE = <BCFL>[];
+   List<BCFL> taskListByT = <BCFL>[];
 
   void initTaskList(){
     var dio = Dio();
@@ -29,8 +29,8 @@ class TaskManager{
       "taskStatusCode": 2
     };
 
-    taskApi.getTaskList(mapParticiable);
-    taskApi.getTaskList(mapByE);
-    taskApi.getTaskList(mapByT);
+    taskApi.getTaskList(mapParticiable).then((value) => taskListParticiable);
+    taskApi.getTaskList(mapByE).then((value) => taskListByE);
+    taskApi.getTaskList(mapByT).then((value) => taskListByT);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/manager/task_manager.dart';
 import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/marketplace/base_marketplace_page.dart';
 import 'package:flutter_web/utils/color_category.dart';
@@ -18,8 +19,8 @@ class MarketplaceMainPage extends StatefulWidget {
 }
 
 class MarketplaceMainPageState extends State<MarketplaceMainPage> {
-  var userName = dummyUser.userData.userName;
-  var userType = dummyUser.userData.userType;
+  var userName = globalUser.data.userData.userName;
+  var userType = globalUser.data.userData.userType;
   var currentQuery = "";
 
   final maxCapacity = 3;
@@ -94,9 +95,10 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Expanded(flex: 3, child: introOrgCard(dummyBCFLList[0], false)),
+          //TODO MarketPlace 관련 task
+          Expanded(flex: 3, child: introOrgCard(TaskManager.sInstance.taskListParticiable[0], false)),
           Spacer(),
-          Expanded(flex: 3, child: introOrgCard(dummyBCFLList[1], false)),
+          Expanded(flex: 3, child: introOrgCard(TaskManager.sInstance.taskListParticiable[1], false)),
           Spacer(),
           Expanded(flex: 3, child: introRecentCard()),
         ],
@@ -204,7 +206,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
   }
 
   Widget introRecentCard() {
-    List<BCFL> recentFL = dummyBCFLList.sublist(2, 6);
+    List<BCFL> recentFL = TaskManager.sInstance.taskListParticiable.sublist(2, 6);
     return Container(
         width: 300,
         height: 500,

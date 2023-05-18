@@ -3,6 +3,7 @@ import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/manager/task_manager.dart';
 import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/string_resources.dart';
@@ -20,8 +21,8 @@ class OrganizationMainPage extends StatefulWidget {
 class OrganizationMainPageState extends State<OrganizationMainPage> {
   @override
   Widget build(BuildContext context) {
-    var userName = dummyOrgUser.userData.userName;
-    var userType = dummyOrgUser.userData.userType;
+    var userName = globalUser.data.userData.userName;
+    var userType = globalUser.data.userData.userType;
 
     return BaseMainView(
       userName: userName,
@@ -50,11 +51,11 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
             ),
           ),
         ),
-        taskTable(context, StringResources.taskInProgress, dummyBCFLList),
+        taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListParticiable),
         Container(
           height: 30,
         ),
-        taskTable(context, StringResources.pastTask, dummyBCFLList),
+        taskTable(context, StringResources.pastTask, TaskManager.sInstance.taskListByE),
       ],
     );
   }

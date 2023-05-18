@@ -30,8 +30,8 @@ class OrganizationRegisterPageState extends State<OrganizationRegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    var userName = dummyUser.userData.userName;
-    var userType = dummyUser.userData.userType;
+    var userName = globalUser.data.userData.userName;
+    var userType = globalUser.data.userData.userType;
 
     return BaseMainView(
         userName: userName,

@@ -21,7 +21,7 @@ class _TaskApi implements TaskApi {
   String? baseUrl;
 
   @override
-  Future<List<BCFL>> taskList(data) async {
+  Future<List<BCFL>> getTaskList(data) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

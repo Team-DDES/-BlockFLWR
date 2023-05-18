@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 import 'package:flutter_web/mainpage/participate_main_page.dart';
+import 'package:flutter_web/manager/task_manager.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 
 import 'package:flutter_web/data/bcfl.dart';
@@ -31,7 +32,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
     return Container(
       height: 60 * maxCapacity + (10 * maxCapacity),
       child: BaseMainView(
-          child: taskSearchTable(context, dummyBCFLList),
+          child: taskSearchTable(context, TaskManager.sInstance.taskListByT),
           userName: userName,
           userType: userType,),
     );
@@ -114,13 +115,13 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
                 ParticipateMainPageState.createTaskList(
                     context,
                     filteredData.isEmpty
-                        ? createDisplayData(dummyBCFLList, selectPage)
+                        ? createDisplayData(TaskManager.sInstance.taskListByT, selectPage)
                         : createDisplayData(filteredData, selectPage),
                     true),
                 Stack(
                   children: [
                     pagerList(context,
-                        filteredData.isEmpty ? dummyBCFLList : filteredData),
+                        filteredData.isEmpty ? TaskManager.sInstance.taskListByT : filteredData),
                     Container(
                         height: 30,
                         alignment: Alignment.bottomLeft,
@@ -206,13 +207,13 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
   void filterData(String query) {
     filteredData.clear();
     if (query.isNotEmpty) {
-      for (var item in dummyBCFLList) {
+      for (var item in TaskManager.sInstance.taskListByT) {
         if (item.containKeyword(query)) {
           filteredData.add(item);
         }
       }
     } else {
-      filteredData.addAll(dummyBCFLList);
+      filteredData.addAll(TaskManager.sInstance.taskListByT);
     }
     setState(() {});
   }

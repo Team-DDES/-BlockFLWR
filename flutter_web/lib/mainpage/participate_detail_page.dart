@@ -27,10 +27,10 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
       args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
       selectedItem = args['content'];
     } catch (Exception) {
-      selectedItem = dummyBCFLList[0];
+
     }
-    var userName = dummyUser.userData.userName;
-    var userType = dummyUser.userData.userType;
+    var userName = globalUser.data.userData.userName;
+    var userType = globalUser.data.userData.userType;
 
     return BaseMainView(
         child: detailPopup(selectedItem),

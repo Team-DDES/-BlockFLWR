@@ -8,6 +8,7 @@ import 'package:flutter_web/mainpage/participate_detail_popup.dart';
 import 'package:flutter_web/mainpage/participate_search_page.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/manager/task_manager.dart';
 import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/string_resources.dart';
@@ -23,8 +24,8 @@ class ParticipateMainPage extends StatefulWidget {
 }
 
 class ParticipateMainPageState extends State<ParticipateMainPage> {
-  var userName = dummyUser.userData.userType;
-  var userType = dummyUser.userData.userType;
+  var userName = globalUser.data.userData.userType;
+  var userType = globalUser.data.userData.userType;
   @override
   Widget build(BuildContext context) {
     return BaseMainView(
@@ -54,11 +55,11 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
             ),
           ),
         ),
-        taskTable(context, StringResources.taskInProgress, dummyBCFLList),
+        taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListParticiable),
         Container(
           height: 30,
         ),
-        taskTable(context, StringResources.pastTask, dummyBCFLList),
+        taskTable(context, StringResources.pastTask, TaskManager.sInstance.taskListByT),
       ],
     );
   }
@@ -166,7 +167,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
                               ? Navigator.pushNamed(
                                   context, "participate_detail_page",
                                   arguments: postContent)
-                              : ParticipateDetailPopup.showDetailPopup(context, content, dummyUser.userData.userType);
+                              : ParticipateDetailPopup.showDetailPopup(context, content, globalUser.data.userData.userType);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
