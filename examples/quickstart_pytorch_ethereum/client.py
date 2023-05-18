@@ -2,7 +2,7 @@ import warnings
 from collections import OrderedDict
 
 import sys
-sys.path.insert(0, '/media/hdd1/ddes/src/py')	
+sys.path.insert(0, '/media/hdd1/es_workspace/D-DES/src/py')
 
 import flwr as fl
 import torch
@@ -16,6 +16,15 @@ from logging import DEBUG, INFO
 from flwr.common.logger import log
 
 import sys
+
+num = 6
+add = "127.0.0.1:8083"
+cid = 1
+cont = "0x9CBa1cF5f96FDbd0242dCb7B3cBa6C136F16Ba30"
+cont_N ="0x438b06ab7B23EC536C2Eb292F449B490069D0A64"
+
+
+sys.argv = [num,add, cid, cont, cont_N]
 
 # #############################################################################
 # 1. Regular PyTorch pipeline: nn.Module, train, test, and DataLoader
@@ -99,8 +108,7 @@ class FlowerClient(fl.client.EthClient):
     def __init__(self,
                  cid: str,
                  ):
-        super(FlowerClient, self).__init__(cid,sys.argv[3],sys.argv[4],sys.argv[5])
-
+        super(FlowerClient, self).__init__(cid,contract_address = sys.argv[3],nft_address = sys.argv[4])
         self.net = net
         self.IPFSClient.set_model(net)
         self.initial_setting()
@@ -136,10 +144,13 @@ class FlowerClient(fl.client.EthClient):
         return [uploaded_cid], len(trainloader.dataset), {}
 
     def evaluate(self, parameters, config):
+        account = self.EthBase.address
+        client_loss, client_accuracy = test(net, testloader)
         self.set_parameters(parameters)
         loss, accuracy = test(net, testloader)
         log(INFO,"accuracy: %s",accuracy)
-        return loss, len(testloader.dataset), {"accuracy": accuracy}
+        # Transfer FLT Token
+        return loss, len(testloader.dataset), {"accuracy": accuracy, "account":account, "client_loss":client_loss, "client_acc":client_accuracy}
 
 
 # Start Flower client

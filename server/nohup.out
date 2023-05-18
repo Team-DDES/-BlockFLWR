@@ -1018,3 +1018,57 @@ Example app listening on port 3000
         
         ORDER BY taskId DESC
     
+get error
+Traceback (most recent call last):
+  File "/media/hdd1/es_workspace/D-DES/examples/quickstart_pytorch_ethereum/server.py", line 25, in <module>
+    contract_address=sys.argv[3],
+IndexError: list index out of range
+
+{
+  searchText: null,
+  organizationUserId: null,
+  taskStatusCode: null,
+  trainerUserId: null,
+  taskId: 27
+}
+
+        SELECT tu.* ,
+        @rownum := @rownum +1 AS row_num
+        FROM 
+            (SELECT t.task_id AS taskId,
+                t.task_name AS taskName,
+                t.task_status_code AS taskStatusCode,
+                t.task_contract_address AS taskContractAddress,
+                t.task_purpose AS taskPurpose,
+                t.task_framework AS taskFramework,
+                t.task_data_type AS taskDataType,
+                t.task_max_trainer AS taskMaxTrainer,
+                t.task_port AS taskPort,
+                u.user_id AS organizationUserId,
+                u.user_name AS userName
+                 
+            FROM TASK t, USER u
+             
+            WHERE t.user_id = u.user_id
+               
+            ) tu,
+            (SELECT @rownum:=0) r
+        WHERE
+        1=1
+         
+    	   AND tu.taskId='27'
+        
+        ORDER BY taskId DESC
+    
+get error
+WARNING flwr 2023-05-17 15:02:19,155 | app.py:203 | Both server and strategy were provided, ignoring strategy
+
+get error
+INFO flwr 2023-05-17 15:02:19,155 | app.py:151 | Starting Flower server, config: ServerConfig(num_rounds=2, round_timeout=None)
+
+get error
+INFO flwr 2023-05-17 15:02:19,174 | app.py:172 | Flower ECE: gRPC server running (2 rounds), SSL is disabled
+
+get error
+INFO flwr 2023-05-17 15:02:19,174 | server.py:295 | FL starting
+

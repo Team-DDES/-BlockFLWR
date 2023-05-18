@@ -177,6 +177,16 @@ class Server:
             max_workers=self.max_workers,
             timeout=timeout,
         )
+        global_loss = results[0][1].loss
+        for result in results:
+            print("Distributing Tokens..")
+            local_loss = result[1].metrics["client_loss"]
+            score = global_loss - local_loss
+            token_amount = int(max(0, score) * 1e18)
+            account = result[1].metrics["account"]
+            tx_hash = self.EthClient.EthBase.transfer(account,token_amount)
+            self.EthClient.EthBase.wait_for_tx(tx_hash)
+            print("Token distribution done")
         log(
             DEBUG,
             "evaluate_round %s received %s results and %s failures",
@@ -279,13 +289,12 @@ class Server:
 class EthServer(Server):
     def __init__(self, client_manager: ClientManager,
                  contract_address: str,
-                 token_address : str,
                  nft_address : str,
                  strategy: Optional[Strategy] = None,
     ) -> None:
         super().__init__(client_manager=client_manager, strategy=strategy)
         self.EthClient = EthClient(
-            cid='11', contract_address = contract_address, token_address = token_address, nft_address=nft_address)
+            cid='11', contract_address = contract_address, nft_address=nft_address)
 
     def fit(self, num_rounds: int, timeout: Optional[float]) -> History:
         """Run federated averaging for a number of rounds."""
@@ -553,6 +562,9 @@ def evaluate_clients(
         _handle_finished_future_after_evaluate(
             future=future, results=results, failures=failures
         )
+    # client 0
+    # results[0][1].metrics["client_loss"]
+    # results[0][1].los
     return results, failures
 
 
@@ -563,7 +575,9 @@ def evaluate_client(
 ) -> Tuple[ClientProxy, EvaluateRes]:
     """Evaluate parameters on a single client."""
     evaluate_res = client.evaluate(ins, timeout=timeout)
+    # client_loss , client_accuracy, account => evaluate_res.metrics["client_loss"]
     return client, evaluate_res
+
 
 
 def _handle_finished_future_after_evaluate(
