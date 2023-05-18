@@ -14,17 +14,31 @@ from torchvision.transforms import Compose, Normalize, ToTensor
 from tqdm import tqdm
 from logging import DEBUG, INFO
 from flwr.common.logger import log
+from Cifar import Net as Cifar_Net
+from Cifar import train as Cifar_train
+from Cifar import test as Cifar_test
+from Cifar import load_data as Cifar_load_data
 
-import sys
+from Mnist import Net as Mnist_Net
+from Mnist import train as Mnist_train
+from Mnist import test as Mnist_test
+from Mnist import load_data as Mnist_load_data
+
+from PhysNet import PhysNet as PhysNet_Net
+from PhysNet import train as PhysNet_train
+from PhysNet import test as PhysNet_test
+from PhysNet import load_data as PhysNet_load_data
+
 
 num = 6
 add = "127.0.0.1:8083"
-cid = 1
-cont = "0x9CBa1cF5f96FDbd0242dCb7B3cBa6C136F16Ba30"
-cont_N ="0x438b06ab7B23EC536C2Eb292F449B490069D0A64"
+cid = 0
+cont = "0x22Bde2a9138481A0D7851CAdDdc7084e4484aa52"
+cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
+model = "Mnist"
 
 
-sys.argv = [num,add, cid, cont, cont_N]
+sys.argv = [num,add, cid, cont, cont_N,model]
 
 # #############################################################################
 # 1. Regular PyTorch pipeline: nn.Module, train, test, and DataLoader
@@ -33,59 +47,15 @@ sys.argv = [num,add, cid, cont, cont_N]
 warnings.filterwarnings("ignore", category=UserWarning)
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-
-class Net(nn.Module):
-    """Model (simple CNN adapted from 'PyTorch: A 60 Minute Blitz')"""
-
-    def __init__(self) -> None:
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 16 * 5 * 5)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        return self.fc3(x)
-
-
-def train(net, trainloader, epochs):
-    """Train the model on the training set."""
-    criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
-    for _ in range(epochs):
-        for images, labels in tqdm(trainloader):
-            optimizer.zero_grad()
-            criterion(net(images.to(DEVICE)), labels.to(DEVICE)).backward()
-            optimizer.step()
-
-
-def test(net, testloader):
-    """Validate the model on the test set."""
-    criterion = torch.nn.CrossEntropyLoss()
-    correct, loss = 0, 0.0
-    with torch.no_grad():
-        for images, labels in tqdm(testloader):
-            outputs = net(images.to(DEVICE))
-            labels = labels.to(DEVICE)
-            loss += criterion(outputs, labels).item()
-            correct += (torch.max(outputs.data, 1)[1] == labels).sum().item()
-    accuracy = correct / len(testloader.dataset)
-    return loss, accuracy
-
-
-def load_data():
-    """Load CIFAR-10 (training and test set)."""
-    trf = Compose([ToTensor(), Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    trainset = CIFAR10("./data", train=True, download=True, transform=trf)
-    testset = CIFAR10("./data", train=False, download=True, transform=trf)
-    return DataLoader(trainset, batch_size=32, shuffle=True), DataLoader(testset)
+if sys.argv[5] == "Cifar":
+    net = Cifar_Net().to(DEVICE)
+    train_loader, test_loader = Cifar_load_data()
+elif sys.argv[5] == "Physnet":
+    net = PhysNet_Net().to(DEVICE)
+    train_loader, test_loader = PhysNet_load_data()
+else:
+    net = Mnist_Net().to(DEVICE)
+    train_loader, test_loader = Mnist_load_data()
 
 
 # #############################################################################
@@ -93,8 +63,6 @@ def load_data():
 # #############################################################################
 
 # Load model and data (simple CNN, CIFAR-10)
-net = Net().to(DEVICE)
-trainloader, testloader = load_data()
 
 #sys[1] : server_address 127.0.0.1:8081
 #sys[2] : client cid
@@ -107,10 +75,10 @@ trainloader, testloader = load_data()
 class FlowerClient(fl.client.EthClient):
     def __init__(self,
                  cid: str,
+                 model:torch.nn.Module
                  ):
-        super(FlowerClient, self).__init__(cid,contract_address = sys.argv[3],nft_address = sys.argv[4])
+        super(FlowerClient, self).__init__(cid,contract_address = sys.argv[3],nft_address = sys.argv[4], model = model)
         self.net = net
-        self.IPFSClient.set_model(net)
         self.initial_setting()
 
 
@@ -134,29 +102,45 @@ class FlowerClient(fl.client.EthClient):
         print("g_model_cid", g_model_cid)
         net = self.IPFSClient.get_model(g_model_cid)
         # self.set_parameters(parameters)
-        train(net, trainloader, epochs=1)
+        if sys.argv[5] == "Cifar":
+            Cifar_train(net, train_loader, epochs=1)
+        elif sys.argv[5] == "Mnist":
+            Mnist_train(net, train_loader, epochs=1)
+        else:
+            PhysNet_train(net, train_loader, epochs=1)
+
         print('after model train')
         uploaded_cid = self.IPFSClient.add_model(self.net)
-        print('IPFS upload done',uploaded_cid)
+        print('IPFS upload done', uploaded_cid)
         tx = self.EthBase.addModelUpdate(uploaded_cid, training_round)
         self.EthBase.wait_for_tx(tx)
         print('Add Model done')
-        return [uploaded_cid], len(trainloader.dataset), {}
+        return [uploaded_cid], len(train_loader.dataset), {}
 
     def evaluate(self, parameters, config):
         account = self.EthBase.address
-        client_loss, client_accuracy = test(net, testloader)
+        if sys.argv[5] == "Cifar":
+            client_loss, client_accuracy = Cifar_test(net, test_loader)
+        elif sys.argv[5] == "Mnist":
+            client_loss, client_accuracy = Mnist_test(net, test_loader)
+        else:
+            client_loss, client_accuracy = PhysNet_test(net, test_loader)
+
         self.set_parameters(parameters)
-        loss, accuracy = test(net, testloader)
-        log(INFO,"accuracy: %s",accuracy)
+        if sys.argv[5] == "Cifar":
+            loss, accuracy = Cifar_test(net, test_loader)
+        elif sys.argv[5] == "Mnist":
+            loss, accuracy = Mnist_test(net, test_loader)
+        else:
+            loss, accuracy = PhysNet_test(net, test_loader)
         # Transfer FLT Token
-        return loss, len(testloader.dataset), {"accuracy": accuracy, "account":account, "client_loss":client_loss, "client_acc":client_accuracy}
+        return loss, len(test_loader.dataset), {"accuracy": accuracy, "account":account, "client_loss":client_loss, "client_acc":client_accuracy}
 
 
 # Start Flower client
 fl.client.start_eth_client(
     server_address=str(sys.argv[1]),
-    client=FlowerClient(cid=str(sys.argv[2])),
+    client=FlowerClient(cid=str(sys.argv[2]),model=net),
 )
 # fl.client.start_eth_client(
 #     server_address="127.0.0.1:8081",
