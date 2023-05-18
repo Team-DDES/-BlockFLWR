@@ -15,9 +15,9 @@ class IPFSClient:
 
     _model_constructor = None
 
-    def __init__(self, ipfs_api):
+    def __init__(self, ipfs_api, model):
         self._ipfs_api = ipfs_api
-        self.model = None
+        self.model = model
 
     def set_model(self,net):
         self.model = net

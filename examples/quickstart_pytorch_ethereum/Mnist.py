@@ -36,7 +36,7 @@ class Net(nn.Module):
 def train(net, trainloader, epochs):
     """Train the model on the training set."""
     criterion = torch.nn.NLLLoss()
-    optimizer = torch.optim.Adadelta(net.parameters(), lr=0.001, momentum=0.9)
+    optimizer = torch.optim.Adadelta(net.parameters(), lr=0.001)
     for _ in range(epochs):
         for images, labels in tqdm(trainloader):
             optimizer.zero_grad()
