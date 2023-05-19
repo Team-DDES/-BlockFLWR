@@ -20,13 +20,14 @@ const signer = provider.getSigner(process.env.METAMASK_EAVLUATOR_ACCOUNT);
 // const tokenId = await contract.tokenOfOwnerByIndex(signer.address, 0);
 // console.log("Your token ID is:", tokenId);
 
-// market 1. Register organization account's NFT
+// market 1. Register organization account's NFT to market
 // should know NFT contract's address
 //web3 contract.balanceOf
 router.post('/register', async(req, res) => {
 
     var data = req.body;
     // TODO search NFT contract address from DB
+    console.log(data)
     let contract_address = data.contract_address;
     let user_account = data.user_account;
     console.log(contract_address, user_account);
@@ -42,4 +43,23 @@ router.post('/register', async(req, res) => {
     // Register to DB
 
 });
+// get NFT lists of all marketplace
+router.get("/", async(req,res)=>{
+    console.log("NFT list");
+});
+
+// Show detail of NFT
+router.get("/detail", async(req,res)=>{
+    console.log("NFT detail");
+});
+
+//show my NFT list
+router.get("/my",async (req,res)=>{
+    console.log("my list");
+})
+
+// buy NFT
+router.post("buy", async(req,res)=>{
+    console.log("buy NFT");
+})
 module.exports = router;

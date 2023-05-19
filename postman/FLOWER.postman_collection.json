@@ -1,0 +1,851 @@
+{
+	"info": {
+		"_postman_id": "5d2a95ee-cc99-41e6-b6c6-41941e52cae5",
+		"name": "FLOWER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9314576",
+		"_collection_link": "https://oldeee.postman.co/workspace/Team-Workspace~840a3254-97c5-45bb-8b83-704660b27fbd/collection/9314576-5d2a95ee-cc99-41e6-b6c6-41941e52cae5?action=share&creator=9314576&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "회원 등록",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\":\"cat ech Inc.\",\n    \"userType\":\"E\",\n    \"userAddress\":\"0x12312222156\",\n    \"userSign\":\"abasasdfe\",\n    \"userEmail\":\"ech@gmail.com\",\n    \"userPhone\":\"01024152314\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/user/join",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"user",
+						"join"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "회원 등록(트레이너) - 성공",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\":\"trainer1\",\n    \"userType\":\"T\",\n    \"userAddress\":\"0xasdfsadfa\",\n    \"userSign\":\"abasfe\",\n    \"userEmail\":\"\",\n    \"userPhone\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/user/join",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"user",
+								"join"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "181"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b5-b9awytfePfdnPoE3eQlTVFxj14s\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:19:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"fieldCount\": 0,\n        \"affectedRows\": 1,\n        \"insertId\": 34,\n        \"serverStatus\": 2,\n        \"warningCount\": 0,\n        \"message\": \"\",\n        \"protocol41\": true,\n        \"changedRows\": 0\n    },\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				},
+				{
+					"name": "회원등록(기관) - 성공",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\":\"cat ech Inc.\",\n    \"userType\":\"E\",\n    \"userAddress\":\"0x1231242156\",\n    \"userSign\":\"abasasdfe\",\n    \"userEmail\":\"ech@gmail.com\",\n    \"userPhone\":\"01024152314\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/user/join",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"user",
+								"join"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "181"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b5-TkGHglliJHWesm0s0sk3lrFE6qM\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:21:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"fieldCount\": 0,\n        \"affectedRows\": 1,\n        \"insertId\": 38,\n        \"serverStatus\": 2,\n        \"warningCount\": 0,\n        \"message\": \"\",\n        \"protocol41\": true,\n        \"changedRows\": 0\n    },\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				},
+				{
+					"name": "회원 등록 - 중복",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\":\"trainer1\",\n    \"userType\":\"T\",\n    \"userAddress\":\"0xasdfsadfa\",\n    \"userSign\":\"abasfe\",\n    \"userEmail\":\"\",\n    \"userPhone\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/user/join",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"user",
+								"join"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "374"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"176-uL6O4ypB+BOJcb1+pUC2rOlfSso\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:20:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"code\": \"ER_DUP_ENTRY\",\n        \"errno\": 1062,\n        \"sqlMessage\": \"Duplicate entry '0xasdfsadfa' for key 'USER.user_address_UNIQUE'\",\n        \"sqlState\": \"23000\",\n        \"index\": 0,\n        \"sql\": \"INSERT INTO\\n  USER (\\n    user_type,\\n    user_name,\\n    user_address,\\n    user_email,\\n    user_phone\\n  )\\nVALUES\\n  ('T', 'trainer1', '0xasdfsadfa', '', '')\"\n    },\n    \"result\": {\n        \"message\": \"task not found\",\n        \"code\": 404\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "회원 여부 조회",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userAddress\":\"0x15532215668\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/user",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "회원 여부 조회 - 성공",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userAddress\":\"0x123124215\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/user",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "271"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"10f-SiP0YiLmEoV3HNdXOD3WHbxhF00\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:22:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"user_id\": 1,\n            \"user_type\": \"T\",\n            \"user_name\": \"T1\",\n            \"user_address\": \"0x123124215\",\n            \"use_yn\": \"Y\",\n            \"user_email\": \"Y\",\n            \"user_phone\": \"0101234987\",\n            \"created_date\": \"2023-05-03T12:32:54.000Z\",\n            \"modified_date\": \"2023-05-03T12:32:54.000Z\"\n        }\n    ],\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				},
+				{
+					"name": "회원 여부 조회 - 실패(유저정보 없음)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userAddress\":\"0x12312421256\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/user",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3e-MISMZHFOh72iy4bSxvWZmZxQWTM\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:23:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": null,\n    \"result\": {\n        \"message\": \"user not found\",\n        \"code\": 403\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "(기관)TASK 등록",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"taskName\":\"Low, dog classification model\",\n    \"taskPurpose\":\"Image classification\",\n    \"taskFramework\":\"Tensorflow\",\n    \"taskDataType\":\"256x256 RGB image(Jpeg only) \",\n    \"taskMaxTrainer\":50,\n    \"userId\":38\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"task"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "(기관)TASK 등록 성공",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taskName\":\"Low, dog classification model\",\n    \"taskPurpose\":\"Image classification\",\n    \"taskFramework\":\"Tensorflow\",\n    \"taskDataType\":\"256x256 RGB image(Jpeg only) \",\n    \"taskMaxTrainer\":50,\n    \"userId\":38\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"task"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "181"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b5-MuJK9OHLM4AxO6xuu0rOKKueVyM\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:26:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"fieldCount\": 0,\n        \"affectedRows\": 1,\n        \"insertId\": 27,\n        \"serverStatus\": 2,\n        \"warningCount\": 0,\n        \"message\": \"\",\n        \"protocol41\": true,\n        \"changedRows\": 0\n    },\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "(트레이너)TASK 참가",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"taskId\":3,\n    \"userId\":2,\n    \"dataPath\":\"media/hdd1/es_workspace/D-DES\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/task/participate",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"task",
+						"participate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TASK 목록 조회",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"taskId\":27\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"task"
+					],
+					"query": [
+						{
+							"key": "dd",
+							"value": "dd",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "TASK 목록 조회 - 참여가능한(진행중인) 목록",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taskStatusCode\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"task"
+							],
+							"query": [
+								{
+									"key": "dd",
+									"value": "dd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "392"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"188-S8HzYkpewIl+c4fCIciL4O2Awf4\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:46:15 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"task_id\": 28,\n            \"task_name\": \"Dog, dog classification model\",\n            \"task_status_code\": 1,\n            \"task_contract_address\": \"0x1234\",\n            \"task_purpose\": \"Image classification\",\n            \"task_framework\": \"Tensorflow\",\n            \"task_data_type\": \"256x256 RGB image(Jpeg only) \",\n            \"task_max_trainer\": \"50\",\n            \"task_port\": \"8081\",\n            \"organization_user_id\": 38,\n            \"user_name\": \"cat ech Inc.\",\n            \"row_num\": 1\n        }\n    ],\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				},
+				{
+					"name": "TASK 목록 조회 - 특정기관 별 TASK 조회",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"organizationUserId\":38,\n    \"taskStatusCode\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"task"
+							],
+							"query": [
+								{
+									"key": "dd",
+									"value": "dd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1068"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"42c-eTMVm7n+9IxuUeV8BcUqTdooea4\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 10 May 2023 15:50:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"task_id\": 29,\n            \"task_name\": \"Low, dog classification model\",\n            \"task_status_code\": 2,\n            \"task_contract_address\": \"0x1234\",\n            \"task_purpose\": \"Image classification\",\n            \"task_framework\": \"Tensorflow\",\n            \"task_data_type\": \"256x256 RGB image(Jpeg only) \",\n            \"task_max_trainer\": \"50\",\n            \"task_port\": \"8081\",\n            \"organization_user_id\": 38,\n            \"user_name\": \"cat ech Inc.\",\n            \"row_num\": 1\n        },\n        {\n            \"task_id\": 28,\n            \"task_name\": \"Dog, dog classification model\",\n            \"task_status_code\": 1,\n            \"task_contract_address\": \"0x1234\",\n            \"task_purpose\": \"Image classification\",\n            \"task_framework\": \"Tensorflow\",\n            \"task_data_type\": \"256x256 RGB image(Jpeg only) \",\n            \"task_max_trainer\": \"50\",\n            \"task_port\": \"8081\",\n            \"organization_user_id\": 38,\n            \"user_name\": \"cat ech Inc.\",\n            \"row_num\": 2\n        },\n        {\n            \"task_id\": 27,\n            \"task_name\": \"Cat, dog classification model\",\n            \"task_status_code\": 0,\n            \"task_contract_address\": \"0x1234\",\n            \"task_purpose\": \"Image classification\",\n            \"task_framework\": \"Tensorflow\",\n            \"task_data_type\": \"256x256 RGB image(Jpeg only) \",\n            \"task_max_trainer\": \"50\",\n            \"task_port\": \"8081\",\n            \"organization_user_id\": 38,\n            \"user_name\": \"cat ech Inc.\",\n            \"row_num\": 3\n        }\n    ],\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				},
+				{
+					"name": "TASK 목록 조회 - 트레이너 별 TASK 조회",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trainerUserId\":2,\n    \"taskStatusCode\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"task"
+							],
+							"query": [
+								{
+									"key": "dd",
+									"value": "dd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "854"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"356-qQza6lYE+2r+giT1+jy+Kq3povM\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 14 May 2023 07:09:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"task_id\": 43,\n            \"task_name\": \"Low, dog classification model\",\n            \"task_status_code\": 1,\n            \"task_contract_address\": \"0x1234\",\n            \"task_purpose\": \"Image classification\",\n            \"task_framework\": \"Tensorflow\",\n            \"task_data_type\": \"256x256 RGB image(Jpeg only) \",\n            \"task_max_trainer\": \"50\",\n            \"task_port\": \"8081\",\n            \"organization_user_id\": 38,\n            \"user_name\": \"cat ech Inc.\",\n            \"data_path\": \"media/hdd1/es_workspace/D-DES\",\n            \"trainerUserId\": 2,\n            \"row_num\": 1\n        },\n        {\n            \"task_id\": 42,\n            \"task_name\": \"Low, dog classification model\",\n            \"task_status_code\": 1,\n            \"task_contract_address\": \"0x1234\",\n            \"task_purpose\": \"Image classification\",\n            \"task_framework\": \"Tensorflow\",\n            \"task_data_type\": \"256x256 RGB image(Jpeg only) \",\n            \"task_max_trainer\": \"50\",\n            \"task_port\": \"8081\",\n            \"organization_user_id\": 38,\n            \"user_name\": \"cat ech Inc.\",\n            \"data_path\": \"media/hdd1/es_workspace/D-DES\",\n            \"trainerUserId\": 2,\n            \"row_num\": 2\n        }\n    ],\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				},
+				{
+					"name": "TASK 상세조회",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taskId\":27\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
+							"host": [
+								"tvstorm-ai",
+								"asuscomm",
+								"com"
+							],
+							"port": "12300",
+							"path": [
+								"flower",
+								"task"
+							],
+							"query": [
+								{
+									"key": "dd",
+									"value": "dd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "376"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"178-aXvlsCeDPj/8edv5G6ny18x7lfA\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 14 May 2023 07:21:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"taskId\": 27,\n            \"taskName\": \"Cat, dog classification model\",\n            \"taskStatusCode\": 0,\n            \"taskContractAddress\": \"0x1234\",\n            \"taskPurpose\": \"Image classification\",\n            \"taskFramework\": \"Tensorflow\",\n            \"taskDataType\": \"256x256 RGB image(Jpeg only) \",\n            \"taskMaxTrainer\": \"50\",\n            \"taskPort\": \"8081\",\n            \"organizationUserId\": 38,\n            \"userName\": \"cat ech Inc.\",\n            \"row_num\": 1\n        }\n    ],\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
+				}
+			]
+		}
+	]
+}
