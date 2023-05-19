@@ -1,18 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { insertTask, getTask } = require('../database/mysql');
+// const { insertTask, getTask } = require('../database/mysql');
 const {successMessage, failMessage} = require('../utils/mesage');
-const TaskModel = require('../model/task_model');
 const path = require("path")
-// 1. child-process모듈의 spawn 취득
-const spawn = require('child_process').spawn;
 const {Contract, ethers, providers} = require("ethers");
-const {token} = require("mysql/lib/protocol/Auth");
+
 require('dotenv').config();
 // contract
 const provider = new providers.JsonRpcProvider(process.env.RPC_URL);
-const signer = provider.getSigner(process.env.METAMASK_EAVLUATOR_ACCOUNT);
-
+const {nft_abi} = require("../web3/contracts/nft_abi")
+CONTRACT_ADDRESS = "0x438b06ab7B23EC536C2Eb292F449B490069D0A64"; //mumbai
+const contract = new Contract(CONTRACT_ADDRESS, nft_abi,provider);
 
 // const balanceOf = await contract.balanceOf(signer.address);
 // console.log("Your balance is:", balanceOf);
@@ -22,21 +20,15 @@ const signer = provider.getSigner(process.env.METAMASK_EAVLUATOR_ACCOUNT);
 
 // market 1. Register organization account's NFT to market
 // should know NFT contract's address
-//web3 contract.balanceOf
+// web3 contract.balanceOf
 router.post('/register', async(req, res) => {
 
     var data = req.body;
-    // TODO search NFT contract address from DB
-    console.log(data)
-    let contract_address = data.contract_address;
     let user_account = data.user_account;
-    console.log(contract_address, user_account);
-    // const abi = await provider.getContract()
-    const contract = new Contract(ethers.utils.get, contract_address, provider);
-    const balanceOf = await contract.balanceOf(signer.address);
-    console.log(signer.address + "'s balance : ", balanceOf)
+    const balanceOf = await contract.balanceOf(user_account);
+    console.log(user_account + "'s balance : ", balanceOf)
     const tokenId = await contract.tokenOfOwnerByIndex(user_account,balanceOf) // account's token list, ERC721Enumerable.sol
-
+    console.log(user_account + "'s owned token", tokenId);
     res.status(200);
     res.send(tokenId)
 
@@ -46,6 +38,7 @@ router.post('/register', async(req, res) => {
 // get NFT lists of all marketplace
 router.get("/", async(req,res)=>{
     console.log("NFT list");
+
 });
 
 // Show detail of NFT

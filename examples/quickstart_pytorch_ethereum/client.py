@@ -24,21 +24,21 @@ from Mnist import train as Mnist_train
 from Mnist import test as Mnist_test
 from Mnist import load_data as Mnist_load_data
 
-from PhysNet import PhysNet as PhysNet_Net
-from PhysNet import train as PhysNet_train
-from PhysNet import test as PhysNet_test
-from PhysNet import load_data as PhysNet_load_data
+# from PhysNet import PhysNet as PhysNet_Net
+# from PhysNet import train as PhysNet_train
+# from PhysNet import test as PhysNet_test
+# from PhysNet import load_data as PhysNet_load_data
 
 
-num = 6
-add = "127.0.0.1:8083"
-cid = 0
-cont = "0x22Bde2a9138481A0D7851CAdDdc7084e4484aa52"
-cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
-model = "Mnist"
+# num = 6
+# add = "127.0.0.1:8083"
+# cid = 0
+# cont = "0x22Bde2a9138481A0D7851CAdDdc7084e4484aa52"
+# cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
+# model = "Mnist"
 
 
-sys.argv = [num,add, cid, cont, cont_N,model]
+# sys.argv = [num,add, cid, cont, cont_N,model]
 
 # #############################################################################
 # 1. Regular PyTorch pipeline: nn.Module, train, test, and DataLoader
@@ -47,12 +47,12 @@ sys.argv = [num,add, cid, cont, cont_N,model]
 warnings.filterwarnings("ignore", category=UserWarning)
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-if sys.argv[5] == "Cifar":
+if sys.argv[4] == "Cifar":
     net = Cifar_Net().to(DEVICE)
     train_loader, test_loader = Cifar_load_data()
-elif sys.argv[5] == "Physnet":
-    net = PhysNet_Net().to(DEVICE)
-    train_loader, test_loader = PhysNet_load_data()
+# elif sys.argv[5] == "Physnet":
+#     net = PhysNet_Net().to(DEVICE)
+#     train_loader, test_loader = PhysNet_load_data()
 else:
     net = Mnist_Net().to(DEVICE)
     train_loader, test_loader = Mnist_load_data()
@@ -77,7 +77,7 @@ class FlowerClient(fl.client.EthClient):
                  cid: str,
                  model:torch.nn.Module
                  ):
-        super(FlowerClient, self).__init__(cid,contract_address = sys.argv[3],nft_address = sys.argv[4], model = model)
+        super(FlowerClient, self).__init__(cid,contract_address = sys.argv[3], model = model)
         self.net = net
         self.initial_setting()
 
@@ -102,12 +102,12 @@ class FlowerClient(fl.client.EthClient):
         print("g_model_cid", g_model_cid)
         net = self.IPFSClient.get_model(g_model_cid)
         # self.set_parameters(parameters)
-        if sys.argv[5] == "Cifar":
+        if sys.argv[4] == "Cifar":
             Cifar_train(net, train_loader, epochs=1)
-        elif sys.argv[5] == "Mnist":
+        elif sys.argv[4] == "Mnist":
             Mnist_train(net, train_loader, epochs=1)
-        else:
-            PhysNet_train(net, train_loader, epochs=1)
+        # else:
+        #     PhysNet_train(net, train_loader, epochs=1)
 
         print('after model train')
         uploaded_cid = self.IPFSClient.add_model(self.net)
@@ -119,20 +119,20 @@ class FlowerClient(fl.client.EthClient):
 
     def evaluate(self, parameters, config):
         account = self.EthBase.address
-        if sys.argv[5] == "Cifar":
+        if sys.argv[4] == "Cifar":
             client_loss, client_accuracy = Cifar_test(net, test_loader)
-        elif sys.argv[5] == "Mnist":
+        elif sys.argv[4] == "Mnist":
             client_loss, client_accuracy = Mnist_test(net, test_loader)
-        else:
-            client_loss, client_accuracy = PhysNet_test(net, test_loader)
+        # else:
+        #     client_loss, client_accuracy = PhysNet_test(net, test_loader)
 
         self.set_parameters(parameters)
-        if sys.argv[5] == "Cifar":
+        if sys.argv[4] == "Cifar":
             loss, accuracy = Cifar_test(net, test_loader)
-        elif sys.argv[5] == "Mnist":
+        elif sys.argv[4] == "Mnist":
             loss, accuracy = Mnist_test(net, test_loader)
-        else:
-            loss, accuracy = PhysNet_test(net, test_loader)
+        # else:
+        #     loss, accuracy = PhysNet_test(net, test_loader)
         # Transfer FLT Token
         return loss, len(test_loader.dataset), {"accuracy": accuracy, "account":account, "client_loss":client_loss, "client_acc":client_accuracy}
 

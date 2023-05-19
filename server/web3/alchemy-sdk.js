@@ -3,30 +3,35 @@ const  { Network, Alchemy }  = require('alchemy-sdk');
 const { providers, Wallet, utils, Contract, AlchemyProvider, JsonRpcProvider, ethers } = require('ethers');
 const {abi} = require('./contracts/abi');
 const {bytecode} = require('./contracts/bytecode');
+const {nft_abi} = require('./contracts/nft_abi');
+const {nft_bytecode} = require('./contracts/nft_bytecode');
 const {updateTask} = require('../database/mysql');
+const path = require("path")
+const spawn = require('child_process').spawn;
+var port = 8081;
+
 function createTaskContract(taskId){
     //https://polygon-mumbai.g.alchemy.com/v2/iWAnKUG94_jJyWY74c6CHYXAU_FuEf_C
     // let provider = new AlchemyProvider("maticmum",'iWAnKUG94_jJyWY74c6CHYXAU_FuEf_C');
-    //const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai.g.alchemy.com/v2/iWAnKUG94_jJyWY74c6CHYXAU_FuEf_C');
-    const provider = new ethers.providers.JsonRpcProvider('https://rpc.public.zkevm-test.net');
+    const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai.g.alchemy.com/v2/iWAnKUG94_jJyWY74c6CHYXAU_FuEf_C');
+    //const provider = new ethers.providers.JsonRpcProvider('https://rpc.public.zkevm-test.net');
     const privateKey = '06bab9bb8b7abd173da46b67eddae1499af0573b92c96b04cccc94d86e8c3965';
     const signer = new ethers.Wallet(privateKey, provider);
     const account = signer.connect(provider);
-    console.log(abi)
-    console.log(bytecode);
-    const myContract = new ethers.ContractFactory(abi, bytecode, signer);
+    const myCrowdContract = new ethers.ContractFactory(abi, bytecode, signer);
+    const nftContract = new ethers.ContractFactory(nft_abi, nft_bytecode, signer);
     const _taskId = taskId;
-    // If your contract requires constructor args, you can specify them here
-    //const contract = await myContract.deploy();
-   myContract.deploy().then((contract)=>{
-    console.log(contract.address)
+    const nftContractAddress = '0x438b06ab7B23EC536C2Eb292F449B490069D0A64';
+    
+    myCrowdContract.deploy().then((contract)=>{
     var __taskId = _taskId
-    console.log(__taskId)
-    var data = {taskId:__taskId, taskContractAddress:contract.address, taskStatusCode:1}
-    // contract.deployed().then((value)=>{
-    //  //console.log(value.address)
-    // });
+    var __nftContractAddress = nftContractAddress;
+    var __port = port++;
+    console.log(contract.address);
+    var data = {taskId:__taskId, taskContractAddress:contract.address, taskStatusCode:1, taskPort:__port}
     updateTask(data,(result)=>{console.log(result)})
+    
+    runServer(contract.address,__nftContractAddress,3);
    }).catch((err)=>{
     console.log(err);
    })
@@ -37,6 +42,21 @@ module.exports = {
     createTaskContract
 }
 
+function runServer(taskContractAddress,nftContractAddress,round ){
+    // 2. spawn을 통해 "python 파이썬파일.py" 명령어 실행
+    const result = spawn('python', [path.join(__dirname, '..', '..', '/examples/quickstart_pytorch_ethereum/server.py'),'0.0.0.0:8081',round,taskContractAddress,nftContractAddress,"Mnist"]);
+    // 3. stdout의 'data'이벤트리스너로 실행결과를 받는다.
+    result.stdout.on('data', function(data) {
+        console.log("get Data");
+        console.log(data.toString());
+    });
+
+    // 4. 에러 발생 시, stderr의 'data'이벤트리스너로 실행결과를 받는다.
+    result.stderr.on('data', function(data) {
+        console.log("get error");
+        console.log(data.toString());
+    });
+}
 // const settings = {
 //     apiKey: "iWAnKUG94_jJyWY74c6CHYXAU_FuEf_C",
 //     network: Network.MATIC_MUMBAI,

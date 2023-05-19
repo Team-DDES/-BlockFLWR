@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { insertTask, getTask, insertTaskParticipate } = require('../database/mysql');
+const { insertTask, getTask, insertTaskParticipate, getTaskUserCount} = require('../database/mysql');
 const {successMessage, failMessage} = require('../utils/mesage');
 const TaskModel = require('../model/task_model');
 const {createTaskContract} = require('../web3/alchemy-sdk');
@@ -19,7 +19,10 @@ router.post('/', async(req, res) => {
     //task.taskPort="8081";
     task.taskStatusCode=0;
     try{
-       
+        await getTaskUserCount(taskId,(result)=>{
+
+        });
+
         await insertTask(task,(result)=>{
             if(result['type']){
                 var data = result['data'];
@@ -64,36 +67,39 @@ router.post('/participate', async(req, res) => {
     var task = new TaskModel(data);
     try{
        
-        await insertTaskParticipate(task,(result)=>{
-            if(result['type']){
-                var data = result['data'];
-                if(data == null){
-                    var body = failMessage(result['data'],'task not found',404);
-                    res.send(body);
-                    res.status(200);
-                }else{
-                    var body = successMessage(result['data']);
-                    res.send(body);
-                }
-                
-            }else{
-                res.status(404);
-                res.send(result['data']);
-            }
-        })
-        // 2. spawn을 통해 "python 파이썬파일.py" 명령어 실행
-        const result = spawn('python', [path.join(__dirname, '..', '..', '/examples/quickstart_pytorch_ethereum/client.py')]);
-        // 3. stdout의 'data'이벤트리스너로 실행결과를 받는다.
-        result.stdout.on('data', function(data) {
-            console.log("get Data");
-            console.log(data.toString());
-        });
+        
 
-        // 4. 에러 발생 시, stderr의 'data'이벤트리스너로 실행결과를 받는다.
-        result.stderr.on('data', function(data) {
-            console.log("get error");
-            console.log(data.toString());
-        });
+
+        // await insertTaskParticipate(task,(result)=>{
+        //     if(result['type']){
+        //         var data = result['data'];
+        //         if(data == null){
+        //             var body = failMessage(result['data'],'task not found',404);
+        //             res.send(body);
+        //             res.status(200);
+        //         }else{
+        //             var body = successMessage(result['data']);
+        //             res.send(body);
+        //         }
+                
+        //     }else{
+        //         res.status(404);
+        //         res.send(result['data']);
+        //     }
+        // })
+        // // 2. spawn을 통해 "python 파이썬파일.py" 명령어 실행
+        // const result = spawn('python', [path.join(__dirname, '..', '..', '/examples/quickstart_pytorch_ethereum/client.py')]);
+        // // 3. stdout의 'data'이벤트리스너로 실행결과를 받는다.
+        // result.stdout.on('data', function(data) {
+        //     console.log("get Data");
+        //     console.log(data.toString());
+        // });
+
+        // // 4. 에러 발생 시, stderr의 'data'이벤트리스너로 실행결과를 받는다.
+        // result.stderr.on('data', function(data) {
+        //     console.log("get error");
+        //     console.log(data.toString());
+        // });
 
     }catch(err){
         res.send(err);

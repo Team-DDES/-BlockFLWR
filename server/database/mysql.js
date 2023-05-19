@@ -59,6 +59,21 @@ async function updateTask(data,callback){
     });
 }
 
+async function getTaskUserCount(data,callback){
+    let query = commonMapper.getStatement('common', 'getTaskUserCount', data, format);
+    connection.query(query, (err, rows) =>{
+        if (err){
+            callback({'data':err,'type':false});
+        }else{
+            if(rows.length==0){
+                callback({'data':null,'type':true});
+            }else{
+                callback({'data':rows,'type':true});
+            }
+        }
+    });
+}
+
 async function getUser(data,callback){
     let query = commonMapper.getStatement('common', 'getUser', data, format);
     connection.query(query, (err, rows) =>{
