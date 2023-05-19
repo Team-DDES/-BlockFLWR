@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
-import 'package:flutter_web/data/user_check_data.dart';
+import 'package:flutter_web/data/user.dart';
 import 'package:flutter_web/services/clientService.dart';
 import 'package:flutter_web/utils/color_category.dart';
 
@@ -78,7 +78,7 @@ class DidVcPageState extends State<DidVc> {
                     ),
                     onPressed: () {
                       // TODO mainpage로 이동
-                      UserRegisterData postData = UserRegisterData(
+                      PostUserRegisterData postData = PostUserRegisterData(
                           userAddress: userController.address.value,
                           userName: itemTextControllers[0].text,
                           userType: itemTextControllers[1].text,
