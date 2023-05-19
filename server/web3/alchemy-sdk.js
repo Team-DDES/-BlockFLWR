@@ -12,6 +12,8 @@ function createTaskContract(taskId){
     const privateKey = '06bab9bb8b7abd173da46b67eddae1499af0573b92c96b04cccc94d86e8c3965';
     const signer = new ethers.Wallet(privateKey, provider);
     const account = signer.connect(provider);
+    console.log(abi)
+    console.log(bytecode);
     const myContract = new ethers.ContractFactory(abi, bytecode, signer);
     const _taskId = taskId;
     // If your contract requires constructor args, you can specify them here
