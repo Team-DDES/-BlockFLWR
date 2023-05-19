@@ -41,13 +41,11 @@ class EthClient(ABC):
     def __init__(self,
                  cid: str,
                  contract_address:str,
-                 nft_address:str,
                  model : torch.nn.Module
                  ):
         self.cid = cid
         self.EthBase = _EthClient(cid,
                                   contract_address=contract_address,
-                                  nft_address=nft_address,
                                   deploy=False)
         self.IPFSClient = IPFSClient("/ip4/127.0.0.1/tcp/5001", model)
         self.round = None

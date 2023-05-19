@@ -70,12 +70,12 @@ class _BaseContractClient(_BaseEthClient):
     IPFS_HASH_PREFIX = bytes.fromhex('1220')  # IPFS 해쉬값 접두사
     def __init__(self, contract_json_path,nft_json_path, account_idx,
                  contract_address,
-                 nft_address,
                  deploy):
         super().__init__(account_idx)
         #TODO : token_address, nft_address
+        self.NFT_ADDRESS = "0x438b06ab7B23EC536C2Eb292F449B490069D0A64";
         self._contract, self.contract_address = self._instantiate_contract(contract_json_path,contract_address, deploy)
-        self._nft_contract, self.nft_contract_address = self._instantiate_contract(nft_json_path,nft_address, deploy)
+        self._nft_contract, self.nft_contract_address = self._instantiate_contract(nft_json_path,self.NFT_ADDRESS, deploy)
 
     def _instantiate_contract(self, contract_json_path, address=None, deploy=False):
         # 가나슈에 배포된 컨트랙트의 json 파일을 인스턴스화
@@ -149,13 +149,12 @@ class _EthClient(_BaseContractClient):
     Wrapper over the Crowdsource.sol ABI, to gracefully bridge Python data to Solidity.
     The API of this class should match that of the smart contract.
     """
-    def __init__(self, account_idx,contract_address, nft_address, deploy):
+    def __init__(self, account_idx,contract_address, deploy):
         super().__init__(
             os.path.dirname(os.path.abspath(__file__))+"/build/contracts/Crowdsource.json",
             os.path.dirname(os.path.abspath(__file__))+"/build/contracts/NFT.json",
             account_idx,
             contract_address,
-            nft_address,
             deploy
         )
 

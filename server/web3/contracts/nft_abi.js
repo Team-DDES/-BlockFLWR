@@ -1,4 +1,4 @@
-const  abi = [
+const  nft_abi = [
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -415,3 +415,7 @@ const  abi = [
 		"type": "function"
 	}
 ];
+
+module.exports = {
+    nft_abi
+}

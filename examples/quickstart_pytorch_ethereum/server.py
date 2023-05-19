@@ -8,7 +8,7 @@ from flwr.server.client_manager import SimpleClientManager
 from flwr.server.server import EthServer
 
 
-from PhysNet import PhysNet as PhysNet_Net
+# from PhysNet import PhysNet as PhysNet_Net
 from Mnist import Net as Mnist_Net
 from Cifar import Net as Cifar_Net
 
@@ -21,28 +21,28 @@ def weighted_average(metrics: List[Tuple[int, Metrics]]) -> Metrics:
     # Aggregate and return custom metric (weighted average)
     return {"accuracy": sum(accuracies) / sum(examples)}
 
-num = 6
-add = "0.0.0.0:8083"
-round = 2
-cont = "0x22Bde2a9138481A0D7851CAdDdc7084e4484aa52"
-cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
-model = "Mnist"
-sys.argv = [num,add, round, cont, cont_N, model]
-
+# num = 6
+# add = "0.0.0.0:8083"
+# round = 2
+# cont = "0x22Bde2a9138481A0D7851CAdDdc7084e4484aa52"
+# cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
+# model = "Mnist"
+# sys.argv = [num,add, round, cont, cont_N, model]
+print('TESTTTTTTTTT')
+print(sys.argv)
 # Define strategy
 strategy = fl.server.strategy.FedAvg(evaluate_metrics_aggregation_fn=weighted_average)
 
-if sys.argv[5] == "Cifar":
+if sys.argv[4] == "Cifar":
     model = Cifar_Net()
-elif sys.argv[5] == "PhysNet":
-    model = PhysNet_Net()
+# elif sys.argv[5] == "PhysNet":
+#     model = PhysNet_Net()
 else:
     model = Mnist_Net()
 
 client_manager = SimpleClientManager()
 eth_server = EthServer(client_manager = client_manager,
                        contract_address=sys.argv[3],
-                       nft_address=sys.argv[4],
                        model=model,
                        strategy = strategy)
 

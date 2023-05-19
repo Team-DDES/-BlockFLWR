@@ -13,8 +13,6 @@
 # limitations under the License.
 # ==============================================================================
 """Flower server."""
-
-m
 import concurrent.futures
 import timeit
 from logging import DEBUG, INFO
@@ -290,13 +288,12 @@ class Server:
 class EthServer(Server):
     def __init__(self, client_manager: ClientManager,
                  contract_address: str,
-                 nft_address : str,
                  model : torch.nn.Module,
                  strategy: Optional[Strategy] = None,
     ) -> None:
         super().__init__(client_manager=client_manager, strategy=strategy)
         self.EthClient = EthClient(
-            cid='11', contract_address = contract_address, nft_address=nft_address, model = model)
+            cid='11', contract_address = contract_address,  model = model)
 
     def fit(self, num_rounds: int, timeout: Optional[float]) -> History:
         """Run federated averaging for a number of rounds."""
