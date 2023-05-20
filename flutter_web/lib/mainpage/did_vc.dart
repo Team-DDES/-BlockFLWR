@@ -20,7 +20,8 @@ class DidVc extends StatefulWidget {
 
 class DidVcPageState extends State<DidVc> {
   List<TextEditingController> itemTextControllers = List.generate(
-    4, (index) => TextEditingController(),
+    4,
+    (index) => TextEditingController(),
   );
   final List<String> items = <String>[
     "Input Name",
@@ -34,8 +35,7 @@ class DidVcPageState extends State<DidVc> {
 
   @override
   Widget build(BuildContext context) {
-    var dio = Dio();
-    UserApi createVC = UserApi(dio);
+    UserApi createVC = UserApi();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class DidVcPageState extends State<DidVc> {
         child: Center(
             child: Container(
           width: 450,
-          height: 500,
+          height: 550,
           padding: const EdgeInsets.all(30),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
@@ -57,16 +57,18 @@ class DidVcPageState extends State<DidVc> {
           child: Column(
             children: [
               Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: TextUtils.defaultTextWithSizeAlignWeight(StringResources.whyDID, 20, TextAlign.left, FontWeight.bold)
-              ),
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: TextUtils.defaultTextWithSizeAlignWeight(
+                      StringResources.whyDID,
+                      20,
+                      TextAlign.left,
+                      FontWeight.bold)),
               Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: TextUtils.defaultTextWithSize(StringResources.didIntro, 15)
-              ),
-              for(int i= 0; i < 4; i++)
-                didElement(items[i], i),
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  child: TextUtils.defaultTextWithSize(
+                      StringResources.didIntro, 15)),
+              for (int i = 0; i < 4; i++) didElement(items[i], i),
               Container(
                 width: 110,
                 height: 30,
@@ -85,13 +87,19 @@ class DidVcPageState extends State<DidVc> {
                           userEmail: itemTextControllers[2].text,
                           userPhone: itemTextControllers[3].text);
                       createVC.registerUser(postData.toJson()).then((value) {
-                        if(value.result.code == "200"){
-                          Navigator.pushNamed(
-                            context,
-                            "participate_main_page",
-                          );
-                        }else{
-                          //Popup 생성
+                        if (value.result.code == "200") {
+                          if (postData.userType == typeParticipant) {
+                            Navigator.pushNamed(
+                              context,
+                              "participate_main_page",
+                            );
+                          } else if (postData.userType == typeOrganization) {
+                            Navigator.pushNamed(
+                              context,
+                              "organization_main_page",
+                            );
+                          }
+                        } else {
                           print("Not Create VC");
                         }
                       });
@@ -115,25 +123,29 @@ class DidVcPageState extends State<DidVc> {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       width: 300,
-        height: 40,
+      height: 40,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: didElementColor,
+        border: Border.all(color: notSelectTextColor, width: 3),
+      ),
+      child: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: didElementColor,
-          border: Border.all(color: notSelectTextColor, width: 3),
-        ),
+        padding: EdgeInsets.fromLTRB(10, 6, 0, 6),
         child: TextField(
           onChanged: (value) {
-            setState(() {
-
-            });
+            setState(() {});
           },
+          textAlign: TextAlign.left,
           controller: itemTextControllers[idx],
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: content,
+            alignLabelWithHint: true,
             hintStyle: TextStyle(color: notSelectTextColor, fontSize: 15),
             suffixIcon: IconButton(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
               onPressed: () {
                 itemTextControllers[idx].clear();
               },
@@ -143,6 +155,7 @@ class DidVcPageState extends State<DidVc> {
             //prefixIcon: const Image(fit: BoxFit.cover, image: AssetImage("assets/images/main_search_icon.png")),
           ),
         ),
-      );
-    }
+      )
+    );
+  }
 }

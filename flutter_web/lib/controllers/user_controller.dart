@@ -8,4 +8,4 @@ class UserController extends GetxController {
    RxBool walletConnect = false.obs;
 }
 
-late final UserController userController;
+final UserController userController = UserController();

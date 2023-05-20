@@ -42,7 +42,7 @@ class PostUserRegisterData {
 @JsonSerializable()
 class Result {
   final String message;
-  final String code;
+  final int code;
 
   Result({
     required this.message,
@@ -97,7 +97,7 @@ PostUserRegisterData dummyOrgRegister = PostUserRegisterData(
 
 Result dummyResult = Result(
   message: "success",
-  code: "200",
+  code: 200,
 );
 
 UserResponse dummyUser1 = UserResponse(
@@ -108,6 +108,14 @@ UserResponse dummyUser1 = UserResponse(
 UserResponse dummyUser2 = UserResponse(
   data: dummyOrgUser,
   result: dummyResult,
+);
+
+PostUserRegisterData blankPostUser = PostUserRegisterData(
+  userType: '',
+  userName: '',
+  userAddress: '',
+  userEmail: '',
+  userPhone: '',
 );
 
 String typeOrganization = "E";
