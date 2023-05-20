@@ -57,6 +57,19 @@
             )
     </insert>
 
+    <insert id="insertMarketNft">
+        INSERT INTO
+        MARKET (
+                tokenid,
+                price
+            )
+        VALUES
+            (
+                #{tokenid},
+                #{price}
+            )
+    </insert>
+
     <update id="updateTask">
         UPDATE TASK 
         SET task_contract_address = #{taskContractAddress}, task_status_code = #{taskStatusCode}, task_port = #{taskPort}
@@ -127,5 +140,20 @@
         </if>
         ORDER BY taskId DESC
     </select>   
+
+    <select id="getTaskDetail">
+        SELECT  task_id AS taskId,
+                task_name AS taskName,
+                task_status_code AS taskStatusCode,
+                task_contract_address AS taskContractAddress,
+                task_purpose AS taskPurpose,
+                task_framework AS taskFramework,
+                task_data_type AS taskDataType,
+                task_max_trainer AS taskMaxTrainer,
+                task_port AS taskPort
+        FROM TASK 
+        WHERE task_Id=#{taskId}
+    	   
+    </select> 
 
 </mapper>

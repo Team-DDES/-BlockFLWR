@@ -73,7 +73,7 @@ class _BaseContractClient(_BaseEthClient):
                  deploy):
         super().__init__(account_idx)
         #TODO : token_address, nft_address
-        self.NFT_ADDRESS = "0x438b06ab7B23EC536C2Eb292F449B490069D0A64";
+        self.NFT_ADDRESS = "0x9DD1212f79BCA27ED2e9D4C32893011DEA73146A";
         self._contract, self.contract_address = self._instantiate_contract(contract_json_path,contract_address, deploy)
         self._nft_contract, self.nft_contract_address = self._instantiate_contract(nft_json_path,self.NFT_ADDRESS, deploy)
 

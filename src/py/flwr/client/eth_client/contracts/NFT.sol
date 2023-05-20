@@ -33,4 +33,9 @@ contract NFT is ERC721Enumerable {
         require(_exists(tokenId), "ERC721URIStorage: URI set of nonexistent token");
         _tokenURIs[tokenId] = _tokenURI;
     }
+
+    function getTokenURI(uint256 tokenId) public view returns (string memory tokenURI){
+        tokenURI = _tokenURIs[tokenId];
+        return tokenURI;
+    }
 }

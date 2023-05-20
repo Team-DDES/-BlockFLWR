@@ -328,7 +328,8 @@ class EthServer(Server):
                         json.dump(json_metadata,f,indent=2)
                     metadata_cid = self.EthClient.IPFSClient.add_metadata('metadata.json')
                     print("NFT minting ...")
-                    tx_hash = self.EthClient.EthBase.mintNFT(metadata_cid)
+                    ipfs_url = "http://tvstorm-ai.asuscomm.com:12088/ipfs/"
+                    tx_hash = self.EthClient.EthBase.mintNFT(ipfs_url+metadata_cid)
                     self.EthClient.EthBase.wait_for_tx(tx_hash)
                     print("NFT Minting done.")
 

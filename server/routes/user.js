@@ -24,13 +24,13 @@ router.post('/join', async(req, res) => {
         })
     }catch(err){
         var body = failMessage(err,'user insert fail',404);
-        res.status(404);
+        res.status(200);
         res.send(body);
     }
 });
 
 router.get('/', async(req, res) => {
-    var data = req.body;
+    var data = req.params;
     const user = {
         userAddress: data.userAddress,
     }
@@ -49,13 +49,13 @@ router.get('/', async(req, res) => {
                 
             }else{
                 var body = failMessage(result['data'],'error',404);
-                res.status(404);
+                res.status(200);
                 res.send(body);
             }
         })
     }catch(err){
         var body = failMessage(err,'error',404);
-        res.status(404);
+        res.status(200);
         res.send(body);
     }
 });

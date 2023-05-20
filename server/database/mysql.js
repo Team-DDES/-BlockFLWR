@@ -47,6 +47,17 @@ async function insertTaskParticipate(data,callback){
     });
 }
 
+async function insertMarketNft(data,callback){
+    let query = commonMapper.getStatement('common', 'insertMarketNft', data, format);
+    connection.query(query, (err, result) =>{
+        if (err){
+            callback({'data':err,'type':false});
+        }else{
+            callback({'data':result,'type':true});
+        }
+    });
+}
+
 async function updateTask(data,callback){
     console.log(data);
     let query = commonMapper.getStatement('common', 'updateTask', data, format);
@@ -105,11 +116,33 @@ async function getTask(data,callback){
         }
     });
 }
+
+async function getTaskDetail(data,callback){
+   
+    let query = commonMapper.getStatement('common', 'getTaskDetail', data);
+    console.log(query);
+    connection.query(query, (err, rows) =>{
+        if (err){
+            console.log(err)
+            callback({'data':err,'type':false});
+        }else{
+            if(rows.length==0){
+                callback({'data':null,'type':true});
+            }else{
+                callback({'data':rows,'type':true});
+            }
+        }
+    });
+}
+
 module.exports = {
     insertUser,
     insertTask,
     insertTaskParticipate,
     updateTask,
+    getTaskUserCount,
+    getTaskDetail,
     getUser,
-    getTask
+    getTask,
+    insertMarketNft
 }
