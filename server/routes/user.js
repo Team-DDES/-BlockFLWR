@@ -30,7 +30,8 @@ router.post('/join', async(req, res) => {
 });
 
 router.get('/', async(req, res) => {
-    var data = req.params;
+    var data = req.query;
+    console.log(data);
     const user = {
         userAddress: data.userAddress,
     }
