@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "5d2a95ee-cc99-41e6-b6c6-41941e52cae5",
+		"_postman_id": "568b6333-c021-4df3-a90c-4d3234d56d41",
 		"name": "FLOWER",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "9314576",
-		"_collection_link": "https://oldeee.postman.co/workspace/Team-Workspace~840a3254-97c5-45bb-8b83-704660b27fbd/collection/9314576-5d2a95ee-cc99-41e6-b6c6-41941e52cae5?action=share&creator=9314576&source=collection_link"
+		"_exporter_id": "20843018",
+		"_collection_link": "https://lunar-desert-6186.postman.co/workspace/test~b5407a6f-e218-411b-912b-2c778b0b7cbe/collection/20843018-568b6333-c021-4df3-a90c-4d3234d56d41?action=share&creator=20843018&source=collection_link"
 	},
 	"item": [
 		{
@@ -271,15 +271,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"userAddress\":\"0x123124215\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "tvstorm-ai.asuscomm.com:12300/flower/user",
 							"host": [
@@ -335,15 +326,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"userAddress\":\"0x12312421256\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "tvstorm-ai.asuscomm.com:12300/flower/user",
 							"host": [
@@ -566,15 +548,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"taskStatusCode\":1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
 							"host": [
@@ -637,15 +610,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"organizationUserId\":38,\n    \"taskStatusCode\":2\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
 							"host": [
@@ -708,15 +672,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"trainerUserId\":2,\n    \"taskStatusCode\":1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
 							"host": [
@@ -779,15 +734,6 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"taskId\":27\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "tvstorm-ai.asuscomm.com:12300/flower/task",
 							"host": [
@@ -846,6 +792,87 @@
 					"body": "{\n    \"data\": [\n        {\n            \"taskId\": 27,\n            \"taskName\": \"Cat, dog classification model\",\n            \"taskStatusCode\": 0,\n            \"taskContractAddress\": \"0x1234\",\n            \"taskPurpose\": \"Image classification\",\n            \"taskFramework\": \"Tensorflow\",\n            \"taskDataType\": \"256x256 RGB image(Jpeg only) \",\n            \"taskMaxTrainer\": \"50\",\n            \"taskPort\": \"8081\",\n            \"organizationUserId\": 38,\n            \"userName\": \"cat ech Inc.\",\n            \"row_num\": 1\n        }\n    ],\n    \"result\": {\n        \"message\": \"success\",\n        \"code\": \"200\"\n    }\n}"
 				}
 			]
+		},
+		{
+			"name": "(기관)MARKET에 NFT등록",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_account\":\"0xe86C29E9433C44e92bb35F00A2c9910c34d0f628\",\n    \"price\":\"0.05\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/market/register",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"market",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MARKET NFTs 조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/market/",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"market",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NFT 디테일 조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/market/detail?tokenid=1",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"market",
+						"detail"
+					],
+					"query": [
+						{
+							"key": "tokenid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
