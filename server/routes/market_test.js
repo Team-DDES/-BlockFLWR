@@ -12,7 +12,7 @@ const RPC_URL = "https://polygon-mumbai.g.alchemy.com/v2/e5p2vMdLjoC9WhI26pWlMYr
 const provider = new providers.JsonRpcProvider(RPC_URL);
 // const signer = new Wallet(METAMASK_EVALUATOR_PRIVATE_KEY,provider);
 const {nft_abi} = require("../web3/contracts/nft_abi")
-CONTRACT_ADDRESS = "0x9DD1212f79BCA27ED2e9D4C32893011DEA73146A"; //mumbai
+CONTRACT_ADDRESS = "0xe62F3C05D076ddd787A68a903DdAa0B65FAe5e58"; //mumbai
 
 const contract = new Contract(CONTRACT_ADDRESS, nft_abi,provider);
 // const ipfsclient = create({url:"http://127.0.0.1:5001"})
@@ -22,7 +22,6 @@ async function readNFTmetadata (tokenId) {
     // 1. get tokenUri using tokenId
     let tokenList = [];
     const tokenUri = await contract.getTokenURI(tokenId);
-
    const result = await axios.get(tokenUri);
     tokenList.push(result.data)
     console.log(tokenList)
