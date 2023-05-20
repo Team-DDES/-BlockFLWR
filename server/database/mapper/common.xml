@@ -154,6 +154,11 @@
         FROM TASK 
         WHERE task_Id=#{taskId}
     	   
-    </select> 
+    </select>
+
+
+    <select id="getNftTokenIds">
+        SELECT tokenid FROM MARKET
+    </select>
 
 </mapper>
