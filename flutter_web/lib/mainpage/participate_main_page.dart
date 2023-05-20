@@ -1,7 +1,4 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 import 'package:flutter_web/mainpage/participate_detail_popup.dart';
@@ -9,7 +6,6 @@ import 'package:flutter_web/mainpage/participate_search_page.dart';
 
 import 'package:flutter_web/data/user.dart';
 import 'package:flutter_web/manager/task_manager.dart';
-import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/string_resources.dart';
 import 'package:flutter_web/utils/style_resources.dart';
@@ -99,7 +95,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
           (10 * ParticipateSearchPageState.maxCapacity);
     }
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: maxHeight),
+      constraints: BoxConstraints(minHeight: maxHeight),
       child: SingleChildScrollView(
         physics: isSearch
             ? const NeverScrollableScrollPhysics()

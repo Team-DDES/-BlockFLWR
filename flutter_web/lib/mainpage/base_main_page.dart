@@ -25,13 +25,15 @@ class BaseMainViewState extends State<BaseMainView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: 1000,
+        width: 1920,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: welcomeBackgroundColor,
           image: const DecorationImage(
               fit: BoxFit.fill,
               image: AssetImage('assets/images/main_background.png')),
         ),
-        margin: EdgeInsets.fromLTRB(10, 10, 30, 30),
         child: Container(
           margin: EdgeInsets.fromLTRB(10, 10, 30, 30),
           child: Column(

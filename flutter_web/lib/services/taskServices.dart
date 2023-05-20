@@ -8,6 +8,6 @@ part 'taskServices.g.dart';
 abstract class TaskApi {
   factory TaskApi(Dio dio, {String baseUrl}) = _TaskApi;
 
-  @GET("task/list/")
+  @GET("task/")
   Future<List<BCFL>> getTaskList(@Body() Map<String, dynamic> data);
 }

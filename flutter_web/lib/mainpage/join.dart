@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
+import 'package:flutter_web/manager/task_manager.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/http_utils.dart';
 import 'package:metamask/metamask.dart';
@@ -46,6 +47,7 @@ class _JoinPageState extends State<Join> {
             } else if (response.result.code == SUCCESS) {
               userController.walletConnect.value = true;
               globalUser = response;
+              TaskManager.sInstance.initTaskList();
               if (response.data.userType == typeParticipant) {
                 Navigator.pushNamed(
                   context,
