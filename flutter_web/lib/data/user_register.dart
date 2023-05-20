@@ -3,6 +3,29 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user_register.g.dart';
 
 @JsonSerializable()
+class TaskRegisterData {
+  final String taskName;
+  final String taskPurpose;
+  final String taskFramework;
+  final String taskDataType;
+  final String taskMaxTrainer;
+  final String userId;
+
+  TaskRegisterData({
+    required this.taskName,
+    required this.taskPurpose,
+    required this.taskFramework,
+    required this.taskDataType,
+    required this.taskMaxTrainer,
+    required this.userId,
+  });
+
+  factory TaskRegisterData.fromJson(Map<String, dynamic> json) => _$TaskRegisterDataFromJson(json);
+  Map<String, dynamic> toJson() => _$TaskRegisterDataToJson(this);
+
+}
+
+@JsonSerializable()
 class UserRegister {
   final RegisterData data;
   final RegisterResult result;
@@ -45,7 +68,7 @@ class RegisterData {
 @JsonSerializable()
 class RegisterResult {
   final String message;
-  final int code;
+  final String code;
 
   RegisterResult({
     required this.message,
@@ -69,5 +92,5 @@ RegisterData blankRegisterData = RegisterData(
 
 UserRegister duplicateRegisterData = UserRegister(
     data: blankRegisterData,
-    result: RegisterResult(message: "user insert fail", code: 404)
+    result: RegisterResult(message: "user insert fail", code: "404")
 );

@@ -23,12 +23,8 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
   Widget build(BuildContext context) {
     var args;
     var selectedItem;
-    try {
-      args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-      selectedItem = args['content'];
-    } catch (Exception) {
-
-    }
+    args = ModalRoute.of(context)?.settings.arguments;
+    selectedItem = args['content'];
     var userName = globalUser.data.userName;
     var userType = globalUser.data.userType;
 
@@ -57,10 +53,10 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: TextUtils.defaultTextWithSizeAlignWeight(
-                        data.owner, 20, TextAlign.left, FontWeight.bold)),
+                        data.userName, 20, TextAlign.left, FontWeight.bold)),
                 Container(
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child: TextUtils.defaultTextWithSize(data.intro, 15)),
+                    child: TextUtils.defaultTextWithSize(data.taskName, 15)),
                 Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
@@ -97,7 +93,7 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
                             StyleResources.commonBtnCallback),
                       ),
                       onPressed: () {
-                        ParticipateDataPathPopup.showDataPathPopup(context);
+                        ParticipateDataPathPopup.showDataPathPopup(context, data);
                         setState(() {
 
                         });
@@ -130,19 +126,19 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
   }
 
   String stringContact(BCFL data) {
-    return "email : " + data.email + "\nphone : " + data.phone;
+    return "email : " + data.userEmail + "\nphone : " + data.userPhone;
   }
 
   String stringDetails(BCFL data) {
     return "Framework : " +
-        data.framework +
+        data.taskFramework +
         "\nTrainers : " +
-        data.participants +
+        data.taskMaxTrainer +
         "\nToken Supply : " +
-        data.tokenSupply +
+        data.taskContractAddress +
         "\nPurpose : " +
-        data.purpose +
+        data.taskPurpose +
         "\nData type : " +
-        data.dataType;
+        data.taskDataType;
   }
 }

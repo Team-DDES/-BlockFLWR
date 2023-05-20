@@ -52,7 +52,7 @@ class MarketplaceBuyPopup {
                                             Colors.white, BlendMode.srcIn),
                                         child: TextUtils
                                             .defaultTextWithSizeAlignWeight(
-                                            bcfl.owner,
+                                            bcfl.userName,
                                             25,
                                             TextAlign.left,
                                             FontWeight.bold),
@@ -62,7 +62,7 @@ class MarketplaceBuyPopup {
                                             Colors.white, BlendMode.srcIn),
                                         child: TextUtils
                                             .defaultTextWithSize(
-                                          bcfl.intro,
+                                          bcfl.taskName,
                                           15,),
                                       ),
                                     ],
@@ -82,14 +82,14 @@ class MarketplaceBuyPopup {
                                margin: EdgeInsets.all(20),
                                child: TextUtils.defaultTextWithSizeColor('Model info Abstract', 25, color: commonBtnColor),
                              ),
-                              modelInfoElement("Framework : " + bcfl.framework),
-                              modelInfoElement("Traniners : " + bcfl.participants),
-                              modelInfoElement("Token supply : " + bcfl.tokenSupply),
-                              modelInfoElement("Downloads : " + bcfl.idx),
-                              modelInfoElement("Purpose : " + bcfl.purpose),
+                              modelInfoElement("Framework : " + bcfl.taskFramework),
+                              modelInfoElement("Traniners : " + bcfl.taskMaxTrainer),
+                              modelInfoElement("Token supply : " + bcfl.taskContractAddress),
+                              modelInfoElement("Downloads : " + bcfl.taskId.toString()),
+                              modelInfoElement("Purpose : " + bcfl.taskPurpose),
                               Container(
                                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: TextUtils.defaultTextWithSizeAlignWeight("Price : " + bcfl.idx, 15, TextAlign.center, FontWeight.bold),
+                                child: TextUtils.defaultTextWithSizeAlignWeight("Price : " + bcfl.taskId.toString(), 15, TextAlign.center, FontWeight.bold),
                               ),
                               Container(
                                 child: ElevatedButton(

@@ -39,7 +39,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
           alignment: Alignment.centerRight,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, "participate_search_page");
+                Navigator.pushNamed(context, "participate_search_page");
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateColor.resolveWith(
@@ -51,11 +51,11 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
             ),
           ),
         ),
-        taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListParticiable),
+        taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListByT),
         Container(
           height: 30,
         ),
-        taskTable(context, StringResources.pastTask, TaskManager.sInstance.taskListByT),
+        taskTable(context, StringResources.pastTask, TaskManager.sInstance.completedTaskListByT),
       ],
     );
   }
@@ -95,7 +95,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
           (10 * ParticipateSearchPageState.maxCapacity);
     }
     return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: maxHeight),
+      constraints: BoxConstraints(minHeight: maxHeight, maxHeight: maxHeight),
       child: SingleChildScrollView(
         physics: isSearch
             ? const NeverScrollableScrollPhysics()
@@ -137,7 +137,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
                   Expanded(
                     flex: 1,
                     child: TextUtils.defaultTextWithSizeAlign(
-                        content.idx, 17, TextAlign.center),
+                        content.taskId.toString(), 17, TextAlign.center),
                   ),
                   Expanded(
                     flex: 6,
@@ -145,12 +145,13 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
                   ),
                   Expanded(
                     flex: 6,
-                    child: TextUtils.defaultTextWithSize(content.owner, 17),
+                    child: TextUtils.defaultTextWithSize(content.userName, 17),
                   ),
                   Expanded(
                     flex: 4,
                     child: TextUtils.defaultTextWithSize(
-                        isSearch ? content.participants : content.role, 17),
+                        isSearch ? (content.taskParticipants + "/" + content.taskMaxTrainer)
+                            : 'Trainer', 17),
                   ),
                   Expanded(
                     flex: 3,

@@ -1,9 +1,11 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/data/user.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/file_utils.dart';
+import 'package:flutter_web/utils/http_utils.dart';
 import 'package:flutter_web/utils/string_resources.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
@@ -64,13 +66,14 @@ class ParticipateDetailPopup {
               ),
               content: Column(
                 children: [
-                  taskDetailElement('Owner', content.owner),
-                  taskDetailElement('Learning Status', content.status),
-                  taskDetailElement('Contract Address', content.address),
+                  taskDetailElement('Owner', content.userName),
+                  taskDetailElement('Learning Status', statusCodeToString(content.taskStatusCode)),
+                  taskDetailElement('Contract Address', content.taskContractAddress),
                   if (userType == typeParticipant)
                   Column(
                     children: [
-                      taskDetailElement('My toknes', content.tokenSupply),
+                      //임의로 사용자 지갑 주소 넣음
+                      taskDetailElement('My toknes', userController.address.value),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

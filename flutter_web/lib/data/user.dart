@@ -76,22 +76,6 @@ class UserResponse {
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 }
 
-PostUserRegisterData dummyRegister = PostUserRegisterData(
-  userType: "T",
-  userName: "Dummy User 1",
-  userAddress: "0x123123123",
-  userEmail: "dummy1@example.com",
-  userPhone: "01012345678",
-);
-
-PostUserRegisterData dummyOrgRegister = PostUserRegisterData(
-  userType: "E",
-  userName: "Dummy User 2",
-  userAddress: "0x456456456",
-  userEmail: "dummy2@example.com",
-  userPhone: "01087654321",
-);
-
 Result dummyResult = Result(
   message: "success",
   code: SUCCESS,

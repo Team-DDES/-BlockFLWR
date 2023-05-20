@@ -11,7 +11,7 @@ class UserApi {
   final http.Client _httpClient = http.Client();
   final String baseUrl;
 
-  UserApi({this.baseUrl = 'http://tvstorm-ai.asuscomm.com:12300/flower'});
+  UserApi({this.baseUrl = BASE_URL});
 
   Future<UserRegister> registerUser(Map<String, dynamic> data) async {
     final url = Uri.parse('$baseUrl/user/join/');
@@ -44,6 +44,9 @@ class UserApi {
           return duplicateRegisterData;
         });
       }
+      await isUser({'userAddress': userController.address.value}).then((value) {
+        globalUser = value;
+      });
       return UserRegister.fromJson(responseData);
     } else {
       throw Exception('Failed to register user');

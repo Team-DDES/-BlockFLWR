@@ -80,7 +80,7 @@ class BaseMainViewState extends State<BaseMainView> {
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                 child: TextUtils.defaultTextWithSizeColor("participate", 17,
-                    color: (widget.userType == "part"
+                    color: (widget.userType == "T"
                         ? Colors.black
                         : notSelectTextColor)),
               ),
@@ -88,7 +88,7 @@ class BaseMainViewState extends State<BaseMainView> {
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.fromLTRB(0, 0, 40, 0),
                 child: TextUtils.defaultTextWithSizeColor("organization", 17,
-                    color: (widget.userType == "org"
+                    color: (widget.userType == "E"
                         ? Colors.black
                         : notSelectTextColor)),
               ),

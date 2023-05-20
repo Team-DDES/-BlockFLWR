@@ -155,7 +155,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Text(
-                  data.owner,
+                  data.userName,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 20,
@@ -174,7 +174,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Text(
-                  data.intro,
+                  data.taskName,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 20,
@@ -250,7 +250,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
           Container(
             alignment: Alignment.centerLeft,
             child: TextUtils.defaultTextWithSizeAlignWeight(
-                data.owner, 20, TextAlign.left, FontWeight.bold),
+                data.userName, 20, TextAlign.left, FontWeight.bold),
           ),
           Container(
             margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -348,7 +348,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
   void filterData(String query) {
     filteredData.clear();
     if (query.isNotEmpty) {
-      for (var item in dummyBCFLList) {
+      for (var item in TaskManager.sInstance.taskListParticiable) {
         if (item.containKeyword(query)) {
           filteredData.add(item);
         }

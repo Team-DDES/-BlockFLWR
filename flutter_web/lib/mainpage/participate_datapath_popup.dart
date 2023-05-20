@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
+import 'package:flutter_web/data/bcfl.dart';
+import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/services/taskServices.dart';
 import 'package:flutter_web/utils/file_utils.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
@@ -6,7 +10,7 @@ import 'package:flutter_web/utils/text_utils.dart';
 class ParticipateDataPathPopup {
   static String filePath = '';
 
-  static void showDataPathPopup(BuildContext context) {
+  static void showDataPathPopup(BuildContext context, BCFL data) {
     FilePathBox pathBox = FilePathBox(
       context: context, text: 'browse ...',
     );
@@ -81,6 +85,13 @@ class ParticipateDataPathPopup {
                 ),
                 onPressed: () {
                   filePath = pathBoxState.getSelectedFilePath();
+                  TaskApi api = TaskApi();
+                  api.postParticipateTask({
+                    'taskId': data.taskId,
+                    'userId': globalUser.data.userId,
+                    'dataPath': filePath,
+                  });
+                  Navigator.pushNamed(context, "participate_main_page");
                 },
                 child: TextUtils.defaultTextWithSize("Confirm", 15),
               ),

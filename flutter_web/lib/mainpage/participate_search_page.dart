@@ -22,24 +22,24 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
   var userType = "part";
 
   final capacity = 9;
-  final List<BCFL> filteredData = <BCFL>[];
+  final List<BCFL> filteredData = TaskManager.sInstance.taskListParticiable.toList();
   final List<BCFL> displayData = <BCFL>[];
 
   int selectPage = 1;
 
+  TextEditingController itemTextControllers = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 60 * maxCapacity + (10 * maxCapacity),
       child: BaseMainView(
-          child: taskSearchTable(context, TaskManager.sInstance.taskListByT),
+          child: taskSearchTable(context, TaskManager.sInstance.taskListParticiable),
           userName: userName,
           userType: userType,),
     );
   }
 
   Widget taskSearchTable(BuildContext context, List<BCFL> data) {
-    List<BCFL> findData = data;
     return Container(
         child: Column(
       children: [
@@ -48,13 +48,14 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
             elevation: 4.0,
             shadowColor: Colors.transparent,
             child: Container(
-              height: 50,
+              height: 40,
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
                 color: Colors.white,
               ),
               child: TextField(
+                controller: itemTextControllers,
                 onChanged: (value) {
                   filterData(value);
                   setState(() {
@@ -70,9 +71,10 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
                     Icons.search,
                     color: Colors.black,
                   ),
-                  suffixIcon: Icon(
-                    Icons.cancel,
-                    color: Colors.black,
+                  suffixIcon: IconButton(
+                    onPressed: itemTextControllers.clear,
+                    icon: Icon(Icons.cancel,
+                    color: Colors.black,)
                   ),
                   //prefixIcon: const Image(fit: BoxFit.cover, image: AssetImage("assets/images/main_search_icon.png")),
                 ),
@@ -80,8 +82,8 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
             )),
         Container(
             alignment: Alignment.topCenter,
-            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-            padding: EdgeInsets.fromLTRB(30, 30, 30, 20),
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -110,7 +112,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
                   ],
                 ),
                 Container(
-                  height: 20,
+                  height: 10,
                 ),
                 ParticipateMainPageState.createTaskList(
                     context,
@@ -121,7 +123,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
                 Stack(
                   children: [
                     pagerList(context,
-                        filteredData.isEmpty ? TaskManager.sInstance.taskListByT : filteredData),
+                        filteredData.isEmpty ? TaskManager.sInstance.taskListParticiable : filteredData),
                     Container(
                         height: 30,
                         alignment: Alignment.bottomLeft,
@@ -151,7 +153,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
     var pagerNeed = listData.length % maxCapacity == 0
         ? listData.length ~/ maxCapacity
         : listData.length ~/ maxCapacity + 1;
-    List<bool> pagerSelect = List.filled(pagerNeed, false);
+    List<bool> pagerSelect = List.filled(pagerNeed == 0? 1 : pagerNeed, false);
     pagerSelect[selectPage - 1] = true;
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
@@ -205,17 +207,21 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
   }
 
   void filterData(String query) {
+    print("input query :: " + query);
     filteredData.clear();
-    if (query.isNotEmpty) {
-      for (var item in TaskManager.sInstance.taskListByT) {
+    if (query != "") {
+      for (var item in TaskManager.sInstance.taskListParticiable) {
         if (item.containKeyword(query)) {
           filteredData.add(item);
         }
       }
     } else {
-      filteredData.addAll(TaskManager.sInstance.taskListByT);
+      print("query else routine !!");
+      filteredData.addAll(TaskManager.sInstance.taskListParticiable.toList());
     }
-    setState(() {});
+    print("filteredData result :: " + filteredData.length.toString());
+    setState(() {
+    });
   }
 
   List<BCFL> createDisplayData(List<BCFL> targetData, int page) {

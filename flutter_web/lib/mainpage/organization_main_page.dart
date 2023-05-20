@@ -39,7 +39,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
           alignment: Alignment.centerRight,
           child: ElevatedButton(
             onPressed: () {
-              //TODO FL task registration
+              Navigator.pushNamed(context, "organization_register_page");
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateColor.resolveWith(
@@ -51,11 +51,11 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
             ),
           ),
         ),
-        taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListParticiable),
+        taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListByE),
         Container(
           height: 30,
         ),
-        taskTable(context, StringResources.pastTask, TaskManager.sInstance.taskListByE),
+        taskTable(context, StringResources.pastTask, TaskManager.sInstance.completedTaskListByE),
       ],
     );
   }
@@ -90,7 +90,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
   static Widget createTaskList(BuildContext context, List<BCFL> data) {
     double maxHeight = 60 * 4 + (10 * 4);
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: maxHeight),
+      constraints: BoxConstraints(minHeight: maxHeight, maxHeight: maxHeight),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
@@ -130,7 +130,7 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
                   Expanded(
                     flex: 1,
                     child: TextUtils.defaultTextWithSizeAlign(
-                        content.idx, 17, TextAlign.center),
+                        content.taskId as String, 17, TextAlign.center),
                   ),
                   Expanded(
                     flex: 6,
@@ -138,11 +138,11 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
                   ),
                   Expanded(
                     flex: 6,
-                    child: TextUtils.defaultTextWithSize(content.owner, 17),
+                    child: TextUtils.defaultTextWithSize(content.userName, 17),
                   ),
                   Expanded(
                     flex: 4,
-                    child: TextUtils.defaultTextWithSize(content.role, 17),
+                    child: TextUtils.defaultTextWithSize('Organization', 17),
                   ),
                   Expanded(
                     flex: 3,

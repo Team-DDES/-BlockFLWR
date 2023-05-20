@@ -1,8 +1,9 @@
-import 'package:dio/dio.dart';
+import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
-import 'package:flutter_web/services/taskServices.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/services/taskServices.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class TaskManager{
   static final TaskManager sInstance = TaskManager._internal();
@@ -11,26 +12,39 @@ class TaskManager{
     return sInstance;
   }TaskManager._internal();
 
-   List<BCFL> taskListParticiable = <BCFL>[];
-   List<BCFL> taskListByE = <BCFL>[];
-   List<BCFL> taskListByT = <BCFL>[];
+  RxList<BCFL> taskListParticiable = <BCFL>[].obs;
+  RxList<BCFL> taskListByT = <BCFL>[].obs;
+  RxList<BCFL> completedTaskListByT = <BCFL>[].obs;
+  RxList<BCFL> taskListByE = <BCFL>[].obs;
+  RxList<BCFL> completedTaskListByE = <BCFL>[].obs;
 
-  void initTaskList(){
-    var dio = Dio();
-    TaskApi taskApi = TaskApi(dio);
-
-    Map<String, dynamic> mapParticiable = {"taskStatusCode": 1};
+  void initTaskList() async {
     Map<String, dynamic> mapByE = {
       "organizationUserId": globalUser.data.userId,
-      "taskStatusCode": 2}
+      "taskStatusCode": "1"}
+    ;
+    Map<String, dynamic> mapByCompletedE = {
+      "organizationUserId": globalUser.data.userId,
+      "taskStatusCode": "2"}
     ;
     Map<String, dynamic> mapByT = {
       "trainerUserId": globalUser.data.userId,
-      "taskStatusCode": 2
+      "taskStatusCode": "1"
+    };
+    Map<String, dynamic> mapByCompletedT = {
+      "trainerUserId": globalUser.data.userId,
+      "taskStatusCode": "2"
     };
 
-    taskApi.getTaskList(mapParticiable).then((value) => taskListParticiable);
-    taskApi.getTaskList(mapByE).then((value) => taskListByE);
-    taskApi.getTaskList(mapByT).then((value) => taskListByT);
+    TaskApi taskApi = TaskApi();
+
+    taskListParticiable.value = await taskApi.getTaskList({"taskStatusCode": "1"});
+    if(userController.type.value == typeParticipant){
+      taskListByT.value = await taskApi.getTaskList(mapByT);
+      completedTaskListByT.value = await taskApi.getTaskList(mapByCompletedT);
+    }else if(userController.type.value == typeOrganization){
+      taskListByE.value = await taskApi.getTaskList(mapByE);
+      completedTaskListByE.value = await taskApi.getTaskList(mapByE);
+    }
   }
 }

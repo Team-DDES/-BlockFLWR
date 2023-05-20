@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/data/user_register.dart';
 import 'package:flutter_web/services/clientService.dart';
 import 'package:flutter_web/utils/color_category.dart';
 
@@ -143,35 +144,33 @@ class DidVcPageState extends State<DidVc> {
 
     UserApi vcApi = UserApi();
 
-    await vcApi.registerUser(postData.toJson()).then((value) {
-      print(value);
-      if (value.result.code == 200) {
-        if (postData.userType == typeParticipant) {
-          Navigator.pushNamed(
-            context,
-            "participate_main_page",
-          );
-        } else if (postData.userType == typeOrganization) {
-          Navigator.pushNamed(
-            context,
-            "organization_main_page",
-          );
-        }
-      } else if (value.result.code == 404) {
-        if (globalUser.data.userType == typeParticipant) {
-          Navigator.pushNamed(
-            context,
-            "participate_main_page",
-          );
-        } else if (globalUser.data.userType == typeOrganization) {
-          Navigator.pushNamed(
-            context,
-            "organization_main_page",
-          );
-        }
-      } else {
-        print("Not Create VC");
+    UserRegister response = await vcApi.registerUser(postData.toJson());
+    if (response.result.code == "200") {
+      if (postData.userType == typeParticipant) {
+        Navigator.pushNamed(
+          context,
+          "participate_main_page",
+        );
+      } else if (postData.userType == typeOrganization) {
+        Navigator.pushNamed(
+          context,
+          "organization_main_page",
+        );
       }
-    });
+    } else if (response.result.code == "404") {
+      if (globalUser.data.userType == typeParticipant) {
+        Navigator.pushNamed(
+          context,
+          "participate_main_page",
+        );
+      } else if (globalUser.data.userType == typeOrganization) {
+        Navigator.pushNamed(
+          context,
+          "organization_main_page",
+        );
+      }
+    } else {
+      print("Not Create VC");
+    }
   }
 }
