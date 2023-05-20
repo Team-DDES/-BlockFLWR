@@ -19,8 +19,8 @@ class MarketplaceMainPage extends StatefulWidget {
 }
 
 class MarketplaceMainPageState extends State<MarketplaceMainPage> {
-  var userName = globalUser.data.userData.userName;
-  var userType = globalUser.data.userData.userType;
+  var userName = globalUser.data.userName;
+  var userType = globalUser.data.userType;
   var currentQuery = "";
 
   final maxCapacity = 3;

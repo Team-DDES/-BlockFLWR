@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/utils/color_category.dart';
+import 'package:flutter_web/utils/http_utils.dart';
 import 'package:metamask/metamask.dart';
 
 import 'package:flutter_web/utils/style_resources.dart';
@@ -28,40 +29,6 @@ class _JoinPageState extends State<Join> {
     bool isWindows = Theme.of(context).platform == TargetPlatform.windows;
     bool isMacOS = Theme.of(context).platform == TargetPlatform.macOS;
     if (isWindows || isMacOS) {
-      // bool success = await metamask.login();
-      // if (success) {
-      //   final UserApi clientApi;
-      //   final Dio dio = Dio();
-      //   clientApi = UserApi(dio);
-      //   debugPrint('MetaMask address: ${metamask.address}');
-      //   debugPrint('MetaMask signature: ${metamask.signature}');
-      //
-      //   userController.address.value = metamask.address.toString();
-      //   userController.signature.value = metamask.signature.toString();
-      //
-      //   print("Pass 1 ::");
-      //   UserResponse response = await clientApi.isUser({"userAddress": metamask.signature});
-      //   print("Pass 2 ::");
-      //   globalUser = response;
-      //   if (response.result.code == 403) {
-      //     Navigator.pushNamed(context, "did_vc");
-      //   } else if (response.result.code == 200 && response.data != null) {
-      //     if (response.data.userData.userType == typeParticipant) {
-      //       Navigator.pushNamed(
-      //         context,
-      //         "participate_main_page",
-      //       );
-      //     } else if (response.data.userData.userType == typeOrganization) {
-      //       Navigator.pushNamed(
-      //         context,
-      //         "organization_main_page",
-      //       );
-      //     }
-      //   }
-      // } else {
-      //   debugPrint('MetaMask login failed');
-      // }
-
       await metamask.login().then((success) async {
           if (success) {
             final UserApi clientApi;
@@ -73,17 +40,18 @@ class _JoinPageState extends State<Join> {
             userController.address.value = metamask.address.toString();
             userController.signature.value = metamask.signature.toString();
 
-            UserResponse response = await clientApi.isUser({"userAddress": metamask.signature});
-            globalUser = response;
-            if (response.result.code != 200) {
+            UserResponse response = await clientApi.isUser({"userAddress": metamask.address});
+            if (response.result.code != SUCCESS) {
               Navigator.pushNamed(context, "did_vc");
-            } else if (response.result.code == 200 && response.data != null) {
-              if (response.data.userData.userType == typeParticipant) {
+            } else if (response.result.code == SUCCESS) {
+              userController.walletConnect.value = true;
+              globalUser = response;
+              if (response.data.userType == typeParticipant) {
                 Navigator.pushNamed(
                   context,
                   "participate_main_page",
                 );
-              } else if (response.data.userData.userType == typeOrganization) {
+              } else if (response.data.userType == typeOrganization) {
                 Navigator.pushNamed(
                   context,
                   "organization_main_page",

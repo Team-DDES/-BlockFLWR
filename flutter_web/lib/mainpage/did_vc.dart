@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/user.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/string_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
-import 'package:get/get.dart';
 
 class DidVc extends StatefulWidget {
   const DidVc({Key? key, required this.title}) : super(key: key);
@@ -35,7 +33,6 @@ class DidVcPageState extends State<DidVc> {
 
   @override
   Widget build(BuildContext context) {
-    UserApi createVC = UserApi();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -78,32 +75,7 @@ class DidVcPageState extends State<DidVc> {
                       backgroundColor: MaterialStateColor.resolveWith(
                           StyleResources.commonBtnCallback),
                     ),
-                    onPressed: () {
-                      // TODO mainpage로 이동
-                      PostUserRegisterData postData = PostUserRegisterData(
-                          userAddress: userController.address.value,
-                          userName: itemTextControllers[0].text,
-                          userType: itemTextControllers[1].text,
-                          userEmail: itemTextControllers[2].text,
-                          userPhone: itemTextControllers[3].text);
-                      createVC.registerUser(postData.toJson()).then((value) {
-                        if (value.result.code == "200") {
-                          if (postData.userType == typeParticipant) {
-                            Navigator.pushNamed(
-                              context,
-                              "participate_main_page",
-                            );
-                          } else if (postData.userType == typeOrganization) {
-                            Navigator.pushNamed(
-                              context,
-                              "organization_main_page",
-                            );
-                          }
-                        } else {
-                          print("Not Create VC");
-                        }
-                      });
-                    },
+                    onPressed: createVC, //createVC
                     child: Container(
                       alignment: Alignment.center,
                       child: const Text(
@@ -121,41 +93,85 @@ class DidVcPageState extends State<DidVc> {
 
   Widget didElement(String content, int idx) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-      width: 300,
-      height: 40,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: didElementColor,
-        border: Border.all(color: notSelectTextColor, width: 3),
-      ),
-      child: Container(
+        margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        width: 300,
+        height: 40,
         alignment: Alignment.center,
-        padding: EdgeInsets.fromLTRB(10, 6, 0, 6),
-        child: TextField(
-          onChanged: (value) {
-            setState(() {});
-          },
-          textAlign: TextAlign.left,
-          controller: itemTextControllers[idx],
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: content,
-            alignLabelWithHint: true,
-            hintStyle: TextStyle(color: notSelectTextColor, fontSize: 15),
-            suffixIcon: IconButton(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
-              onPressed: () {
-                itemTextControllers[idx].clear();
-              },
-              icon: Icon(Icons.cancel),
-              color: Colors.black,
-            ),
-            //prefixIcon: const Image(fit: BoxFit.cover, image: AssetImage("assets/images/main_search_icon.png")),
-          ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: didElementColor,
+          border: Border.all(color: notSelectTextColor, width: 3),
         ),
-      )
-    );
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.fromLTRB(10, 6, 0, 6),
+          child: TextField(
+            onChanged: (value) {
+              setState(() {});
+            },
+            textAlign: TextAlign.left,
+            controller: itemTextControllers[idx],
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: content,
+              alignLabelWithHint: true,
+              hintStyle: TextStyle(color: notSelectTextColor, fontSize: 15),
+              suffixIcon: IconButton(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
+                onPressed: () {
+                  itemTextControllers[idx].clear();
+                },
+                icon: Icon(Icons.cancel),
+                color: Colors.black,
+              ),
+              //prefixIcon: const Image(fit: BoxFit.cover, image: AssetImage("assets/images/main_search_icon.png")),
+            ),
+          ),
+        ));
+  }
+
+  Future<void> createVC() async {
+    if(userController.address.value.isEmpty){
+      userController.address.value = "0x7F2aefB41181cc37487f6be5a03266d912852bc4";
+    }
+    PostUserRegisterData postData = PostUserRegisterData(
+        userAddress: userController.address.value,
+        userName: itemTextControllers[0].text,
+        userType: itemTextControllers[1].text,
+        userEmail: itemTextControllers[2].text,
+        userPhone: itemTextControllers[3].text);
+
+    UserApi vcApi = UserApi();
+
+    await vcApi.registerUser(postData.toJson()).then((value) {
+      print(value);
+      if (value.result.code == 200) {
+        if (postData.userType == typeParticipant) {
+          Navigator.pushNamed(
+            context,
+            "participate_main_page",
+          );
+        } else if (postData.userType == typeOrganization) {
+          Navigator.pushNamed(
+            context,
+            "organization_main_page",
+          );
+        }
+      } else if (value.result.code == 404) {
+        if (globalUser.data.userType == typeParticipant) {
+          Navigator.pushNamed(
+            context,
+            "participate_main_page",
+          );
+        } else if (globalUser.data.userType == typeOrganization) {
+          Navigator.pushNamed(
+            context,
+            "organization_main_page",
+          );
+        }
+      } else {
+        print("Not Create VC");
+      }
+    });
   }
 }

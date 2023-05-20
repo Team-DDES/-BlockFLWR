@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/user.dart';
 import 'package:flutter_web/data/user_register.dart';
+import 'package:flutter_web/utils/http_utils.dart';
 import 'package:get/get.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -34,9 +36,30 @@ class UserApi {
       body: jsonEncode(data),
       headers: {'Content-Type': 'application/json'},
     );
-
     if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      if(RegisterResult.fromJson(responseData['result']).code != SUCCESS){
+        try{
+          if(response.body.contains("Duplicate")){
+            Map<String, dynamic> wrapAddress = {'userAddress': userController.address.value};
+            await isUser(wrapAddress).then((value) {
+              globalUser = value;
+              return duplicateRegisterData;
+            });
+          }
+        }catch(e){
+          Map<String, dynamic> wrapAddress = {'userAddress': userController.address.value};
+          await isUser(wrapAddress).then((value) {
+            globalUser = value;
+            return duplicateRegisterData;
+          });
+        }
+        Map<String, dynamic> wrapAddress = {'userAddress': userController.address.value};
+        await isUser(wrapAddress).then((value) {
+          globalUser = value;
+          return duplicateRegisterData;
+        });
+      }
       return UserRegister.fromJson(responseData);
     } else {
       throw Exception('Failed to register user');
@@ -51,16 +74,21 @@ class UserApi {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = jsonDecode(response.body);
-      if(Result.fromJson(responseData['result']).code != 200){
+      final responseData = jsonDecode(response.body);
+      if(Result.fromJson(responseData['result']).code != SUCCESS){
         return UserResponse(
-          data: User(userId: -1, userData: blankPostUser, createDate: ""),
+          data: User(userId: -1,
+              createDate: "",
+              userType: '',
+              userName: '',
+              userAddress: '',
+              userEmail: '',
+              userPhone: ''),
           result: Result.fromJson(responseData['result'])
         );
       }else{
         return UserResponse.fromJson(responseData);
       }
-
     } else {
       throw Exception('Failed to check user');
     }

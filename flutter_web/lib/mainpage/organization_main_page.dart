@@ -21,8 +21,8 @@ class OrganizationMainPage extends StatefulWidget {
 class OrganizationMainPageState extends State<OrganizationMainPage> {
   @override
   Widget build(BuildContext context) {
-    var userName = globalUser.data.userData.userName;
-    var userType = globalUser.data.userData.userType;
+    var userName = globalUser.data.userName;
+    var userType = globalUser.data.userType;
 
     return BaseMainView(
       userName: userName,

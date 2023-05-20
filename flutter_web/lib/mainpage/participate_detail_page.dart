@@ -29,8 +29,8 @@ class ParticipateDetailPageState extends State<ParticipateDetailPage> {
     } catch (Exception) {
 
     }
-    var userName = globalUser.data.userData.userName;
-    var userType = globalUser.data.userData.userType;
+    var userName = globalUser.data.userName;
+    var userType = globalUser.data.userType;
 
     return BaseMainView(
         child: detailPopup(selectedItem),

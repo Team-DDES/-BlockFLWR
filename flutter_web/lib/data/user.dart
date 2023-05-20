@@ -1,3 +1,4 @@
+import 'package:flutter_web/utils/http_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -5,14 +6,22 @@ part 'user.g.dart';
 @JsonSerializable()
 class User {
   final int userId;
-  final PostUserRegisterData userData;
+  final String userType;
+  final String userName;
+  final String userAddress;
+  final String userEmail;
+  final String userPhone;
   final String createDate;
 
-  User(
-      { required this.userId,
-        required this.userData,
-        required this.createDate
-      });
+  User({
+    required this.userId,
+    required this.createDate,
+    required this.userType,
+    required this.userName,
+    required this.userAddress,
+    required this.userEmail,
+    required this.userPhone,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
@@ -42,7 +51,7 @@ class PostUserRegisterData {
 @JsonSerializable()
 class Result {
   final String message;
-  final int code;
+  final String code;
 
   Result({
     required this.message,
@@ -67,18 +76,6 @@ class UserResponse {
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 }
 
-User dummyUser = User(
-  userId: 1,
-  userData: dummyRegister,
-  createDate: "2023-05-16T00:00:00.000Z",
-);
-
-User dummyOrgUser = User(
-  userId: 2,
-  userData: dummyOrgRegister,
-  createDate: "2023-05-16T00:00:00.000Z",
-);
-
 PostUserRegisterData dummyRegister = PostUserRegisterData(
   userType: "T",
   userName: "Dummy User 1",
@@ -97,18 +94,9 @@ PostUserRegisterData dummyOrgRegister = PostUserRegisterData(
 
 Result dummyResult = Result(
   message: "success",
-  code: 200,
+  code: SUCCESS,
 );
 
-UserResponse dummyUser1 = UserResponse(
-  data: dummyUser,
-  result: dummyResult,
-);
-
-UserResponse dummyUser2 = UserResponse(
-  data: dummyOrgUser,
-  result: dummyResult,
-);
 
 PostUserRegisterData blankPostUser = PostUserRegisterData(
   userType: '',

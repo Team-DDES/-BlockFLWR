@@ -45,7 +45,7 @@ class RegisterData {
 @JsonSerializable()
 class RegisterResult {
   final String message;
-  final String code;
+  final int code;
 
   RegisterResult({
     required this.message,
@@ -55,3 +55,19 @@ class RegisterResult {
   factory RegisterResult.fromJson(Map<String, dynamic> json) => _$RegisterResultFromJson(json);
   Map<String, dynamic> toJson() => _$RegisterResultToJson(this);
 }
+
+RegisterData blankRegisterData = RegisterData(
+  fieldCount: 0,
+  affectedRows: 0,
+  insertId: 0,
+  serverStatus: 0,
+  warningCount: 0,
+  message: '',
+  protocol41: false,
+  changedRows: 0,
+);
+
+UserRegister duplicateRegisterData = UserRegister(
+    data: blankRegisterData,
+    result: RegisterResult(message: "user insert fail", code: 404)
+);

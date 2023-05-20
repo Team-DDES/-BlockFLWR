@@ -24,8 +24,8 @@ class ParticipateMainPage extends StatefulWidget {
 }
 
 class ParticipateMainPageState extends State<ParticipateMainPage> {
-  var userName = globalUser.data.userData.userType;
-  var userType = globalUser.data.userData.userType;
+  var userName = globalUser.data.userType;
+  var userType = globalUser.data.userType;
   @override
   Widget build(BuildContext context) {
     return BaseMainView(
@@ -167,7 +167,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
                               ? Navigator.pushNamed(
                                   context, "participate_detail_page",
                                   arguments: postContent)
-                              : ParticipateDetailPopup.showDetailPopup(context, content, globalUser.data.userData.userType);
+                              : ParticipateDetailPopup.showDetailPopup(context, content, globalUser.data.userType);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
