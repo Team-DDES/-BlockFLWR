@@ -33,10 +33,11 @@ class IPFSClient:
         else:
             # download from IPFS
             print("download from IPFS")
+            print(self._ipfs_api)
             with ipfshttpclient.connect(self._ipfs_api) as ipfs:
                 print("ipfs connection done")
                 print("check cid",model_cid)
-                model_bytes = ipfs.cat(model_cid,timeout=60)
+                model_bytes = ipfs.cat(model_cid,timeout=300)
                 print("upload done")
             buffer = io.BytesIO(model_bytes)
             self.model.load_state_dict(torch.load(buffer))
@@ -51,9 +52,9 @@ class IPFSClient:
             check = model.state_dict()
             torch.save(model.state_dict(), buffer)
         buffer.seek(0)
+        print(self._ipfs_api)
         with ipfshttpclient.connect(self._ipfs_api) as ipfs:
             model_cid = ipfs.add_bytes(buffer.read())
-
         return model_cid
 
     def add_metadata(self,json_path):

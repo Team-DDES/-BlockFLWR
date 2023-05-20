@@ -8,7 +8,9 @@ const {nft_bytecode} = require('./contracts/nft_bytecode');
 const {updateTask} = require('../database/mysql');
 const path = require("path")
 const spawn = require('child_process').spawn;
-var port = 8081;
+//var exec = require('child_process').exec, child;
+
+var port = 8083;
 
 function createTaskContract(taskId){
     //https://polygon-mumbai.g.alchemy.com/v2/iWAnKUG94_jJyWY74c6CHYXAU_FuEf_C
@@ -21,7 +23,7 @@ function createTaskContract(taskId){
     const myCrowdContract = new ethers.ContractFactory(abi, bytecode, signer);
     const nftContract = new ethers.ContractFactory(nft_abi, nft_bytecode, signer);
     const _taskId = taskId;
-    const nftContractAddress = '0x438b06ab7B23EC536C2Eb292F449B490069D0A64';
+    const nftContractAddress = '0x9DD1212f79BCA27ED2e9D4C32893011DEA73146A';
     
     myCrowdContract.deploy().then((contract)=>{
     var __taskId = _taskId
@@ -31,7 +33,7 @@ function createTaskContract(taskId){
     var data = {taskId:__taskId, taskContractAddress:contract.address, taskStatusCode:1, taskPort:__port}
     updateTask(data,(result)=>{console.log(result)})
     
-    runServer(contract.address,__nftContractAddress,3);
+    runServer(contract.address,__nftContractAddress,1,__port);
    }).catch((err)=>{
     console.log(err);
    })
@@ -42,10 +44,10 @@ module.exports = {
     createTaskContract
 }
 
-function runServer(taskContractAddress,nftContractAddress,round ){
+function runServer(taskContractAddress,nftContractAddress,round, port){
     // 2. spawn을 통해 "python 파이썬파일.py" 명령어 실행
-    const result = spawn('python', [path.join(__dirname, '..', '..', '/examples/quickstart_pytorch_ethereum/server.py'),'0.0.0.0:8081',round,taskContractAddress,nftContractAddress,"Mnist"]);
-    // 3. stdout의 'data'이벤트리스너로 실행결과를 받는다.
+    const result = spawn('/usr/bin/python3', [path.join(__dirname, '..', '..', '/examples/quickstart_pytorch_ethereum/server.py'),'0.0.0.0:'+port,round,taskContractAddress,nftContractAddress,"Mnist"]);
+    //3. stdout의 'data'이벤트리스너로 실행결과를 받는다.
     result.stdout.on('data', function(data) {
         console.log("get Data");
         console.log(data.toString());
@@ -56,6 +58,23 @@ function runServer(taskContractAddress,nftContractAddress,round ){
         console.log("get error");
         console.log(data.toString());
     });
+    // var child = new exec('/usr/bin/python3 /media/hdd1/es_workspace/D-DES/examples/quickstart_pytorch_ethereum/server.py'+' 0.0.0.0:'+port+' 2 '+taskContractAddress+' '+nftContractAddress+' Mnist');
+    // // Add the child process to the list for tracking
+    // // Listen for any response:
+    // console.log('/usr/bin/python3 /media/hdd1/es_workspace/D-DES/examples/quickstart_pytorch_ethereum/server.py'+' 0.0.0.0:'+port+' 2 '+taskContractAddress+' '+nftContractAddress+' Mnist')
+    // child.stdout.on('data', function (data) {
+    //     console.log(child.pid, data);
+    // });
+
+    // // Listen for any errors:
+    // child.stderr.on('data', function (data) {
+    //     console.log(child.pid, data);
+    // }); 
+
+    // // Listen if the process closed
+    // child.on('close', function(exit_code) {
+    //     console.log('Closed before stop: Closing code: ', exit_code);
+    // });
 }
 // const settings = {
 //     apiKey: "iWAnKUG94_jJyWY74c6CHYXAU_FuEf_C",

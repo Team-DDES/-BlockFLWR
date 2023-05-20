@@ -37,9 +37,10 @@ from Mnist import load_data as Mnist_load_data
 # cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
 # model = "Mnist"
 
-
 # sys.argv = [num,add, cid, cont, cont_N,model]
-
+print("TESTESTESTETE")
+print(sys.argv)
+print(sys.argv[2])
 # #############################################################################
 # 1. Regular PyTorch pipeline: nn.Module, train, test, and DataLoader
 # #############################################################################
@@ -104,7 +105,7 @@ class FlowerClient(fl.client.EthClient):
         # self.set_parameters(parameters)
         if sys.argv[4] == "Cifar":
             Cifar_train(net, train_loader, epochs=1)
-        elif sys.argv[4] == "Mnist":
+        else:
             Mnist_train(net, train_loader, epochs=1)
         # else:
         #     PhysNet_train(net, train_loader, epochs=1)
@@ -121,7 +122,7 @@ class FlowerClient(fl.client.EthClient):
         account = self.EthBase.address
         if sys.argv[4] == "Cifar":
             client_loss, client_accuracy = Cifar_test(net, test_loader)
-        elif sys.argv[4] == "Mnist":
+        else:
             client_loss, client_accuracy = Mnist_test(net, test_loader)
         # else:
         #     client_loss, client_accuracy = PhysNet_test(net, test_loader)
@@ -129,7 +130,7 @@ class FlowerClient(fl.client.EthClient):
         self.set_parameters(parameters)
         if sys.argv[4] == "Cifar":
             loss, accuracy = Cifar_test(net, test_loader)
-        elif sys.argv[4] == "Mnist":
+        else: 
             loss, accuracy = Mnist_test(net, test_loader)
         # else:
         #     loss, accuracy = PhysNet_test(net, test_loader)

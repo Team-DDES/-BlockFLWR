@@ -63,7 +63,9 @@ class EthClient(ABC):
                     time.sleep(1)
 
     def set_genesis(self):
+            print(self.IPFSClient.model)
             genesis_cid = self.IPFSClient.add_model(self.IPFSClient.model)
+            print(genesis_cid)
             print(f"Genesis model cid : {genesis_cid}")
             tx = self.EthBase.setGenesis(genesis_cid)
             print("wait_for_tx")

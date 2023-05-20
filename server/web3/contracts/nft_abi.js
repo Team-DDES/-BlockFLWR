@@ -1,4 +1,4 @@
-const  nft_abi = [
+[
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -130,6 +130,25 @@ const  nft_abi = [
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getTokenURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "tokenURI",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -414,8 +433,4 @@ const  nft_abi = [
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
-];
-
-module.exports = {
-    nft_abi
-}
+]

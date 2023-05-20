@@ -1,58 +1,100 @@
 const express = require('express');
 const router = express.Router();
-// const { insertTask, getTask } = require('../database/mysql');
+const { insertMarketNft } = require('../database/mysql');
 const {successMessage, failMessage} = require('../utils/mesage');
 const path = require("path")
-const {Contract, ethers, providers} = require("ethers");
+const {Contract, ethers, providers, Wallet} = require("ethers");
+// import {create} from "ipfs-http-client";
+// const {create} = import("ipfs-http-client");
 
-require('dotenv').config();
-// contract
-const provider = new providers.JsonRpcProvider(process.env.RPC_URL);
+require('dotenv').config({ path: "../.env"});
+
+const RPC_URL = "https://polygon-mumbai.g.alchemy.com/v2/e5p2vMdLjoC9WhI26pWlMYrOIgAhANcF"
+const provider = new providers.JsonRpcProvider(RPC_URL);
+// const signer = new Wallet(METAMASK_EVALUATOR_PRIVATE_KEY,provider);
 const {nft_abi} = require("../web3/contracts/nft_abi")
-CONTRACT_ADDRESS = "0x438b06ab7B23EC536C2Eb292F449B490069D0A64"; //mumbai
+CONTRACT_ADDRESS = "0x9DD1212f79BCA27ED2e9D4C32893011DEA73146A"; //mumbai
+
 const contract = new Contract(CONTRACT_ADDRESS, nft_abi,provider);
+// const ipfsclient = create({url:"http://127.0.0.1:5001"})
 
-// const balanceOf = await contract.balanceOf(signer.address);
-// console.log("Your balance is:", balanceOf);
+// // NFT metadata reading function
+async function readNFTmetadata (tokenId) {
+    // 1. get tokenUri using tokenId
+    const tokenUri = await contract.tokenURI(tokenId);
+    console.log(tokenUri);
+    // 2. get metadata from IPFS using toeknUri
+}
 //
-// const tokenId = await contract.tokenOfOwnerByIndex(signer.address, 0);
-// console.log("Your token ID is:", tokenId);
-
+// readNFTmetadata(1);
 // market 1. Register organization account's NFT to market
 // should know NFT contract's address
 // web3 contract.balanceOf
 router.post('/register', async(req, res) => {
-
-    var data = req.body;
+    console.log("register start");
+    let data = req.body;
     let user_account = data.user_account;
-    const balanceOf = await contract.balanceOf(user_account);
-    console.log(user_account + "'s balance : ", balanceOf)
-    const tokenId = await contract.tokenOfOwnerByIndex(user_account,balanceOf) // account's token list, ERC721Enumerable.sol
-    console.log(user_account + "'s owned token", tokenId);
-    res.status(200);
-    res.send(tokenId)
+    let price = data.price;
+    // console.log(typeof(user_account))
+    const balance = await contract.balanceOf(user_account);
+    console.log(user_account + "'s balance : ", balance)
+    // let tokenidList = [];
+    task = {};
+    for (let i =0; i<balance; i++){
+        const tokenId = await contract.tokenOfOwnerByIndex(user_account,i) // account's token list, ERC721Enumerable.sol
+        console.log(user_account + "'s owned token id", parseInt(tokenId))
+        task.tokenid = parseInt(tokenId);
+        task.price = price;
+        console.log(task)
+        try{
+        await insertMarketNft(task,(result)=>{
+            if(result['type']){
+                var data = result['data'];
+                if(data == null){
+                    var body = failMessage(result['data'],'task not found',404);
+                    res.send(body);
+                    res.status(200);
+                }else{
+                    var body = successMessage(result['data']);
+                    console.log(body)
+                    // res.send(body);
+                }
+            }else{
+                res.status(404);
+                res.send(result['data']);
+            }
+        })
+    }catch(err){
+        console.log(err)
+        res.send(err);
+    }
+    }
 
-    // Register to DB
+    res.send("success")
+    res.status(200)
 
 });
 // get NFT lists of all marketplace
 router.get("/", async(req,res)=>{
-    console.log("NFT list");
+    let metadata = await readNFTmetadata("1");
+    res.send(metadata);
+    res.status(200);
+
 
 });
-
-// Show detail of NFT
-router.get("/detail", async(req,res)=>{
-    console.log("NFT detail");
-});
-
-//show my NFT list
-router.get("/my",async (req,res)=>{
-    console.log("my list");
-})
-
-// buy NFT
-router.post("buy", async(req,res)=>{
-    console.log("buy NFT");
-})
+//
+// // Show detail of NFT
+// router.get("/detail", async(req,res)=>{
+//     console.log("NFT detail");
+// });
+//
+// //show my NFT list
+// router.get("/my",async (req,res)=>{
+//     console.log("my list");
+// })
+//
+// // buy NFT
+// router.post("buy", async(req,res)=>{
+//     console.log("buy NFT");
+// })
 module.exports = router;
