@@ -44,7 +44,7 @@ class TaskManager{
       completedTaskListByT.value = await taskApi.getTaskList(mapByCompletedT);
     }else if(userController.type.value == typeOrganization){
       taskListByE.value = await taskApi.getTaskList(mapByE);
-      completedTaskListByE.value = await taskApi.getTaskList(mapByE);
+      completedTaskListByE.value = await taskApi.getTaskList(mapByCompletedE);
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/data/user.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
 import 'package:flutter_web/mainpage/participate_main_page.dart';
 import 'package:flutter_web/manager/task_manager.dart';
@@ -18,8 +19,8 @@ class ParticipateSearchPage extends StatefulWidget {
 
 class ParticipateSearchPageState extends State<ParticipateSearchPage> {
   static double maxCapacity = 9;
-  var userName = "@ID";
-  var userType = "part";
+  var userName = globalUser.data.userName;
+  var userType = globalUser.data.userType;
 
   final capacity = 9;
   final List<BCFL> filteredData = TaskManager.sInstance.taskListParticiable.toList();
@@ -48,7 +49,7 @@ class ParticipateSearchPageState extends State<ParticipateSearchPage> {
             elevation: 4.0,
             shadowColor: Colors.transparent,
             child: Container(
-              height: 40,
+              height: 60,
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),

@@ -58,7 +58,7 @@ class Routes {
   });
   static var organizationRegisterPageHandler = Handler(handlerFunc:
       (BuildContext? context, Map<String, dynamic> pamain_pagerams) {
-    return const OrganizationRegisterPage(
+    return OrganizationRegisterPage(
       title: "organization_register_page",
     );
   });

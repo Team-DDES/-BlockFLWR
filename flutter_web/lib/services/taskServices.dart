@@ -47,16 +47,16 @@ class TaskApi {
     }
   }
 
-  Future<UserRegister> postRegisterTask(Map<String, dynamic> data) async{
+  void postRegisterTask(Map<String, dynamic> data) async{
     final url = Uri.parse('$baseUrl/task');
     final response = await _httpClient.post(
       url,
       body: jsonEncode(data),
       headers: {'Content-Type': 'application/json'},
     );
+    print(response.body);
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = jsonDecode(response.body);
-      return UserRegister.fromJson(responseData);
     } else {
       throw Exception('Failed to register user');
     }

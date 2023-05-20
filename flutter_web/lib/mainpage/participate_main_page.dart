@@ -10,6 +10,7 @@ import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/string_resources.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
+import 'package:get/get.dart';
 
 class ParticipateMainPage extends StatefulWidget {
   ParticipateMainPage({Key? key, required this.title}) : super(key: key);
@@ -20,10 +21,11 @@ class ParticipateMainPage extends StatefulWidget {
 }
 
 class ParticipateMainPageState extends State<ParticipateMainPage> {
-  var userName = globalUser.data.userType;
+  var userName = globalUser.data.userName;
   var userType = globalUser.data.userType;
   @override
   Widget build(BuildContext context) {
+    TaskManager.sInstance.initTaskList();
     return BaseMainView(
       userName: userName,
       userType: userType,
@@ -51,11 +53,11 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
             ),
           ),
         ),
-        taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListByT),
+        Obx(() => taskTable(context, StringResources.taskInProgress, TaskManager.sInstance.taskListByT),),
         Container(
           height: 30,
         ),
-        taskTable(context, StringResources.pastTask, TaskManager.sInstance.completedTaskListByT),
+        Obx(() => taskTable(context, StringResources.pastTask, TaskManager.sInstance.completedTaskListByT),),
       ],
     );
   }
@@ -73,12 +75,13 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Task in progress",
+                title,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: textBlack,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  decoration: TextDecoration.none,
                 ),
               ),
             ),
@@ -114,7 +117,7 @@ class ParticipateMainPageState extends State<ParticipateMainPage> {
   }
 
   static Widget taskElement(BuildContext context, BCFL content, bool isSearch) {
-    double itemHeight = 60;
+    double itemHeight = isSearch ? 80 : 60;
     if (content == null) {
       return Container(
         padding: EdgeInsets.all(10),

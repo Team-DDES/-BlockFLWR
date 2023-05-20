@@ -73,12 +73,13 @@ class OrganizationMainPageState extends State<OrganizationMainPage> {
             Container(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Task in progress",
+                title,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: textBlack,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  decoration: TextDecoration.none,
                 ),
               ),
             ),

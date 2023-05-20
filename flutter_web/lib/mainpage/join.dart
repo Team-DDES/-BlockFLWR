@@ -1,6 +1,3 @@
-import 'dart:html';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/manager/task_manager.dart';
@@ -22,48 +19,49 @@ class Join extends StatefulWidget {
 }
 
 class _JoinPageState extends State<Join> {
-  var metamask = MetaMask();
+
 
   Future<void> _loginWithMetaMask() async {
+    var metamask = MetaMask();
     print("_loginWithMetaMask()");
-
+    userController.initController();
     bool isWindows = Theme.of(context).platform == TargetPlatform.windows;
     bool isMacOS = Theme.of(context).platform == TargetPlatform.macOS;
     if (isWindows || isMacOS) {
-      await metamask.login().then((success) async {
-          if (success) {
-            final UserApi clientApi;
-            clientApi = UserApi();
+      print("metamask : " + metamask.address.toString());
+      bool success = await metamask.login();
+      if (success) {
+        final UserApi clientApi;
+        clientApi = UserApi();
 
-            debugPrint('MetaMask address: ${metamask.address}');
-            debugPrint('MetaMask signature: ${metamask.signature}');
+        debugPrint('MetaMask address: ${metamask.address}');
+        debugPrint('MetaMask signature: ${metamask.signature}');
 
-            userController.address.value = metamask.address.toString();
-            userController.signature.value = metamask.signature.toString();
+        userController.address.value = metamask.address.toString();
+        userController.signature.value = metamask.signature.toString();
 
-            UserResponse response = await clientApi.isUser({"userAddress": metamask.address});
-            if (response.result.code != SUCCESS) {
-              Navigator.pushNamed(context, "did_vc");
-            } else if (response.result.code == SUCCESS) {
-              userController.walletConnect.value = true;
-              globalUser = response;
-              TaskManager.sInstance.initTaskList();
-              if (response.data.userType == typeParticipant) {
-                Navigator.pushNamed(
-                  context,
-                  "participate_main_page",
-                );
-              } else if (response.data.userType == typeOrganization) {
-                Navigator.pushNamed(
-                  context,
-                  "organization_main_page",
-                );
-              }
-            }
-          } else {
-            debugPrint('MetaMask login failed');
+        UserResponse response = await clientApi.isUser({"userAddress": metamask.address});
+        if (response.result.code != SUCCESS) {
+          Navigator.pushNamed(context, "did_vc");
+        } else if (response.result.code == SUCCESS) {
+          userController.walletConnect.value = true;
+          globalUser = response;
+          TaskManager.sInstance.initTaskList();
+          if (response.data.userType == typeParticipant) {
+            Navigator.pushNamed(
+              context,
+              "participate_main_page",
+            );
+          } else if (response.data.userType == typeOrganization) {
+            Navigator.pushNamed(
+              context,
+              "organization_main_page",
+            );
           }
-      });
+        }
+      } else {
+        debugPrint('MetaMask login failed');
+      }
     }
   }
 

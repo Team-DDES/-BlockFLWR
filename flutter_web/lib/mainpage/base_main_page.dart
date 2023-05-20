@@ -25,7 +25,7 @@ class BaseMainViewState extends State<BaseMainView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 1000,
+        height: 1010,
         width: 1920,
         alignment: Alignment.center,
         decoration: BoxDecoration(
