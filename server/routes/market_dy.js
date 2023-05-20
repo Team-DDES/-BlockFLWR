@@ -82,8 +82,8 @@ router.get("/", async(req,res)=>{
                 var data = result['data'];
                 if(data == null){
                     var body = failMessage(result['data'],'task not found',404);
-                    res.send(body);
-                    res.status(200);
+                    // res.send(body);
+                    // res.status(200);
                 }else{
                     var body = successMessage(result['data']);
                     let metadataList = [];
@@ -97,14 +97,15 @@ router.get("/", async(req,res)=>{
                     res.status(200);
                 }
             }else{
-                res.status(404);
-                res.send(result['data']);
+                // res.status(404);
+                // res.send(result['data']);
             }
         })
     }catch(err){
         console.log(err)
-        res.send(err);
+        // res.send(err);
     };
+
 
 });
 
@@ -117,69 +118,37 @@ router.get("/detail", async(req,res)=>{
                 var data = result['data'];
                 if(data == null){
                     var body = failMessage(result['data'],'task not found',404);
-                    res.send(body);
-                    res.status(200);
+                    // res.send(body);
+                    // res.status(200);
                 }else{
                     var body = successMessage(result['data']);
                     let metadataList = [];
                     for(let i = 0; i<body.data.length; i++) {
                         tokenId = body.data[i].tokenid;
                         metadata = await readNFTmetadata(tokenId)
-                        console.log(tokenId, typeof tokenId)
-                        console.log(token_id, typeof token_id)
-                        if (tokenId === parseInt(token_id)) {
+                        if (tokenId === token_id) {
                             res.send(metadata)
                             res.status(200)
                         }
                     }
                 }
             }else{
-                res.status(404);
-                res.send(result['data']);
+                // res.status(404);
+                // res.send(result['data']);
             }
         })
     }catch(err){
         console.log(err)
-        res.send(err);
+        // res.send(err);
     };
 
 });
-
-//show my NFT list
-router.get("/my",async (req,res)=>{
-    let user_account = req.query.account;
-    try{
-        await getNftTokenIds(async (result)=>{
-            if(result['type']){
-                var data = result['data'];
-                if(data == null){
-                    var body = failMessage(result['data'],'task not found',404);
-                    res.send(body);
-                    res.status(200);
-                }else{
-                    var body = successMessage(result['data']);
-                    let metadataList = [];
-                    for(let i = 0; i<body.data.length; i++) {
-                        tokenId = body.data[i].tokenid;
-                        metadata = await readNFTmetadata(tokenId)
-                        if (metadata.owner_address === user_account){
-                            metadataList.push(metadata);
-                        }
-                    }
-                    res.status(200);
-                    res.send(metadataList);
-                }
-            }else{
-                res.status(404);
-                res.send(result['data']);
-            }
-        })
-    }catch(err){
-        console.log(err)
-        res.send(err);
-    };
-})
-
+//
+// //show my NFT list
+// router.get("/my",async (req,res)=>{
+//     console.log("my list");
+// })
+//
 // // buy NFT
 // router.post("buy", async(req,res)=>{
 //     console.log("buy NFT");

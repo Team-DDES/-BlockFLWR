@@ -23,7 +23,7 @@ function createTaskContract(taskId){
     const myCrowdContract = new ethers.ContractFactory(abi, bytecode, signer);
     const nftContract = new ethers.ContractFactory(nft_abi, nft_bytecode, signer);
     const _taskId = taskId;
-    const nftContractAddress = '0x9DD1212f79BCA27ED2e9D4C32893011DEA73146A';
+    const nftContractAddress = '0xe62F3C05D076ddd787A68a903DdAa0B65FAe5e58';
     
     myCrowdContract.deploy().then((contract)=>{
     var __taskId = _taskId
