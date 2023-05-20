@@ -324,4 +324,55 @@ Start client 2 in the second terminal with cid 1:
 python3 client.py
 ```
 
+## Front / Backend scenario
 
+1. mysql start
+Dump the files in the path server/database/dump in the flower schema.
+
+2. Enter the db connection information in the server/database/mysql.js
+```shell
+const connection = mysql.createConnection({
+    host     : '',
+    port     : '',
+    user     : '',
+    password : '',
+    database : ''
+  }); 
+```
+
+3. Deploy the NFT.sol in server/web3/contract to the blockchain to be used and confirm the address.
+
+4. Enter the nft contract address, python path, client.py path in the server/routes/task.js file.
+
+```shell
+const nftContractAddress = '';
+const pythonPath = '';
+const clientPyPath = '';
+```
+
+5. Enter the port, provider path(rpc url), private key, nft contract address, python path, and server.py path in the server/web3/alchemy-sdk.js file.
+
+```shell
+var port = 8082;
+var providerPath = ''
+var privateKey = '';
+var nftContractAddress = '';
+const pythonPath = '';
+const serverPyPath = '';
+```
+
+6. Enter the RPC_URL, nftContractAddress in the server/route/market.js file.
+
+```shell
+const RPC_URL = ""
+const nftContractAddress = "";
+```
+
+7. lib install
+```shell
+npm install
+```
+8. server start
+```shell
+node app.js
+```
