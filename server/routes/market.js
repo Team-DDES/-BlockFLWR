@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { insertMarketNft } = require('../database/mysql');
+const { insertMarketNft,getNftTokenIds } = require('../database/mysql');
 const {successMessage, failMessage} = require('../utils/mesage');
 const path = require("path")
 const {Contract, ethers, providers, Wallet} = require("ethers");
-// import {create} from "ipfs-http-client";
-// const {create} = import("ipfs-http-client");
+const axios = require("axios");
 
 require('dotenv').config({ path: "../.env"});
 
@@ -21,15 +20,12 @@ const contract = new Contract(CONTRACT_ADDRESS, nft_abi,provider);
 // // NFT metadata reading function
 async function readNFTmetadata (tokenId) {
     // 1. get tokenUri using tokenId
-    const tokenUri = await contract.tokenURI(tokenId);
-    console.log(tokenUri);
-    // 2. get metadata from IPFS using toeknUri
+    const tokenUri = await contract.getTokenURI(tokenId);
+
+   const result = await axios.get(tokenUri);
+   return result.data
 }
-//
-// readNFTmetadata(1);
-// market 1. Register organization account's NFT to market
-// should know NFT contract's address
-// web3 contract.balanceOf
+
 router.post('/register', async(req, res) => {
     console.log("register start");
     let data = req.body;
@@ -76,9 +72,40 @@ router.post('/register', async(req, res) => {
 });
 // get NFT lists of all marketplace
 router.get("/", async(req,res)=>{
-    let metadata = await readNFTmetadata("1");
-    res.send(metadata);
-    res.status(200);
+    // 1. search full token id  list from DB
+    // 2. get metadata list using readNFTmetadata(tokenId) function
+    // const tokenIdList = [];
+    // let metadata = await readNFTmetadata("1");
+    // let tokenList = [];
+    try{
+        await getNftTokenIds(async (result)=>{
+            if(result['type']){
+                var data = result['data'];
+                if(data == null){
+                    var body = failMessage(result['data'],'task not found',404);
+                    // res.send(body);
+                    // res.status(200);
+                }else{
+                    var body = successMessage(result['data']);
+                    let metadataList = [];
+                    for(let i = 0; i<body.data.length; i++){
+                        tokenId = body.data[i].tokenid;
+                        metadata = await readNFTmetadata(tokenId)
+                        metadataList.push(metadata)
+                        console.log(metadataList)
+                    }
+                    res.send(metadataList);
+                    res.status(200);
+                }
+            }else{
+                // res.status(404);
+                // res.send(result['data']);
+            }
+        })
+    }catch(err){
+        console.log(err)
+        // res.send(err);
+    };
 
 
 });

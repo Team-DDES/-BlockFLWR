@@ -94,7 +94,7 @@ async function getUser(data,callback){
             if(rows.length==0){
                 callback({'data':null,'type':true});
             }else{
-                callback({'data':rows,'type':true});
+                callback({'data':rows[0],'type':true});
             }
         }
     });
@@ -134,6 +134,22 @@ async function getTaskDetail(data,callback){
         }
     });
 }
+async function getNftTokenIds(callback){
+
+    let query = commonMapper.getStatement('common', 'getNftTokenIds');
+    console.log(query);
+    connection.query(query, (err, rows) =>{
+        if (err){
+            callback({'data':err,'type':false});
+        }else{
+            if(rows.length==0){
+                callback({'data':null,'type':true});
+            }else{
+                callback({'data':rows,'type':true});
+            }
+        }
+    });
+}
 
 module.exports = {
     insertUser,
@@ -144,5 +160,6 @@ module.exports = {
     getTaskDetail,
     getUser,
     getTask,
-    insertMarketNft
+    insertMarketNft,
+    getNftTokenIds
 }
