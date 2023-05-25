@@ -31,16 +31,17 @@ class _JoinPageState extends State<Join> {
       print("metamask : " + metamask.address.toString());
       bool success = await metamask.login();
       if (success) {
-        final UserApi clientApi;
-        clientApi = UserApi();
+        final UserService clientApi;
+        clientApi = UserService();
 
         debugPrint('MetaMask address: ${metamask.address}');
         debugPrint('MetaMask signature: ${metamask.signature}');
 
         userController.address.value = metamask.address.toString();
         userController.signature.value = metamask.signature.toString();
-
+        print("Await Start !!");
         UserResponse response = await clientApi.isUser({"userAddress": metamask.address});
+        print("Await Success !!");
         if (response.result.code != SUCCESS) {
           Navigator.pushNamed(context, "did_vc");
         } else if (response.result.code == SUCCESS) {

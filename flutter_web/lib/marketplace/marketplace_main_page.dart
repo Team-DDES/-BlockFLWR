@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
+import 'package:flutter_web/data/market.dart';
 
 import 'package:flutter_web/data/user.dart';
+import 'package:flutter_web/manager/market_manager.dart';
 import 'package:flutter_web/manager/task_manager.dart';
 import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/marketplace/base_marketplace_page.dart';
@@ -24,8 +26,8 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
   var currentQuery = "";
 
   final maxCapacity = 3;
-  final List<BCFL> filteredData = <BCFL>[];
-  final List<BCFL> displayData = <BCFL>[];
+  final List<Market> filteredData = <Market>[];
+  final List<Market> displayData = <Market>[];
 
   int selectPage = 1;
 
@@ -96,9 +98,9 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           //TODO MarketPlace 관련 task
-          Expanded(flex: 3, child: introOrgCard(TaskManager.sInstance.taskListParticiable[0], false)),
+          Expanded(flex: 3, child: introOrgCard(MarketManager.sInstance.marketList[0], false)),
           Spacer(),
-          Expanded(flex: 3, child: introOrgCard(TaskManager.sInstance.taskListParticiable[1], false)),
+          Expanded(flex: 3, child: introOrgCard(MarketManager.sInstance.marketList[1], false)),
           Spacer(),
           Expanded(flex: 3, child: introRecentCard()),
         ],
@@ -106,7 +108,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
     );
   }
 
-  Widget searchResultWidget(List<BCFL> bcflList) {
+  Widget searchResultWidget(List<Market> nftList) {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
       decoration: BoxDecoration(
@@ -119,27 +121,27 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              bcflList.isEmpty
+              nftList.isEmpty
                   ? dummyContainer
-                  : Expanded(flex: 3, child: introOrgCard(bcflList[0], true)),
+                  : Expanded(flex: 3, child: introOrgCard(nftList[0], true)),
 
               Spacer(),
-              bcflList.length >= 2
-                  ? Expanded(flex: 3, child: introOrgCard(bcflList[1], true))
+              nftList.length >= 2
+                  ? Expanded(flex: 3, child: introOrgCard(nftList[1], true))
                   : dummyContainer,
               Spacer(),
-              bcflList.length >= 3
-                  ? Expanded(flex: 3, child: introOrgCard(bcflList[2], true))
+              nftList.length >= 3
+                  ? Expanded(flex: 3, child: introOrgCard(nftList[2], true))
                   : dummyContainer,
             ],
           ),
-          pagerList(bcflList)
+          pagerList(nftList)
         ],
       )
     );
   }
 
-  Widget introOrgCard(BCFL data, bool isSearch) {
+  Widget introOrgCard(Market data, bool isSearch) {
     return Container(
       width: 300,
       height: 500,
@@ -155,7 +157,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Text(
-                  data.userName,
+                  data.owner,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 20,
@@ -271,7 +273,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
     );
   }
 
-  Widget pagerList(List<BCFL> listData) {
+  Widget pagerList(List<Market> listData) {
     var pagerNeed = listData.length % maxCapacity == 0
         ? listData.length ~/ maxCapacity
         : listData.length ~/ maxCapacity + 1;
@@ -330,8 +332,8 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
     );
   }
 
-  List<BCFL> createDisplayData(List<BCFL> targetData, int page) {
-    List<BCFL> displayData = <BCFL>[];
+  List<Market> createDisplayData(List<Market> targetData, int page) {
+    List<Market> displayData = <Market>[];
     int start = (maxCapacity * (page - 1)).toInt();
     int limit;
     if (targetData.length < start + maxCapacity.toInt()) {
@@ -348,7 +350,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
   void filterData(String query) {
     filteredData.clear();
     if (query.isNotEmpty) {
-      for (var item in TaskManager.sInstance.taskListParticiable) {
+      for (var item in MarketManager.sInstance.marketList) {
         if (item.containKeyword(query)) {
           filteredData.add(item);
         }

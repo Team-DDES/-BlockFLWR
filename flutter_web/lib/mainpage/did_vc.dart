@@ -142,7 +142,7 @@ class DidVcPageState extends State<DidVc> {
         userEmail: itemTextControllers[2].text,
         userPhone: itemTextControllers[3].text);
 
-    UserApi vcApi = UserApi();
+    UserService vcApi = UserService();
 
     UserRegister response = await vcApi.registerUser(postData.toJson());
     if (response.result.code == "200") {

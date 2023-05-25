@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 import 'package:flutter_web/data/user.dart';
-import 'package:flutter_web/services/taskServices.dart';
+import 'package:flutter_web/services/taskService.dart';
 import 'package:flutter_web/utils/file_utils.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
@@ -85,7 +85,7 @@ class ParticipateDataPathPopup {
                 ),
                 onPressed: () {
                   filePath = pathBoxState.getSelectedFilePath();
-                  TaskApi api = TaskApi();
+                  TaskService api = TaskService();
                   api.postParticipateTask({
                     'taskId': data.taskId,
                     'userId': globalUser.data.userId,

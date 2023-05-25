@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/manager/market_manager.dart';
 import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  WalletConnectionManager().start();
+  WalletConnectionManager.sInstance.start();
+  MarketManager.sInstance.initNFTList();
   runApp(const MyApp());
 }
 

@@ -2,7 +2,7 @@ import 'package:flutter_web/controllers/user_controller.dart';
 import 'package:flutter_web/data/bcfl.dart';
 
 import 'package:flutter_web/data/user.dart';
-import 'package:flutter_web/services/taskServices.dart';
+import 'package:flutter_web/services/taskService.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class TaskManager{
@@ -36,7 +36,7 @@ class TaskManager{
       "taskStatusCode": "2"
     };
 
-    TaskApi taskApi = TaskApi();
+    TaskService taskApi = TaskService();
 
     taskListParticiable.value = await taskApi.getTaskList({"taskStatusCode": "1"});
     if(userController.type.value == typeParticipant){

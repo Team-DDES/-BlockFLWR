@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/data/bcfl.dart';
+import 'package:flutter_web/data/market.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
 
 class MarketplaceBuyPopup {
-  static void showBuyPopup(BuildContext context, BCFL bcfl) {
+  static void showBuyPopup(BuildContext context, Market nft) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -52,7 +53,7 @@ class MarketplaceBuyPopup {
                                             Colors.white, BlendMode.srcIn),
                                         child: TextUtils
                                             .defaultTextWithSizeAlignWeight(
-                                            bcfl.userName,
+                                            nft.owner,
                                             25,
                                             TextAlign.left,
                                             FontWeight.bold),
@@ -62,7 +63,7 @@ class MarketplaceBuyPopup {
                                             Colors.white, BlendMode.srcIn),
                                         child: TextUtils
                                             .defaultTextWithSize(
-                                          bcfl.taskName,
+                                          nft.taskName,
                                           15,),
                                       ),
                                     ],
@@ -82,14 +83,14 @@ class MarketplaceBuyPopup {
                                margin: EdgeInsets.all(20),
                                child: TextUtils.defaultTextWithSizeColor('Model info Abstract', 25, color: commonBtnColor),
                              ),
-                              modelInfoElement("Framework : " + bcfl.taskFramework),
-                              modelInfoElement("Traniners : " + bcfl.taskMaxTrainer),
-                              modelInfoElement("Token supply : " + bcfl.taskContractAddress),
-                              modelInfoElement("Downloads : " + bcfl.taskId.toString()),
-                              modelInfoElement("Purpose : " + bcfl.taskPurpose),
+                              modelInfoElement("Framework : " + nft.taskFramework),
+                              modelInfoElement("Traniners : " + nft.taskMaxTrainer.toString()),
+                              modelInfoElement("Token supply : " + nft.ownerAddress),
+                              modelInfoElement("Downloads : " + nft.modelUri),
+                              modelInfoElement("Purpose : " + nft.description),
                               Container(
                                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: TextUtils.defaultTextWithSizeAlignWeight("Price : " + bcfl.taskId.toString(), 15, TextAlign.center, FontWeight.bold),
+                                child: TextUtils.defaultTextWithSizeAlignWeight("Price : " + nft.taskContractAddress, 15, TextAlign.center, FontWeight.bold),
                               ),
                               Container(
                                 child: ElevatedButton(

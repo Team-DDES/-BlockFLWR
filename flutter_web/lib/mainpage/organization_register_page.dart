@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/data/user_register.dart';
 import 'package:flutter_web/mainpage/base_main_page.dart';
-import 'package:flutter_web/services/taskServices.dart';
+import 'package:flutter_web/services/taskService.dart';
 import 'package:flutter_web/utils/text_utils.dart';
 
 import 'package:flutter_web/data/user.dart';
@@ -75,7 +75,7 @@ class OrganizationRegisterPageState extends State<OrganizationRegisterPage> {
                             StyleResources.commonBtnCallback),
                       ),
                       onPressed: () {
-                        TaskApi api = TaskApi();
+                        TaskService api = TaskService();
                         api.postRegisterTask({
                           'taskName': itemTextControllers[0].text,
                           'taskPurpose': itemTextControllers[1].text,

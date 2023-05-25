@@ -7,11 +7,11 @@ import 'package:flutter_web/data/user_register.dart';
 import 'package:flutter_web/utils/http_utils.dart';
 import 'package:http/http.dart' as http;
 
-class UserApi {
+class UserService {
   final http.Client _httpClient = http.Client();
   final String baseUrl;
 
-  UserApi({this.baseUrl = BASE_URL});
+  UserService({this.baseUrl = BASE_URL});
 
   Future<UserRegister> registerUser(Map<String, dynamic> data) async {
     final url = Uri.parse('$baseUrl/user/join/');
@@ -76,7 +76,6 @@ class UserApi {
       }else{
         return UserResponse.fromJson(responseData);
       }
-
     } else {
       throw Exception('Failed to check user');
     }
