@@ -10,136 +10,126 @@ class MarketplaceBuyPopup {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.fromLTRB(300, 100, 300, 100),
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/popup_model_info_background.png'))),
-              child: Stack(
-                children: [
-                  Column(
+          return Container(
+            width: 400,
+            height: 500,
+            alignment: Alignment.center,
+            margin: EdgeInsets.fromLTRB(300, 70, 300, 100),
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                    image: AssetImage(
+                        'assets/images/popup_model_info_background.png'))),
+            child: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  child: Column(
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: Row(
+                      Container(
+                        width: 300,
+                        alignment: Alignment.centerLeft,
+                        child: Column(
                           children: [
-                            //Organization Image
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                width: double.maxFinite,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Image(
-                                  fit: BoxFit.fitWidth,
-                                  image: AssetImage(
-                                      'assets/images/example_org_1.png'),
-                                ),
+                            ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                  Colors.white, BlendMode.srcIn),
+                              child: TextUtils.defaultTextWithSizeAlignWeight(
+                                  nft.owner,
+                                  25,
+                                  TextAlign.left,
+                                  FontWeight.bold),
+                            ),
+                            Container(height: 10,),
+                            ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                  Colors.white, BlendMode.srcIn),
+                              child: TextUtils.defaultTextWithSize(
+                                nft.task_name,
+                                15,
                               ),
                             ),
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                  width: double.maxFinite,
-                                  alignment: Alignment.centerLeft,
-                                  child: Column(
-                                    children: [
-                                      ColorFiltered(
-                                        colorFilter: ColorFilter.mode(
-                                            Colors.white, BlendMode.srcIn),
-                                        child: TextUtils
-                                            .defaultTextWithSizeAlignWeight(
-                                            nft.owner,
-                                            25,
-                                            TextAlign.left,
-                                            FontWeight.bold),
-                                      ),
-                                      ColorFiltered(
-                                        colorFilter: ColorFilter.mode(
-                                            Colors.white, BlendMode.srcIn),
-                                        child: TextUtils
-                                            .defaultTextWithSize(
-                                          nft.taskName,
-                                          15,),
-                                      ),
-                                    ],
-                                  ),
-                                )),
                           ],
                         ),
                       ),
-                      //Model info
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: [
-                             Container(
-                               margin: EdgeInsets.all(20),
-                               child: TextUtils.defaultTextWithSizeColor('Model info Abstract', 25, color: commonBtnColor),
-                             ),
-                              modelInfoElement("Framework : " + nft.taskFramework),
-                              modelInfoElement("Traniners : " + nft.taskMaxTrainer.toString()),
-                              modelInfoElement("Token supply : " + nft.ownerAddress),
-                              modelInfoElement("Downloads : " + nft.modelUri),
-                              modelInfoElement("Purpose : " + nft.description),
-                              Container(
-                                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: TextUtils.defaultTextWithSizeAlignWeight("Price : " + nft.taskContractAddress, 15, TextAlign.center, FontWeight.bold),
-                              ),
-                              Container(
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateColor.resolveWith(
-                                        StyleResources.commonBtnCallback),
-                                  ),
-                                  child: TextUtils.defaultTextWithSizeAlignWeight(
-                                      'BUY', 20, TextAlign.center, FontWeight.bold),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Image(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/example_org_1.png'),
+                        ),
                       ),
+                      Container(
+                        margin: EdgeInsets.all(20),
+                        child: TextUtils.defaultTextWithSizeColor(
+                            'Model info Abstract', 25,
+                            color: commonBtnColor),
+                      ),
+                      modelInfoElement("Framework : " + nft.task_framework),
+                      modelInfoElement(
+                          "Traniners : " + nft.task_max_trainer.toString()),
+                      modelInfoElement("Token supply : " + nft.owner_address),
+                      modelInfoElement("Downloads : " + nft.model_uri),
+                      modelInfoElement("Purpose : " + nft.description),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: TextUtils.defaultTextWithSizeAlignWeight(
+                            "Price : " + nft.task_contract_address,
+                            15,
+                            TextAlign.center,
+                            FontWeight.bold),
+                      ),
+                      Container(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateColor.resolveWith(
+                                StyleResources.commonBtnCallback),
+                          ),
+                          child: TextUtils.defaultTextWithSizeAlignWeight(
+                              'BUY', 20, TextAlign.center, FontWeight.bold),
+                        ),
+                      )
                     ],
                   ),
-                  Container(
-                      height: 30,
-                      alignment: Alignment.topRight,
-                      child: ElevatedButton(
-                          style: StyleResources.pagerNormalBtnStyle,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const ColorFiltered(
-                            colorFilter:
-                                ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                            child: Image(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                  'assets/images/common_cancel_btn.png'),
-                            ),
-                          ))),
-                ],
-              ),
+                ),
+                Container(
+                    height: 30,
+                    padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                    alignment: Alignment.topRight,
+                    child: ElevatedButton(
+                        style: StyleResources.pagerNormalBtnStyle,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const ColorFiltered(
+                          colorFilter:
+                              ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                          child: Image(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                                'assets/images/common_cancel_btn.png'),
+                          ),
+                        ))),
+              ],
             ),
           );
         });
   }
 
-  static Widget modelInfoElement(String content){
+  static Widget modelInfoElement(String content) {
     return Container(
+      width: 300,
       padding: EdgeInsets.all(5),
       child: ColorFiltered(
         colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        child: TextUtils.defaultTextWithSizeAlign(content, 25, TextAlign.left),
-      )
-    );
+        child:
+            TextUtils.defaultTextWithSizeAlign(content, 15, TextAlign.left),
+      ));
   }
 }

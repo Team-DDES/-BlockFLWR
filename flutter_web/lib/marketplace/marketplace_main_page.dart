@@ -8,6 +8,7 @@ import 'package:flutter_web/manager/market_manager.dart';
 import 'package:flutter_web/manager/task_manager.dart';
 import 'package:flutter_web/manager/wallet_connection_manager.dart';
 import 'package:flutter_web/marketplace/base_marketplace_page.dart';
+import 'package:flutter_web/marketplace/marketplace_buy_popup.dart';
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/style_resources.dart';
 import 'package:flutter_web/utils/text_utils.dart';
@@ -98,9 +99,9 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           //TODO MarketPlace 관련 task
-          Expanded(flex: 3, child: introOrgCard(MarketManager.sInstance.marketList[0], false)),
+          Expanded(flex: 3, child: introOrgCard(MarketManager.sInstance.marketList.elementAt(0), false)),
           Spacer(),
-          Expanded(flex: 3, child: introOrgCard(MarketManager.sInstance.marketList[1], false)),
+          Expanded(flex: 3, child: introOrgCard(MarketManager.sInstance.marketList.elementAt(1), false)),
           Spacer(),
           Expanded(flex: 3, child: introRecentCard()),
         ],
@@ -176,7 +177,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Text(
-                  data.taskName,
+                  data.task_name,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 20,
@@ -192,7 +193,12 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  MarketplaceBuyPopup.showBuyPopup(context, data);
+                  setState(() {
+
+                  });
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateColor.resolveWith(
                       StyleResources.commonBtnCallback),
@@ -208,7 +214,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
   }
 
   Widget introRecentCard() {
-    List<BCFL> recentFL = TaskManager.sInstance.taskListParticiable.sublist(2, 6);
+    List<Market> recentMarket = MarketManager.sInstance.marketList.sublist(2, 6);
     return Container(
         width: 300,
         height: 500,
@@ -229,7 +235,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
               margin: EdgeInsets.fromLTRB(0, 20, 0, 40),
               child: Column(
                 children: [
-                  for (BCFL data in recentFL) recentElement(data),
+                  for (Market data in recentMarket) recentElement(data),
                 ],
               ),
             )
@@ -237,7 +243,7 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
         ));
   }
 
-  Widget recentElement(BCFL data) {
+  Widget recentElement(Market data) {
     return Container(
       alignment: Alignment.centerLeft,
       width: double.maxFinite,
@@ -252,13 +258,13 @@ class MarketplaceMainPageState extends State<MarketplaceMainPage> {
           Container(
             alignment: Alignment.centerLeft,
             child: TextUtils.defaultTextWithSizeAlignWeight(
-                data.userName, 20, TextAlign.left, FontWeight.bold),
+                data.owner, 20, TextAlign.left, FontWeight.bold),
           ),
           Container(
             margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
             alignment: Alignment.centerLeft,
             child: Text(
-              data.taskName,
+              data.task_name,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 20,

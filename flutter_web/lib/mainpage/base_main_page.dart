@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/controllers/user_controller.dart';
+import 'package:flutter_web/manager/market_manager.dart';
 
 import 'package:flutter_web/utils/color_category.dart';
 import 'package:flutter_web/utils/style_resources.dart';
@@ -63,7 +64,8 @@ class BaseMainViewState extends State<BaseMainView> {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "marketplace_main_page");
+                    if(MarketManager.sInstance.marketList.isNotEmpty)
+                      Navigator.pushNamed(context, "marketplace_main_page");
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateColor.resolveWith(

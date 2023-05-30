@@ -14,6 +14,7 @@ class MarketManager{
   void initNFTList() async {
     MarketService nftService = MarketService();
     marketList.value = await nftService.getNFTList();
+    print("Market List :: " + marketList.value.length.toString());
     return;
   }
 }
