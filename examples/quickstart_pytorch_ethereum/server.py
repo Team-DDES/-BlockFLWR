@@ -21,16 +21,13 @@ def weighted_average(metrics: List[Tuple[int, Metrics]]) -> Metrics:
     # Aggregate and return custom metric (weighted average)
     return {"accuracy": sum(accuracies) / sum(examples)}
 
-# num = 6
-# add = "0.0.0.0:8083"
-# round = 2
-# cont = "0x22Bde2a9138481A0D7851CAdDdc7084e4484aa52"
-# cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
-# model = "Mnist"
-# sys.argv = [num,add, round, cont, cont_N, model]
-print('TESTTTTTTTTT')
-print(sys.argv)
-# Define strategy
+num = 6
+add = "0.0.0.0:8083"
+round = 2
+cont = "0xAE5eDc7e51c3dd6f3c2A92c6F1681589E814f82f"
+model = "Mnist"
+sys.argv = [num,add, round, cont, model]
+# print(sys.argv)
 strategy = fl.server.strategy.FedAvg(evaluate_metrics_aggregation_fn=weighted_average)
 
 if sys.argv[4] == "Cifar":
@@ -45,13 +42,6 @@ eth_server = EthServer(client_manager = client_manager,
                        contract_address=sys.argv[3],
                        model=model,
                        strategy = strategy)
-
-# sys[1] : server address ex) 0.0.0.0:8081
-# sys[2] : num_rounds
-# sys[3] : contract address
-# sys[4] : token_address
-# sys[5] : nft_address
-
 
 
 # Start Flower server

@@ -38,4 +38,13 @@ contract NFT is ERC721Enumerable {
         tokenURI = _tokenURIs[tokenId];
         return tokenURI;
     }
+
+//    function transferFrom (address _from, address _to, uint256 _tokenId) public payable override{
+//        require(msg.value >0, "Please send some ether");
+//        uint256 fee = msg.value;
+//        super.transferFrom(_from,_to,_tokenId);
+//        // 이더 처리 로직
+//        address payable feeRecipient = _from;
+//        feeRecipient.transfer(fee);
+//    }
 }

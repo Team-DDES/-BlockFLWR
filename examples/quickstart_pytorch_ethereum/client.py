@@ -30,17 +30,13 @@ from Mnist import load_data as Mnist_load_data
 # from PhysNet import load_data as PhysNet_load_data
 
 
-# num = 6
-# add = "127.0.0.1:8083"
-# cid = 0
-# cont = "0x22Bde2a9138481A0D7851CAdDdc7084e4484aa52"
-# cont_N ="0x3D1f27DcF2eECE6E6bFEb1B3bF7Aef8878304c4d"
-# model = "Mnist"
+num = 6
+add = "127.0.0.1:8083"
+cid = 1
+cont = "0xAE5eDc7e51c3dd6f3c2A92c6F1681589E814f82f"
+model = "Mnist"
 
-# sys.argv = [num,add, cid, cont, cont_N,model]
-print("TESTESTESTETE")
-print(sys.argv)
-print(sys.argv[2])
+sys.argv = [num,add, cid, cont, model]
 # #############################################################################
 # 1. Regular PyTorch pipeline: nn.Module, train, test, and DataLoader
 # #############################################################################
