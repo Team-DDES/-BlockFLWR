@@ -6,14 +6,15 @@ const path = require("path")
 const {Contract, ethers, providers, Wallet} = require("ethers");
 const axios = require("axios");
 
-require('dotenv').config();
+require('dotenv').config({ path: "../.env"});
 
-const nftContractAddress = "0xe62F3C05D076ddd787A68a903DdAa0B65FAe5e58"; //mumbai
-const provider = new providers.JsonRpcProvider(process.env.RPC_URL);
-const signer = new Wallet(process.env.METAMASK_EVALUATOR_PRIVATE_KEY,provider);
+const RPC_URL = "https://polygon-mumbai.g.alchemy.com/v2/e5p2vMdLjoC9WhI26pWlMYrOIgAhANcF"
+const provider = new providers.JsonRpcProvider(RPC_URL);
+// const signer = new Wallet(METAMASK_EVALUATOR_PRIVATE_KEY,provider);
 const {nft_abi} = require("../web3/contracts/nft_abi")
-const contract = new Contract(nftContractAddress, nft_abi,provider);
-const contractWithSigner = contract.connect(signer);
+CONTRACT_ADDRESS = "0x26358547718cA8c272C285a1d3161131570F480B"; //mumbai
+
+const contract = new Contract(CONTRACT_ADDRESS, nft_abi,provider);
 // const ipfsclient = create({url:"http://127.0.0.1:5001"})
 
 // // NFT metadata reading function
@@ -23,7 +24,7 @@ async function readNFTmetadata (tokenId) {
    const result = await axios.get(tokenUri);
    return result.data
 }
-// Emit approval when NFT registration : FrontEnd
+
 router.post('/register', async(req, res) => {
     console.log("register start");
     let data = req.body;
@@ -127,9 +128,8 @@ router.get("/detail", async(req,res)=>{
                         console.log(tokenId, typeof tokenId)
                         console.log(token_id, typeof token_id)
                         if (tokenId === parseInt(token_id)) {
-                            res.status(200);
-                            res.send(metadata);
-                            break;
+                            res.send(metadata)
+                            res.status(200)
                         }
                     }
                 }
@@ -180,30 +180,8 @@ router.get("/my",async (req,res)=>{
     };
 })
 
-// buy NFT : transferFrom, (msg.sender : server)
-// TODO : Token Transfer
-router.post("buy", async(req,res)=>{
-    console.log("buy NFT");
-    // exec approve NEED: tokenId, approved address
-    let tokenId = req.body.tokenId;
-    let owner_address = req.body.owner;
-    let receiver_address = req.body.receiver;
-    // let transferResult = await contract.transferFrom(owner_address,receiver_address,tokenId);
-
-    // 1. check receiver's balance is matched with DB's price
-    // 2. Transfer receiver's coin(testcoin) to owner's wallet
-
-    // send signed Tx
-    // Build TX
-    const functionParams = [owner_address,receiver_address,tokenId];
-    const functionName = "transferFrom";
-    const transaction = await contractWithSigner[functionName](...functionParams);
-
-    // Sign Tx
-    const signedTransaction = await signer.signTransaction(transaction);
-    const transactionRes = await provider.sendTransaction(signedTransaction);
-
-    //res
-    console.log(transactionRes);
-})
+// // buy NFT
+// router.post("buy", async(req,res)=>{
+//     console.log("buy NFT");
+// })
 module.exports = router;

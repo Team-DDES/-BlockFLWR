@@ -40,7 +40,7 @@ router.get('/', async(req, res) => {
             if(result['type']){
                 var data = result['data'];
                 if(data == null){
-                    var body = failMessage(result['data'],'user not found',"403");
+                    var body = failMessage(result['data'],'user not found',403);
                     res.send(body);
                     res.status(200);
                 }else{
@@ -49,7 +49,7 @@ router.get('/', async(req, res) => {
                 }
                 
             }else{
-                var body = failMessage(result['data'],'error',"404");
+                var body = failMessage(result['data'],'error',404);
                 res.status(200);
                 res.send(body);
             }

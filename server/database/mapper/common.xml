@@ -96,24 +96,7 @@
     </select>
 
     <select id="getTask">
-        SELECT  tu.taskId,
-                tu.taskName,
-                tu.taskStatusCode,
-                IFNULL(tu.taskContractAddress,'') AS taskContractAddress,
-                tu.taskPurpose,
-                tu.taskFramework,
-                tu.taskDataType,
-                tu.taskMaxTrainer,
-                IFNULL(tu.taskPort,'') AS taskPort,
-                tu.organizationUserId,
-                tu.userName,
-                tu.userEmail,
-                tu.userPhone,
-                CONVERT(IFNULL(tu.taskCount,0),char) AS taskParticipants,
-                <if test="trainerUserId != null">
-    	        tu.dataPath
-                ,tu.trainerUserId,
-                </if> 
+        SELECT tu.* ,
         @rownum := @rownum +1 AS row_num
         FROM 
             (SELECT t.task_id AS taskId,
@@ -126,10 +109,7 @@
                 t.task_max_trainer AS taskMaxTrainer,
                 t.task_port AS taskPort,
                 u.user_id AS organizationUserId,
-                u.user_name AS userName,
-                u.user_email AS userEmail,
-                u.user_phone AS userPhone,
-                (SELECT COUNT(*) AS count FROM TASK_PARTICIPATE tp where t.task_id = tp.task_id GROUP BY task_id) AS taskCount
+                u.user_name AS userName
              <if test="trainerUserId != null">
     	        ,tp.data_path AS dataPath
                 ,tp.user_id AS trainerUserId
@@ -147,7 +127,6 @@
              </if>
              <if test="trainerUserId != null">
     	        AND tp.task_Id = t.task_Id
-                AND tp.user_id = #{trainerUserId}
              </if>
             ) tu,
             (SELECT @rownum:=0) r

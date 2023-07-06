@@ -59,6 +59,7 @@ async function insertMarketNft(data,callback){
 }
 
 async function updateTask(data,callback){
+    console.log(data);
     let query = commonMapper.getStatement('common', 'updateTask', data, format);
     connection.query(query, (err, result) =>{
         if (err){
@@ -102,6 +103,7 @@ async function getUser(data,callback){
 async function getTask(data,callback){
    
     let query = commonMapper.getStatement('common', 'getTask', data);
+    console.log(query);
     connection.query(query, (err, rows) =>{
         if (err){
             callback({'data':err,'type':false});
@@ -118,8 +120,10 @@ async function getTask(data,callback){
 async function getTaskDetail(data,callback){
    
     let query = commonMapper.getStatement('common', 'getTaskDetail', data);
+    console.log(query);
     connection.query(query, (err, rows) =>{
         if (err){
+            console.log(err)
             callback({'data':err,'type':false});
         }else{
             if(rows.length==0){
@@ -133,6 +137,7 @@ async function getTaskDetail(data,callback){
 async function getNftTokenIds(callback){
 
     let query = commonMapper.getStatement('common', 'getNftTokenIds');
+    console.log(query);
     connection.query(query, (err, rows) =>{
         if (err){
             callback({'data':err,'type':false});
