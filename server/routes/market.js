@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { insertMarketNft,getNftTokenIds } = require('../database/mysql');
+const { insertMarketNft,getNftTokenIds,deleteMarketNft } = require('../database/mysql');
 const {successMessage, failMessage} = require('../utils/mesage');
 const path = require("path")
 const {Contract, ethers, providers, Wallet} = require("ethers");
@@ -187,6 +187,29 @@ router.post("buy", async(req,res)=>{
     const buyer_account = req.body.account;
 
     const result = await contract.transferNFT(token_id, buyer_account);
+    // TODO : remove NFT from market table
+    try{
+        await deleteMarketNft(token_id,(result) => {
+            if(result['type']){
+                var data = result['data'];
+                if(data == null){
+                    var body = failMessage(result['data'],'task not found',404);
+                    res.send(body);
+                    res.status(200);
+                }else{
+                    var body = successMessage(result['data']);
+                    console.log(body)
+                    // res.send(body);
+                }
+            }else{
+                res.status(404);
+                res.send(result['data']);
+            }
+        })
+    }catch(err){
+        console.log(err)
+        res.send(err);
+    }
 
 })
 module.exports = router;
