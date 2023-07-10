@@ -181,7 +181,7 @@ router.get("/my",async (req,res)=>{
 })
 
 // // buy NFT
-router.post("buy", async(req,res)=>{
+router.post("/buy", async(req,res)=>{
     console.log("buy NFT");
     const token_id = req.query.tokenid;
     const buyer_account = req.body.account;
