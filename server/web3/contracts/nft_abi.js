@@ -1,4 +1,5 @@
 const nft_abi = [
+	[
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -60,6 +61,25 @@ const nft_abi = [
 			{
 				"indexed": true,
 				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
 				"name": "from",
 				"type": "address"
 			},
@@ -78,6 +98,25 @@ const nft_abi = [
 		],
 		"name": "Transfer",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "_tokenPrice",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -114,6 +153,19 @@ const nft_abi = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "buyToken",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -189,6 +241,11 @@ const nft_abi = [
 				"internalType": "string",
 				"name": "tokenURI",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenPrice",
+				"type": "uint256"
 			}
 		],
 		"name": "mintNFT",
@@ -216,6 +273,19 @@ const nft_abi = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -232,6 +302,13 @@ const nft_abi = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -432,7 +509,57 @@ const nft_abi = [
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "buyer",
+				"type": "address"
+			}
+		],
+		"name": "transferNFT",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			}
+		],
+		"name": "updateTokenPrice",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
+]
 ];
 
 
