@@ -24,6 +24,18 @@ async function insertUser(data,callback){
     });
 }
 
+async function deleteMarketNft(data,callback){
+    let query = commonMapper.getStatement('common','deleteMarketNft',data,format);
+    connection.query(query,(err,result)=>{
+        if(err){
+            callback({'data':err,'type':false});
+        }  else{
+            callback({'data':result,'type':true});
+        }
+    })
+
+}
+
 async function insertTask(data,callback){
     let query = commonMapper.getStatement('common', 'insertTask', data, format);
     connection.query(query, (err, result) =>{
@@ -161,5 +173,6 @@ module.exports = {
     getUser,
     getTask,
     insertMarketNft,
-    getNftTokenIds
+    getNftTokenIds,
+    deleteMarketNft
 }
