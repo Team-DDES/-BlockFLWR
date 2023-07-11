@@ -1,5 +1,4 @@
 const nft_abi = [
-	[
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -559,7 +558,6 @@ const nft_abi = [
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
-]
 ];
 
 

@@ -60,6 +60,7 @@ contract NFT is ERC721Enumerable, Ownable {
         address payable sellerPayable = payable(seller);
         sellerPayable.transfer(address(this).balance);
         transferFrom(seller,buyer,_tokenId);
+        _balance[_tokenId] = 0;
     }
 
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
