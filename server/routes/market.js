@@ -6,11 +6,11 @@ const path = require("path")
 const {Contract, ethers, providers, Wallet} = require("ethers");
 const axios = require("axios");
 
-require('dotenv').config({ path: "../.env"});
+require('dotenv').config();
 
 const RPC_URL = "https://polygon-mumbai.g.alchemy.com/v2/e5p2vMdLjoC9WhI26pWlMYrOIgAhANcF"
 const provider = new providers.JsonRpcProvider(RPC_URL);
-// const signer = new Wallet(METAMASK_EVALUATOR_PRIVATE_KEY,provider);
+const signer = new Wallet(process.env.METAMASK_EVALUATOR_PRIVATE_KEY,provider);
 const {nft_abi} = require("../web3/contracts/nft_abi")
 CONTRACT_ADDRESS = "0x26358547718cA8c272C285a1d3161131570F480B"; //mumbai
 
@@ -185,8 +185,15 @@ router.post("/buy", async(req,res)=>{
     console.log("buy NFT");
     const token_id = req.query.tokenid;
     const buyer_account = req.body.account;
+    const functionName = "transferNFT"
+    const functionParams = [token_id,buyer_account];
+    const transaction = await contract[functionName](...functionParams);
+    // sign tx
+    const signedTx = await wallet.signTransaction(transaction);
+    // send Tx
+    const transactionResponse = await provider.sendTransaction(signedTx);
 
-    const result = await contract.transferNFT(token_id, buyer_account);
+    res.send(transactionResponse)
     // TODO : remove NFT from market table
     try{
         await deleteMarketNft(token_id,(result) => {
