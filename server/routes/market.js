@@ -5,6 +5,7 @@ const {successMessage, failMessage} = require('../utils/mesage');
 const path = require("path")
 const {Contract, ethers, providers, Wallet} = require("ethers");
 const axios = require("axios");
+const MarketModel = require('../model/market_model');
 
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ const contract = new Contract(CONTRACT_ADDRESS, nft_abi,provider);
 // // NFT metadata reading function
 async function readNFTmetadata (tokenId) {
     // 1. get tokenUri using tokenId
+
     const tokenUri = await contract.getTokenURI(tokenId);
    const result = await axios.get(tokenUri);
    return result.data
@@ -87,6 +89,7 @@ router.get("/", async(req,res)=>{
                 }else{
                     var body = successMessage(result['data']);
                     let metadataList = [];
+                    // console.log(body.data);
                     for(let i = 0; i<body.data.length; i++){
                         tokenId = body.data[i].tokenid;
                         metadata = await readNFTmetadata(tokenId)

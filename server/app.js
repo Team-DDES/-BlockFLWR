@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 
 app.use('/flower/user', userRouter);
 app.use('/flower/task', taskRouter);
-app.use('/flower/market',marketRouter)
+app.use('/flower/market',marketRouter);
 
 // connection.connect();
 // connection.query('SELECT * from user', (error, rows, fields) => {
