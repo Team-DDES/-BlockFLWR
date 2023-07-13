@@ -70,7 +70,7 @@ router.post('/participate', async(req, res) => {
                 var count = result['data'][0]['count'];
                 var __task = _task;
                 var __taskData = _taskData;
-                var nftContractAddress = '0xe62F3C05D076ddd787A68a903DdAa0B65FAe5e58';
+                var nftContractAddress = '0x26358547718cA8c272C285a1d3161131570F480B';
 
                 runClient(_taskData['taskContractAddress'], nftContractAddress, count, __taskData['taskPort']);
 
