@@ -29,7 +29,9 @@ async function readNFTmetadata (tokenId) {
 }
 
 router.post('/register', async(req, res) => {
+    // TODO : tokenId needed
     console.log("register start");
+    const token_id = req.query.tokenid;
     let data = req.body;
     let user_account = data.user_account;
     let price = data.price;
@@ -38,35 +40,60 @@ router.post('/register', async(req, res) => {
     console.log(user_account + "'s balance : ", balance)
     // let tokenidList = [];
     task = {};
-    for (let i =0; i<balance; i++){
-        const tokenId = await contract.tokenOfOwnerByIndex(user_account,i) // account's token list, ERC721Enumerable.sol
-        console.log(user_account + "'s owned token id", parseInt(tokenId))
-        task.tokenid = parseInt(tokenId);
-        task.price = price;
-        console.log(task)
-        try{
-        await insertMarketNft(task,(result)=>{
-            if(result['type']){
-                var data = result['data'];
-                if(data == null){
-                    var body = failMessage(result['data'],'task not found',404);
-                    res.send(body);
-                    res.status(200);
-                }else{
-                    var body = successMessage(result['data']);
-                    console.log(body)
-                    // res.send(body);
-                }
+    task.tokenid = parseInt(token_id);
+    task.price = price;
+    console.log(task)
+    try{
+    await insertMarketNft(task,(result)=>{
+        if(result['type']){
+            var data = result['data'];
+            if(data == null){
+                var body = failMessage(result['data'],'task not found',404);
+                res.send(body);
+                res.status(200);
             }else{
-                res.status(404);
-                res.send(result['data']);
+                var body = successMessage(result['data']);
+                console.log(body)
+                // res.send(body);
             }
-        })
+        }else{
+            res.status(404);
+            res.send(result['data']);
+        }
+    })
     }catch(err){
         console.log(err)
         res.send(err);
     }
-    }
+    // for (let i =0; i<balance; i++){
+    //     const tokenId = await contract.tokenOfOwnerByIndex(user_account,i) // account's token list, ERC721Enumerable.sol
+    //     console.log(user_account + "'s owned token id", parseInt(tokenId))
+    //     task.tokenid = parseInt(tokenId);
+    //     task.price = price;
+    //     console.log(task)
+    //     try{
+    //     await insertMarketNft(task,(result)=>{
+    //         if(result['type']){
+    //             var data = result['data'];
+    //             if(data == null){
+    //                 var body = failMessage(result['data'],'task not found',404);
+    //                 res.send(body);
+    //                 res.status(200);
+    //             }else{
+    //                 var body = successMessage(result['data']);
+    //                 console.log(body)
+    //                 // res.send(body);
+    //             }
+    //         }else{
+    //             res.status(404);
+    //             res.send(result['data']);
+    //         }
+    //     })
+    // }catch(err){
+    //     console.log(err)
+    //     res.send(err);
+    // }
+    // }
 
     res.send("success")
     res.status(200)
@@ -190,43 +217,42 @@ router.post("/buy", async(req,res)=>{
     const token_id = req.query.tokenid;
     const buyer_account = req.body.account;
     // console.log("signerAddr : ",token_id);
-    const functionName = "transferNFT"
+    // const functionName = "transferNFT"
     const paddedAddr = ethers.utils.getAddress(buyer_account);
     const tokenId = ethers.BigNumber.from(token_id);
+    // parseInt(token_id), buyer_account => Fail
     const functionParams = [tokenId,paddedAddr];
-    const transaction = await contract[functionName](...functionParams);
-    // // sign tx
-    // const signedTx = await signer.signTransaction(transaction);
-    // // send Tx
-    const transactionResponse = await signer.sendTransaction(transaction);
+    const transaction = await contract.transferNFT(...functionParams);
+    // const transactionResponse = await signer.sendTransaction(transaction);
 
 
     // TODO : Check response , remix + postman
+    console.log(transaction);
     res.status(200);
-    res.send(transactionResponse);
+    res.send(transaction);
     // TODO : remove NFT from market table
-    try{
-        await deleteMarketNft(token_id,(result) => {
-            if(result['type']){
-                var data = result['data'];
-                if(data == null){
-                    var body = failMessage(result['data'],'task not found',404);
-                    res.send(body);
-                    res.status(200);
-                }else{
-                    var body = successMessage(result['data']);
-                    console.log(body)
-                    // res.send(body);
-                }
-            }else{
-                res.status(404);
-                res.send(result['data']);
-            }
-        })
-    }catch(err){
-        console.log(err)
-        res.send(err);
-    }
+    // try{
+    //     await deleteMarketNft(token_id,(result) => {
+    //         if(result['type']){
+    //             var data = result['data'];
+    //             if(data == null){
+    //                 var body = failMessage(result['data'],'task not found',404);
+    //                 res.send(body);
+    //                 res.status(200);
+    //             }else{
+    //                 var body = successMessage(result['data']);
+    //                 console.log(body)
+    //                 // res.send(body);
+    //             }
+    //         }else{
+    //             res.status(404);
+    //             res.send(result['data']);
+    //         }
+    //     })
+    // }catch(err){
+    //     console.log(err)
+    //     res.send(err);
+    // }
 
 })
 module.exports = router;
