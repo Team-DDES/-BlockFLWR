@@ -322,8 +322,8 @@ class _EthClient(_BaseContractClient):
         return balance
 
     # NFT FUNCTIONS
-    def mintNFT(self, tokenURI):
-        tx = self._nft_contract.functions.mintNFT(self.address, tokenURI).buildTransaction(self.get_tx_param())
+    def mintNFT(self, tokenURI,tokenPrice):
+        tx = self._nft_contract.functions.mintNFT(self.address, tokenURI,tokenPrice).buildTransaction(self.get_tx_param())
         tx_hash = self.signedHash(tx, os.environ["METAMASK_EVALUATOR_PRIVATE_KEY"])
         self.txs.append(tx_hash)
         return tx_hash
