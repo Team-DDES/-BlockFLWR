@@ -216,43 +216,37 @@ router.post("/buy", async(req,res)=>{
     console.log("buy NFT");
     const token_id = req.query.tokenid;
     const buyer_account = req.body.account;
-    // console.log("signerAddr : ",token_id);
-    // const functionName = "transferNFT"
     const paddedAddr = ethers.utils.getAddress(buyer_account);
     const tokenId = ethers.BigNumber.from(token_id);
-    // parseInt(token_id), buyer_account => Fail
     const functionParams = [tokenId,paddedAddr];
     const transaction = await contract.transferNFT(...functionParams);
-    // const transactionResponse = await signer.sendTransaction(transaction);
-
-
     // TODO : Check response , remix + postman
     console.log(transaction);
     res.status(200);
     res.send(transaction);
     // TODO : remove NFT from market table
-    // try{
-    //     await deleteMarketNft(token_id,(result) => {
-    //         if(result['type']){
-    //             var data = result['data'];
-    //             if(data == null){
-    //                 var body = failMessage(result['data'],'task not found',404);
-    //                 res.send(body);
-    //                 res.status(200);
-    //             }else{
-    //                 var body = successMessage(result['data']);
-    //                 console.log(body)
-    //                 // res.send(body);
-    //             }
-    //         }else{
-    //             res.status(404);
-    //             res.send(result['data']);
-    //         }
-    //     })
-    // }catch(err){
-    //     console.log(err)
-    //     res.send(err);
-    // }
+    try{
+        await deleteMarketNft(token_id,(result) => {
+            if(result['type']){
+                var data = result['data'];
+                if(data == null){
+                    var body = failMessage(result['data'],'task not found',404);
+                    res.send(body);
+                    res.status(200);
+                }else{
+                    var body = successMessage(result['data']);
+                    console.log(body)
+                    // res.send(body);
+                }
+            }else{
+                res.status(404);
+                res.send(result['data']);
+            }
+        })
+    }catch(err){
+        console.log(err)
+        res.send(err);
+    }
 
 })
 module.exports = router;

@@ -1,10 +1,10 @@
 {
-  "model_uri": "QmYxy1VPNSEWTz1w7dE1yVCbskcDzi8sU7mUcoKvqwtZmV",
+  "model_uri": "QmRmYcsFWmcrfRBNrNRJ77RcsNXLPbk2bzCtvCWbV77itn",
   "owner": "innoTech Inc",
   "owner_address": "0xe86C29E9433C44e92bb35F00A2c9910c34d0f628",
   "description": "This is sample nft of innoTech's FL model. Our model provide powerful Ai model for auto detection of handwriting images.",
   "task_name": "Handwriting Digit number classification",
-  "task_contract_address": "0x5C11Fd7987Cc96792cC0cAD30c6b94E11322EaF3",
+  "task_contract_address": "0xCBd9C263E2bb20978EE940A6A40E387Ece112168",
   "task_framework": "pytorch",
   "task_data_type": "MNIST DATA(Gray-scale Image)",
   "task_max_trainer": 2
