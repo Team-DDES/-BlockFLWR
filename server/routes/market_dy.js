@@ -12,7 +12,7 @@ const RPC_URL = "https://polygon-mumbai.g.alchemy.com/v2/e5p2vMdLjoC9WhI26pWlMYr
 const provider = new providers.JsonRpcProvider(RPC_URL);
 // const signer = new Wallet(METAMASK_EVALUATOR_PRIVATE_KEY,provider);
 const {nft_abi} = require("../web3/contracts/nft_abi")
-CONTRACT_ADDRESS = "0xe62F3C05D076ddd787A68a903DdAa0B65FAe5e58"; //mumbai
+CONTRACT_ADDRESS = "0x26358547718cA8c272C285a1d3161131570F480B"; //mumbai
 
 const contract = new Contract(CONTRACT_ADDRESS, nft_abi,provider);
 // const ipfsclient = create({url:"http://127.0.0.1:5001"})
