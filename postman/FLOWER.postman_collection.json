@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "568b6333-c021-4df3-a90c-4d3234d56d41",
+		"_postman_id": "5b8f7dae-645d-4b68-8d4e-30d6538eab6e",
 		"name": "FLOWER",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20843018",
-		"_collection_link": "https://lunar-desert-6186.postman.co/workspace/test~b5407a6f-e218-411b-912b-2c778b0b7cbe/collection/20843018-568b6333-c021-4df3-a90c-4d3234d56d41?action=share&creator=20843018&source=collection_link"
+		"_exporter_id": "19302053",
+		"_collection_link": "https://speeding-resonance-952731.postman.co/workspace/BCFL~fefebbcf-d91c-456e-8ba3-4ae4581ed33f/collection/19302053-5b8f7dae-645d-4b68-8d4e-30d6538eab6e?action=share&creator=19302053&source=collection_link"
 	},
 	"item": [
 		{
@@ -800,7 +800,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user_account\":\"0xe86C29E9433C44e92bb35F00A2c9910c34d0f628\",\n    \"price\":\"0.05\"\n}",
+					"raw": "{\n    \"user_account\":\"0xDA11dCF0bd779389984189C23FE154851d84f247\",\n    \"price\":\"2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -808,7 +808,7 @@
 					}
 				},
 				"url": {
-					"raw": "tvstorm-ai.asuscomm.com:12300/flower/market/register",
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/market/register?tokenid=6",
 					"host": [
 						"tvstorm-ai",
 						"asuscomm",
@@ -819,6 +819,12 @@
 						"flower",
 						"market",
 						"register"
+					],
+					"query": [
+						{
+							"key": "tokenid",
+							"value": "6"
+						}
 					]
 				}
 			},
@@ -868,6 +874,43 @@
 						{
 							"key": "tokenid",
 							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NFT 구매",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"account\":\"0x95C9439D65367Fd2DdC118d2854E33Dccbd5dCe8\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "tvstorm-ai.asuscomm.com:12300/flower/market/buy?tokenid=5",
+					"host": [
+						"tvstorm-ai",
+						"asuscomm",
+						"com"
+					],
+					"port": "12300",
+					"path": [
+						"flower",
+						"market",
+						"buy"
+					],
+					"query": [
+						{
+							"key": "tokenid",
+							"value": "5"
 						}
 					]
 				}
