@@ -40,7 +40,7 @@ class ClientProxy(ABC):
 
     def __init__(self, cid: str):
         self.cid = cid
-        self.properties: Properties = {}
+        self.properties: Properties = {} #SILO NOTE: Add Role
 
     @abstractmethod
     def get_properties(
