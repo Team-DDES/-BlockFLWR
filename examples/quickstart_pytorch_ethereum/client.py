@@ -38,9 +38,9 @@ from Mnist import load_data as Mnist_load_data
 # model = "Mnist"
 
 # sys.argv = [num,add, cid, cont, cont_N,model]
-print("TESTESTESTETE")
-print(sys.argv)
-print(sys.argv[2])
+# print("TESTESTESTETE")
+# print(sys.argv)
+# print(sys.argv[2])
 # #############################################################################
 # 1. Regular PyTorch pipeline: nn.Module, train, test, and DataLoader
 # #############################################################################

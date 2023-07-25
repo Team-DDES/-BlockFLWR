@@ -29,7 +29,6 @@ async function readNFTmetadata (tokenId) {
 }
 
 router.post('/register', async(req, res) => {
-    // TODO : tokenId needed
     console.log("register start");
     const token_id = req.query.tokenid;
     let data = req.body;
@@ -121,6 +120,7 @@ router.get("/", async(req,res)=>{
                     for(let i = 0; i<body.data.length; i++){
                         tokenId = body.data[i].tokenid;
                         metadata = await readNFTmetadata(tokenId)
+                        metadata.tokenId = tokenId
                         metadataList.push(metadata)
                         console.log(metadataList)
                     }

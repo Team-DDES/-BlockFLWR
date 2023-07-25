@@ -316,7 +316,7 @@ class EthServer(Server):
                     json_metadata = {
                         "model_uri":model_cid,
                         "owner":"innoTech Inc",
-                        "owner_address":self.EthClient.EthBase.eval_address,
+                        "owner_address":self.EthClient.EthBase.eval_address, # TODO : mint => modify account
                         "description":"This is sample nft of innoTech's FL model. Our model provide powerful Ai model for auto detection of handwriting images.",
                         "task_name":"Handwriting Digit number classification",
                         "task_contract_address":self.EthClient.EthBase.contract_address,
@@ -328,9 +328,10 @@ class EthServer(Server):
                         json.dump(json_metadata,f,indent=2)
                     metadata_cid = self.EthClient.IPFSClient.add_metadata('metadata.json')
                     print("NFT minting ...")
-                    ipfs_url = "http://tvstorm-ai.asuscomm.com:12087/ipfs/"
+                    # ipfs_url = "http://tvstorm-ai.asuscomm.com:12087/ipfs/"
+                    ipfs_url = "http://127.0.0.1:8080/ipfs/"
                     # temp tokenPrice = 2wei
-                    tx_hash = self.EthClient.EthBase.mintNFT(ipfs_url+metadata_cid,2)
+                    tx_hash = self.EthClient.EthBase.mintNFT(ipfs_url+metadata_cid,2) # TODO : mint => modify account
                     self.EthClient.EthBase.wait_for_tx(tx_hash)
                     print("NFT Minting done.")
 
