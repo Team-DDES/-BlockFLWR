@@ -3,18 +3,21 @@ import {Typography,Box,Button} from "@mui/material";
 import ExampleImg from "../images/example_org_1.png"
 import axios from "axios";
 import {Web3} from "web3";
-import mypageNFTcard from "./MypageNFTcard";
 
 
-function NFTcard({NFTitem,account,nftcontract}) {
+function MypageNFTcard({NFTitem,account,nftcontract}) {
     // console.log(NFTitem);
     const tokenId = NFTitem.tokenId;
-    console.log(account)
 
-    const buyNFT = async () =>{
-        await payNFT();
-        const nftBuyResult = await axios.post(`http://tvstorm-ai.asuscomm.com:12300/flower/market/buy?tokenid=${tokenId}`,{"account":account});
-        console.log(nftBuyResult);
+    const sellNFT = async () =>{
+        try{
+            const approveNFT = await nftcontract.methods.approve("0xe86C29E9433C44e92bb35F00A2c9910c34d0f628",tokenId).send({
+                from: account
+            });
+            console.log(approveNFT);
+        }catch(e){
+            window.alert(e);
+        }
 
     }
 
@@ -30,14 +33,18 @@ function NFTcard({NFTitem,account,nftcontract}) {
     <div className="NFTcard" style={{
         width:"200px",
         height:"300px",
-        backgroundColor:"black",
+        backgroundColor:`rgba(255, 255, 255, 0.7)`,
         borderRadius:"10px",
-        margin:"0.5rem"
+        margin:"0.5rem",
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"center",
+
         }}>
 
         <Box sx={{
-            color:"white"
-        }}><Typography variant="h5" gutterBottom>
+            color:"Black"
+        }}><Typography variant="h6" gutterBottom>
             {NFTitem.owner}
         </Typography></Box>
         <Box sx={{
@@ -46,18 +53,23 @@ function NFTcard({NFTitem,account,nftcontract}) {
             height:"100px",
             backgroundRepeat:"no-repeat",
             backgroundSize:"contain",
+
         }}/>
         <Box sx={{
-            color:"white"
+            color:"black",
+            marginLeft:"0.5rem",
+            align:"center"
+
         }}><Typography variant="body2" gutterBottom>{NFTitem.description}</Typography></Box>
 
         <Box sx={{
-        }}><Button variant="contained" color="success"  onClick={buyNFT}>
-        BUY
-      </Button></Box>
+        }}>
+            <Button variant="contained" color="success"  onClick={sellNFT}>
+            SELL
+          </Button></Box>
 
         </div>
   );
 }
 
-export default NFTcard;
+export default MypageNFTcard;

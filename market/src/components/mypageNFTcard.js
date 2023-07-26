@@ -3,13 +3,11 @@ import {Typography,Box,Button} from "@mui/material";
 import ExampleImg from "../images/example_org_1.png"
 import axios from "axios";
 import {Web3} from "web3";
-import mypageNFTcard from "./MypageNFTcard";
 
 
-function NFTcard({NFTitem,account,nftcontract}) {
+function MypageNFTcard({NFTitem,account,nftcontract}) {
     // console.log(NFTitem);
     const tokenId = NFTitem.tokenId;
-    console.log(account)
 
     const buyNFT = async () =>{
         await payNFT();
@@ -30,7 +28,7 @@ function NFTcard({NFTitem,account,nftcontract}) {
     <div className="NFTcard" style={{
         width:"200px",
         height:"300px",
-        backgroundColor:"black",
+        backgroundColor:"white",
         borderRadius:"10px",
         margin:"0.5rem"
         }}>
@@ -48,16 +46,16 @@ function NFTcard({NFTitem,account,nftcontract}) {
             backgroundSize:"contain",
         }}/>
         <Box sx={{
-            color:"white"
+            color:"black"
         }}><Typography variant="body2" gutterBottom>{NFTitem.description}</Typography></Box>
 
         <Box sx={{
         }}><Button variant="contained" color="success"  onClick={buyNFT}>
-        BUY
+        SELL
       </Button></Box>
 
         </div>
   );
 }
 
-export default NFTcard;
+export default MypageNFTcard;

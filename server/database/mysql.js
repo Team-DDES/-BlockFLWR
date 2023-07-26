@@ -14,7 +14,6 @@ const connection = mysql.createConnection({
 
 async function insertUser(data,callback){
     let query = commonMapper.getStatement('common', 'insertUser', data, format);
-    
     connection.query(query, (err, result) => {
         if (err) {
             callback({ 'data': err, 'type': false });

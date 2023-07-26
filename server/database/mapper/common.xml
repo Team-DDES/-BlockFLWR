@@ -84,7 +84,7 @@
 
     <delete id="deleteMarketNft">
         DELETE FROM MARKET
-        WHERE tokenid=#{tokenId};
+        WHERE tokenid = #{tokenid} ;
     </delete>
 
 
