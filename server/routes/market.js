@@ -14,6 +14,7 @@ const provider = new providers.JsonRpcProvider(RPC_URL);
 const wallet = new Wallet(process.env.METAMASK_EVALUATOR_PRIVATE_KEY,provider);
 const signer = wallet.connect(provider);
 const {nft_abi} = require("../web3/contracts/nft_abi")
+const TaskModel = require("../model/task_model");
 CONTRACT_ADDRESS = "0x26358547718cA8c272C285a1d3161131570F480B"; //mumbai
 
 const contract = new Contract(CONTRACT_ADDRESS, nft_abi,signer);
@@ -178,37 +179,68 @@ router.get("/detail", async(req,res)=>{
 
 //show my NFT list
 router.get("/my",async (req,res)=>{
-    let user_account = req.query.account;
     try{
-        await getNftTokenIds(async (result)=>{
-            if(result['type']){
-                var data = result['data'];
-                if(data == null){
-                    var body = failMessage(result['data'],'task not found',404);
-                    res.send(body);
-                    res.status(200);
-                }else{
-                    var body = successMessage(result['data']);
-                    let metadataList = [];
-                    for(let i = 0; i<body.data.length; i++) {
-                        tokenId = body.data[i].tokenid;
-                        metadata = await readNFTmetadata(tokenId)
-                        if (metadata.owner_address === user_account){
-                            metadataList.push(metadata);
-                        }
-                    }
-                    res.status(200);
-                    res.send(metadataList);
-                }
-            }else{
-                res.status(404);
-                res.send(result['data']);
-            }
-        })
-    }catch(err){
-        console.log(err)
-        res.send(err);
-    };
+        let user_account = req.query.account;
+        let tokenList = [];
+        const balance = await contract.balanceOf(user_account);
+        // console.log(balance);
+        for (let i = 0; i < balance; i++) {
+            let tokenId = await contract.tokenOfOwnerByIndex(user_account, i);
+            tokenId = tokenId * 10 ** 18;
+            tokenList.push(tokenId);
+        }
+        // console.log(balance)
+        let metadataList = [];
+        for (let j = 0; j < tokenList.length; j++) {
+            const metadata = await readNFTmetadata(tokenList[j] / (10 ** 18));
+            metadata.tokenId = tokenList[j] / (10 ** 18);
+            metadataList.push(metadata);
+        }
+        if (metadataList.length > 0) {
+            res.status(200);
+            res.send(metadataList);
+        } else {
+            res.status(200);
+            res.send({"msg": "no token"})
+        }
+    }catch(e){
+        res.status(404);
+        res.send({"msg":"someThing gone wrong"});
+    }
+    // try{
+    //     const totalSupply =
+    //     await getNftTokenIds(async (result)=>{
+    //         if(result['type']){
+    //             var data = result['data'];
+    //             if(data == null){
+    //                 var body = failMessage(result['data'],'task not found',404);
+    //                 res.send(body);
+    //                 res.status(200);
+    //             }else{
+    //                 var body = successMessage(result['data']);
+    //                 let metadataList = [];
+    //                 for(let i = 0; i<body.data.length; i++) {
+    //                     tokenId = body.data[i].tokenid;
+    //                     metadata = await readNFTmetadata(tokenId)
+    //                     metadata.tokenId=tokenId;
+    //                     const owner_address = await contract.ownerOf(tokenId);
+    //                     console.log(owner_address)
+    //                     if (owner_address === user_account){
+    //                         metadataList.push(metadata);
+    //                     }
+    //                 }
+    //                 res.status(200);
+    //                 res.send(metadataList);
+    //             }
+    //         }else{
+    //             res.status(404);
+    //             res.send(result['data']);
+    //         }
+    //     })
+    // }catch(err){
+    //     console.log(err)
+    //     res.send(err);
+    // };
 })
 
 // // buy NFT
@@ -222,11 +254,15 @@ router.post("/buy", async(req,res)=>{
     const transaction = await contract.transferNFT(...functionParams);
     // TODO : Check response , remix + postman
     console.log(transaction);
-    res.status(200);
-    res.send(transaction);
+    // res.status(200);
+    // res.send(transaction);
     // TODO : remove NFT from market table
+
+    const data = {"tokenid":token_id,"price":2};
+    const task = new MarketModel(data);
+
     try{
-        await deleteMarketNft(token_id,(result) => {
+        await deleteMarketNft(task,(result) => {
             if(result['type']){
                 var data = result['data'];
                 if(data == null){
