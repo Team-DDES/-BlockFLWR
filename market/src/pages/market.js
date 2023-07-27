@@ -5,7 +5,7 @@ import {Web3} from "web3";
 import nft_abi from "../web3/nft_abi";
 import BGimg from "../images/marketplace_background.png"
 import Title from "../images/marketplace_title.png"
-import {Button} from "@mui/material";
+import {Button,Box,Typography} from "@mui/material";
 // components
 import Search from "../components/Search"
 import MetamaskConnection from "../components/MetamaskConnection";
@@ -74,12 +74,18 @@ function Market() {
         // console.log(await getMarketItemList())
         const marketNFTs = await getMarketItemList();
         // TODO : 404 Error fixing
-        setItems(marketNFTs.data);
+        console.log(marketNFTs)
+        if (marketNFTs.data){
+            setItems(marketNFTs.data);
+        }else{
+            console.log("no data")
+        }
     },[])
 
     const getMarketItemList = async ()=>{
         const result = await axios.get("http://tvstorm-ai.asuscomm.com:12300/flower/market/");
-        console.log(result)
+        // console.log(result)
+        return result
     }
 
   return (
@@ -90,35 +96,69 @@ function Market() {
         backgroundSize:"100vw 100vh",
         width:"100vw",
         height:"100vh",
+        display:"flex",
+        flexDirection:"column",
     }}>
+        <Box  className = "header" sx={{
+            display:"flex",
+            justifyContent:"space-between",
+            margin:"10px",
+
+        }}>
       <div className="MarketTitle" style={{
           backgroundImage:`url(${Title})`,
           backgroundRepeat:"no-repeat",
           backgroundSize:"100%",
           width:"400px",
-          height:"100px",
+          height:"60px",
+          margin:"20px"
       }}/>
+            <Box className = "MypageAndWallet" sx ={{
+                display:"flex",
+                width:"250px",
+                justifyContent:"space-evenly",
+                height:"30px",
+                alignItems:"center",
+                marginTop:"20px"
+            }}>
          <Button variant="contained" color="success" onClick={()=>{
              navigate(`/mypage/${account}`)
          }}>Mypage</Button>
-        <div className = "walletConnection" style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.5)',
-            width:"200px",
-            borderRadius:"10px"
+
+                  <Box className = "WalletConnect" sx={{
+                      display:"flex",
+                      // flexDirection:""
+                      marginLeft:"10px",
+                      marginRight:"50px",
+                      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                      width:"200px",
+                      height:"100%",
+                      borderRadius:"10px",
+                      justifyContent:"space-evenly",
+                      alignItems:"center",
+                      margin:"0.1rem"
+                  }}>
+                      <Typography variant={"body1"} >wallet connection</Typography>
+                      <MetamaskConnection connected={connected}/>
+                 </Box>
+                </Box>
+            </Box>
+
+        <Box className="SearchAndItems" sx={{
+            display:"flex",
+            flexDirection:"column",
+            alignItems:"center"
         }}>
-            <MetamaskConnection connected={connected}/>
-        </div>
+            <Search/>
+            {items.length > 0 ? (
+              items.map((item) => (
+                <NFTcard  NFTitem={item} account={account} nftcontract = {nftcontract}/>
+              ))
+            ) : (
+              <div>No NFT list</div>
 
-        <Search/>
-       {items.length > 0 ? (
-  items.map((item) => (
-    <NFTcard  NFTitem={item} account={account} nftcontract = {nftcontract}/>
-  ))
-) : (
-  <div>No NFT list</div>
-
-)}
-
+            )}
+        </Box>
     </div>
   );
 }

@@ -9,7 +9,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Market/>}></Route>
-                <Route path="/detail/:tokenid" element={<Detail/>}></Route>
+                <Route path="/detail/:tokenid/:account" element={<Detail/>}></Route>
                 <Route path="/mypage/:account" element={<Mypage/>}></Route>
             </Routes>
         </BrowserRouter>

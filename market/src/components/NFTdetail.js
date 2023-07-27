@@ -5,7 +5,7 @@ import axios from "axios";
 import {Web3} from "web3";
 
 
-function MypageNFTcard({NFTitem,account,nftcontract}) {
+function NFTdetail({NFTitem,account,nftcontract}) {
     // console.log(NFTitem);
     const tokenId = NFTitem.tokenId;
 
@@ -26,7 +26,7 @@ function MypageNFTcard({NFTitem,account,nftcontract}) {
 
     }
     return (
-    <div className="NFTcard" style={{
+    <div className="NFTdetail" style={{
         width:"200px",
         height:"300px",
         backgroundColor:`rgba(255, 255, 255, 0.7)`,
@@ -68,4 +68,4 @@ function MypageNFTcard({NFTitem,account,nftcontract}) {
   );
 }
 
-export default MypageNFTcard;
+export default NFTdetail;

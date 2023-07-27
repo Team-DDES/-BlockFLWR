@@ -8,7 +8,6 @@ function MetamaskConnection({connected}) {
     return(
 
        <div calssName="matamaskConnection">
-           <p>wallet connection</p>
            {connected?(
                <div style={{
                backgroundRepeat:"no-repeat",
