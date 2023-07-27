@@ -23,10 +23,14 @@ const contract = new Contract(CONTRACT_ADDRESS, nft_abi,signer);
 // // NFT metadata reading function
 async function readNFTmetadata (tokenId) {
     // 1. get tokenUri using tokenId
-
-    const tokenUri = await contract.getTokenURI(tokenId);
-   const result = await axios.get(tokenUri);
-   return result.data
+   const tokenUri = await contract.getTokenURI(tokenId);
+    try{
+        const result = await axios.get(tokenUri);
+        console.log("readMetadata",result.data)
+        return result.data
+    }catch(e){
+        return null;
+    }
 }
 
 router.post('/register', async(req, res) => {
@@ -189,12 +193,20 @@ router.get("/my",async (req,res)=>{
             tokenId = tokenId * 10 ** 18;
             tokenList.push(tokenId);
         }
-        // console.log(balance)
-        let metadataList = [];
+        // console.log(tokenList);
+        if(balance === 0){
+            res.status(404)
+            res.send({"msg":"No NFT"})
+        }else{
+            let metadataList = [];
         for (let j = 0; j < tokenList.length; j++) {
+            // console.log("gogo")
             const metadata = await readNFTmetadata(tokenList[j] / (10 ** 18));
-            metadata.tokenId = tokenList[j] / (10 ** 18);
-            metadataList.push(metadata);
+            // console.log(metadata)
+            if (metadata !== null){
+                metadata.tokenId = tokenList[j] / (10 ** 18);
+                metadataList.push(metadata);
+            }
         }
         if (metadataList.length > 0) {
             res.status(200);
@@ -202,6 +214,7 @@ router.get("/my",async (req,res)=>{
         } else {
             res.status(200);
             res.send({"msg": "no token"})
+        }
         }
     }catch(e){
         res.status(404);

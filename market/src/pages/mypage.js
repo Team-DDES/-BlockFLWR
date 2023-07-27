@@ -36,8 +36,9 @@ function Mypage() {
     }
 
   useEffect(async ()=>{
-        console.log(await getMyItemList())
+        // console.log(await getMyItemList())
         const marketNFTs = await getMyItemList();
+
         setItems(marketNFTs.data);
         const _web3 = await initWeb3();
         setWeb3(_web3);
@@ -76,7 +77,8 @@ function Mypage() {
               backgroundRepeat:"no-repeat",
               backgroundSize:"100%",
               width:"400px",
-              height:"100px",
+              height:"60px",
+              margin:"20px"
           }}/>
 
             </Box>

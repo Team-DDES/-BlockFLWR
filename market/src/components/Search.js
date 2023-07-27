@@ -5,9 +5,10 @@ import {useEffect, useState} from "react";
 function Search({}) {
     const useStyles = makeStyles(theme => ({
     Searchbar:{
-        width:"80vw",
+        width:"100%",
         height:"100%",
-        backgroundColor:"white"
+        backgroundColor:"white",
+        borderRadius:"10px"
     }
 }));
     // states
