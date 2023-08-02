@@ -4,7 +4,8 @@ pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /// @title Records contributions made to a Crowdsourcing Federated Learning process
-/// @author Harry Cai
+/// @author Harry Cai, Edited by EunsuGoh
+/// Add Client selection, and now can save scores
 contract Crowdsource is ERC20 {
     /// @notice Address of contract creator, who evaluates updates
     address public evaluator;
